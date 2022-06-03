@@ -14119,7 +14119,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Specify-the-cluster-size-(optional-but-useful)">Specify the cluster size (optional but useful)<a class="anchor-link" href="#Specify-the-cluster-size-(optional-but-useful)">&#182;</a></h3><p>We can specify the size of our compute resources with the <code>cluster_spec</code> function. The server 649 has 36 cores and 2 GPUs, which is too many for this demo (by default the cluster tries to use all resources).</p>
+<h3 id="Specify-the-cluster-size-(optional-but-useful)">Specify the cluster size (optional but useful)<a class="anchor-link" href="#Specify-the-cluster-size-(optional-but-useful)">&#182;</a></h3><p>We can specify the size of our compute resources with the <code>cluster_spec</code> function (by default the cluster tries to use all resources).</p>
 <p>I specify 4 CPUs and 0 GPUs. Nothing happens yet, we just created a dictionary of workers that will be created:</p>
 
 </div>
@@ -14230,7 +14230,7 @@ a.anchor-link {
 <li>Norpix SEQ</li>
 <li>MRC</li>
 <li>TVIPS</li>
-<li>Groups of raw files / CEA Precession data format</li>
+<li>Groups of raw files</li>
 <li>Dask arrays</li>
 </ul>
 <p>This gives us a dataset object <code>ds</code> which represents how the data should be read from disk.</p>
@@ -14459,7 +14459,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:07&lt;00:00,  1.00it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:08&lt;00:00,  1.06s/it]
 </pre>
 </div>
 </div>
@@ -14559,7 +14559,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  5.30it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  5.67it/s]
 </pre>
 </div>
 </div>
@@ -14805,7 +14805,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  6.67it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  6.32it/s]
 </pre>
 </div>
 </div>
@@ -14907,7 +14907,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  5.42it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  6.27it/s]
 </pre>
 </div>
 </div>
@@ -14966,7 +14966,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:01&lt;00:00,  4.12it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:02&lt;00:00,  3.17it/s]
 </pre>
 </div>
 </div>
@@ -15640,7 +15640,7 @@ error (128, 128)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:29&lt;00:00,  3.70s/it]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:30&lt;00:00,  3.78s/it]
 </pre>
 </div>
 </div>
@@ -15685,7 +15685,7 @@ error (128, 128)
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>C:\Users\mb265392\Miniconda3\envs\libertem_ui\lib\site-packages\distributed\node.py:180: UserWarning: Port 8787 is already in use.
 Perhaps you already have a cluster running?
-Hosting the HTTP server on port 61986 instead
+Hosting the HTTP server on port 58899 instead
   warnings.warn(
 </pre>
 </div>
