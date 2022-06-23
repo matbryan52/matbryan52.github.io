@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.display.curves &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.display.curves</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.display.curves</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">Line</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+
+<span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+
+
+<div class="viewcode-block" id="XYPlot"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.XYPlot">[docs]</a><span class="k">class</span> <span class="nc">XYPlot</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for XYPlot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">xrange_tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;xrange&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">yrange_tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;yrange&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_add_1d_range_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">tool_creator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">tool_creator</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_tool</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+<div class="viewcode-block" id="XYPlot.add_xrange_select"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.XYPlot.add_xrange_select">[docs]</a>    <span class="k">def</span> <span class="nf">add_xrange_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a selection tool allowing interactive selection of an x-range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xrange_tool_label</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_1d_range_select</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_xrange_select</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="XYPlot.add_yrange_select"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.XYPlot.add_yrange_select">[docs]</a>    <span class="k">def</span> <span class="nf">add_yrange_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a selection tool allowing interactive selection of a y-range</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">yrange_tool_label</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_1d_range_select</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_yrange_select</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xrange_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xrange_tool_label</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">yrange_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yrange_tool_label</span><span class="p">())</span>
+
+<div class="viewcode-block" id="XYPlot.add_v_hover"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.XYPlot.add_v_hover">[docs]</a>    <span class="k">def</span> <span class="nf">add_v_hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a hover tool which inspects all lines with a vertical cursor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v_hover_label</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_hover</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;vline&#39;</span><span class="p">,</span>
+                                    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Inspect values of all curves&#39;</span><span class="p">,</span>
+                                    <span class="n">tooltips</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hover_tooltips</span><span class="p">(),</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="XYPlot.add_hover"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.XYPlot.add_hover">[docs]</a>    <span class="k">def</span> <span class="nf">add_hover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a hover tool to allow inspecting individual lines</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hover_label</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_hover</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;mouse&#39;</span><span class="p">,</span>
+                                    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Inspect values of individual curves&#39;</span><span class="p">,</span>
+                                    <span class="n">tooltips</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hover_tooltips</span><span class="p">(),</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_hover_tooltips</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="s1">&#39;$name&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;(x, y)&#39;</span><span class="p">,</span> <span class="s1">&#39;$x, $y&#39;</span><span class="p">)]</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">v_hover_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;v_hover&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">hover_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;point_hover&#39;</span></div>
+
+
+<div class="viewcode-block" id="MultiCurve"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.MultiCurve">[docs]</a><span class="k">class</span> <span class="nc">MultiCurve</span><span class="p">(</span><span class="n">XYPlot</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot one-or-more curves linked by the same x-values</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : Union[np.ndarray, dict[str, Union[np.ndarray, list[float]]], pd.DataFrame]</span>
+<span class="sd">        The data to plot</span>
+<span class="sd">    xkey : str, optional</span>
+<span class="sd">        The key in data (if dict-like) to use as x-values, by default &#39;x&#39;</span>
+<span class="sd">    xidx : int, optional</span>
+<span class="sd">        The index in data (if array-like) to use as x-values, by default 0</span>
+<span class="sd">    yprefix : str, optional</span>
+<span class="sd">        The label prefix to use for y-values if data is array-like, by default &#39;y&#39;</span>
+<span class="sd">    line_props : dict[str, dict[str, Any]], optional</span>
+<span class="sd">       Dictionary mapping y-labels to line properties to allow control over</span>
+<span class="sd">       line styles on a per-line basis, by default None in which case</span>
+<span class="sd">       lines are automatically styled with a colour sequence.</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` which are passed to each Line constructor, which are</span>
+<span class="sd">        overridden by keys in specific :code:`line_props`, to set a property</span>
+<span class="sd">        for all lines with one argument.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                     <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                                 <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span>
+                                 <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">],</span>
+                     <span class="n">xkey</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                     <span class="n">xidx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                     <span class="n">yprefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+                     <span class="n">line_props</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">line_props</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">line_props</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">processed_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xkey</span><span class="p">,</span> <span class="n">xidx</span><span class="p">,</span> <span class="n">yprefix</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">processed_data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ykey</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">ykey</span> <span class="o">==</span> <span class="n">xkey</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">props</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">line_props</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ykey</span><span class="p">,</span> <span class="p">{})}</span>
+            <span class="k">if</span> <span class="s1">&#39;line_color&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">props</span><span class="p">:</span>
+                <span class="n">props</span><span class="p">[</span><span class="s1">&#39;line_color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_next_color</span><span class="p">()</span>
+
+            <span class="n">line_glyph</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xkey</span><span class="p">,</span>
+                              <span class="n">y</span><span class="o">=</span><span class="n">ykey</span><span class="p">,</span>
+                              <span class="o">**</span><span class="n">props</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">line_glyph</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">ykey</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MultiCurve.add_to_legend"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.MultiCurve.add_to_legend">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add curves to figure legend</span>
+<span class="sd">        If labels is not provided, uses column names supplied to build_figure</span>
+<span class="sd">        Otherwise, needs a mapping from column name to legend label</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="p">(</span><span class="n">Line</span><span class="p">,))</span>
+        <span class="n">legend_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">renderer</span> <span class="ow">in</span> <span class="n">renderers</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">renderer</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">renderer</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">legend_mapping</span><span class="p">[</span><span class="n">renderer</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="n">renderer</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_multi_to_legend</span><span class="p">(</span><span class="n">legend_mapping</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MultiCurve.get_colnames"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.MultiCurve.get_colnames">[docs]</a>    <span class="k">def</span> <span class="nf">get_colnames</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the keys in the data source for the x- and all y-axes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="p">(</span><span class="n">Line</span><span class="p">,))</span>
+        <span class="k">if</span> <span class="n">renderers</span><span class="p">:</span>
+            <span class="n">xkey</span> <span class="o">=</span> <span class="n">renderers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">ykeys</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">renderers</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">xkey</span><span class="p">,</span> <span class="n">ykeys</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xkey</span><span class="p">,</span> <span class="n">xidx</span><span class="p">,</span> <span class="n">yprefix</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xkey</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">assert</span> <span class="n">xidx</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">colnames</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">yprefix</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">colnames</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">xidx</span><span class="p">,</span> <span class="n">xkey</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">colnames</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">xkey</span> <span class="ow">in</span> <span class="n">data</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">({</span><span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()})</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">data</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">xkey</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+            <span class="k">return</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span></div>
+
+
+<div class="viewcode-block" id="SingleCurve"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.SingleCurve">[docs]</a><span class="k">class</span> <span class="nc">SingleCurve</span><span class="p">(</span><span class="n">MultiCurve</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a single curve mapping xvals to yvals</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xvals : Sequence[float]</span>
+<span class="sd">        The xvalues</span>
+<span class="sd">    yvals : Sequence[float]</span>
+<span class="sd">        The yvalues</span>
+<span class="sd">    xlabel : str, optional</span>
+<span class="sd">        x-label used to set legend and axis, by default &#39;x&#39;</span>
+<span class="sd">    ylabel : str, optional</span>
+<span class="sd">        y-label used to set legend and axis, by default &#39;y&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">xvals</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+                     <span class="n">yvals</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+                     <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
+                     <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">xlabel</span><span class="p">:</span> <span class="n">xvals</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">:</span> <span class="n">yvals</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">xkey</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SingleCurve.get_colnames"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.curves.SingleCurve.get_colnames">[docs]</a>    <span class="k">def</span> <span class="nf">get_colnames</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the keys in the data source for the x- and y-axes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[str, str]</span>
+<span class="sd">            Keys in the data source for the x- and y-axes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_colnames</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

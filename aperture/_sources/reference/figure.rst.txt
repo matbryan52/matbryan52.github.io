@@ -1,0 +1,11 @@
+BokehFigure
+-----------
+
+.. automodule:: aperture.display.figure
+   :members:
+
+.. automodule:: aperture.display.element_constructors
+   :members:
+
+.. automodule:: aperture.display.figure_mixins
+   :members:

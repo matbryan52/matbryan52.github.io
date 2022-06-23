@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.display.draw &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.display.draw</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.display.draw</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">CustomJS</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">MultiLine</span><span class="p">,</span> <span class="n">Circle</span><span class="p">,</span> <span class="n">Patches</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.tools</span> <span class="kn">import</span> <span class="n">BoxEditTool</span><span class="p">,</span> <span class="n">PolyDrawTool</span><span class="p">,</span> <span class="n">PolyEditTool</span><span class="p">,</span> <span class="n">FreehandDrawTool</span>
+
+<span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+<span class="kn">from</span> <span class="nn">.pointset</span> <span class="kn">import</span> <span class="n">PointSet</span>
+<span class="kn">from</span> <span class="nn">.icons</span> <span class="kn">import</span> <span class="n">line_icon</span><span class="p">,</span> <span class="n">free_point</span><span class="p">,</span> <span class="n">free_draw</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="Rectangles"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.draw.Rectangles">[docs]</a><span class="k">class</span> <span class="nc">Rectangles</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a Rectangle glyph to the image. When built with :code:`allow_edit=True`</span>
+<span class="sd">    the user can interactively add and remove rectangles using the automatically</span>
+<span class="sd">    added tool.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    rectangles : list[tuple[float, float, float, float]], optional</span>
+<span class="sd">        List of inital rectangles in a :code:`cx, cy, w, h` format.</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the Bokeh Rect constructor, can be</span>
+<span class="sd">        used for to set style options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">make_rectangle_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">renderers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">BoxEditTool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Rectangle Draw/Edit&#39;</span><span class="p">,</span>
+                           <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Draw rectangles on figure&#39;</span><span class="p">,</span>
+                           <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">,</span>
+                           <span class="n">custom_icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">empty_value</span><span class="o">=</span><span class="n">GlyphBase</span><span class="o">.</span><span class="n">_default_fill_value</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">editable_glyphs</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">Rect</span><span class="p">,)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;boxes&#39;</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rectangles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty_cds_dict</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">rectangles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict_from_xywh</span><span class="p">(</span><span class="n">rectangles</span><span class="p">))</span>
+
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;cx&#39;</span><span class="p">,</span>
+                     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cy&#39;</span><span class="p">,</span>
+                     <span class="n">width</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span>
+                     <span class="n">height</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span>
+                     <span class="n">fill_alpha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_alpha&#39;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+                     <span class="n">fill_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                     <span class="n">line_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                     <span class="n">line_dash</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_dash&#39;</span><span class="p">,</span> <span class="s1">&#39;dashed&#39;</span><span class="p">),</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_cds_dict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="o">**</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;cx&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;cy&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="n">h</span><span class="p">,</span> <span class="o">**</span><span class="n">other</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_empty_cds_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cds_dict</span><span class="p">([],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[])</span>
+
+    <span class="k">def</span> <span class="nf">_dict_from_xywh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rectangles</span><span class="p">):</span>
+        <span class="n">rectangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rectangles</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">rectangles</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cds_dict</span><span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">export_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;pd.DataFrame&#39;</span><span class="p">:</span>
+        <span class="c1"># Need to take absolute as sometimes Bokeh flips the sign</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">export_data</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;h&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;h&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;rectangle&#39;</span></div>
+
+
+<span class="k">class</span> <span class="nc">MultiPointsetEditBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for (editable) multi-collections of points</span>
+<span class="sd">    which render as sets of lines or patches</span>
+
+<span class="sd">    :meta private:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_make_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">renderers</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">renderers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+                   <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">,</span>
+                   <span class="n">custom_icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span>
+                   <span class="n">vertex_renderer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vertex_renderer</span><span class="p">(),</span>
+                   <span class="n">empty_value</span><span class="o">=</span><span class="n">GlyphBase</span><span class="o">.</span><span class="n">_default_fill_value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_draw_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_tool</span><span class="p">(</span><span class="n">PolyDrawTool</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_edit_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Line / Poly edit&#39;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Edit lines and polygons on figure&#39;</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_tool</span><span class="p">(</span><span class="n">PolyEditTool</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tool_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;multipointset_edit&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_edit_tool</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">tool_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">get_vertex_renderer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_renderer</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">make_vertex_renderer</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertex_renderer</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">make_vertex_renderer</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;GlyphBase&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[]})</span>
+        <span class="n">point_glyph</span> <span class="o">=</span> <span class="n">Circle</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                             <span class="n">size</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                             <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertex_renderer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">cds</span><span class="p">,</span> <span class="n">point_glyph</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">limit_length</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;GlyphBase&#39;</span><span class="p">,</span> <span class="n">n_points</span><span class="p">):</span>
+        <span class="c1"># Need to figure out how to remove single-point Lines</span>
+        <span class="c1"># and two-point Polygons as it&#39;s possible to end</span>
+        <span class="c1"># up in this situation when mis-clicking. The trouble is</span>
+        <span class="c1"># that I don&#39;t necessarily know how to distinguish between</span>
+        <span class="c1"># a two-point poly in the process of construction, and</span>
+        <span class="c1"># the two-point and completed error case !</span>
+        <span class="k">assert</span> <span class="n">n_points</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="n">limit_cb</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;n_points&#39;</span><span class="p">:</span> <span class="n">n_points</span><span class="p">},</span>
+                            <span class="n">code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_limit_length_js_cb</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">limit_cb</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_limit_length_js_cb</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">if (cb_obj.data.xs == 0) {</span>
+<span class="s1">    return</span>
+<span class="s1">}</span>
+<span class="s1">const offsets = cb_obj.data.xs.map(x =&gt; x.length - n_points)</span>
+<span class="s1">var modified = false</span>
+
+<span class="s1">for (const [i, offset] of offsets.entries()) {</span>
+<span class="s1">    if (offset &lt;= 0) {</span>
+<span class="s1">        continue</span>
+<span class="s1">    }</span>
+<span class="s1">    const abs_offset = Math.abs(offset)</span>
+<span class="s1">    cb_obj.data.xs[i] = cb_obj.data.xs[i].slice(abs_offset)</span>
+<span class="s1">    cb_obj.data.ys[i] = cb_obj.data.ys[i].slice(abs_offset)</span>
+<span class="s1">    modified = true</span>
+<span class="s1">}</span>
+
+<span class="s1">if (modified) {</span>
+<span class="s1">    cb_obj.change.emit()</span>
+<span class="s1">}</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">MultiPointsetGlyphBase</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_dict_from_pointlists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pointlists</span><span class="p">):</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">points</span> <span class="ow">in</span> <span class="n">pointlists</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cds_dict</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_cds_dict</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="o">**</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="n">xs</span><span class="p">,</span> <span class="s1">&#39;ys&#39;</span><span class="p">:</span> <span class="n">ys</span><span class="p">,</span> <span class="o">**</span><span class="n">other</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_empty_cds_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cds_dict</span><span class="p">([],</span> <span class="p">[])</span>
+
+
+<span class="k">class</span> <span class="nc">Lines</span><span class="p">(</span><span class="n">MultiPointsetGlyphBase</span><span class="p">,</span> <span class="n">MultiPointsetEditBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_draw_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Line draw&#39;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Draw lines on figure&#39;</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">line_icon</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">make_draw_tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                      <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+                                      <span class="n">icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span>
+                                      <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tool_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;line_draw&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_draw_tool</span><span class="p">,</span>
+                <span class="o">**</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">tool_mapping</span><span class="p">}</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">editable_glyphs</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">MultiLine</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                     <span class="n">lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">limit_npt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty_cds_dict</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">lines</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict_from_pointlists</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">MultiLine</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="s1">&#39;xs&#39;</span><span class="p">,</span>
+                          <span class="n">ys</span><span class="o">=</span><span class="s1">&#39;ys&#39;</span><span class="p">,</span>
+                          <span class="n">line_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                          <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">limit_npt</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">limit_length</span><span class="p">(</span><span class="n">limit_npt</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;line&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">Polygons</span><span class="p">(</span><span class="n">MultiPointsetGlyphBase</span><span class="p">,</span> <span class="n">MultiPointsetEditBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_draw_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Polygon draw&#39;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Draw polygons on figure&#39;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">make_draw_tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                      <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+                                      <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tool_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;poly_draw&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_draw_tool</span><span class="p">,</span>
+                <span class="o">**</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">tool_mapping</span><span class="p">}</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">editable_glyphs</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">Patches</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                     <span class="n">polys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">limit_npt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty_cds_dict</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">polys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dict_from_pointlists</span><span class="p">(</span><span class="n">polys</span><span class="p">))</span>
+
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">Patches</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="s1">&#39;xs&#39;</span><span class="p">,</span>
+                        <span class="n">ys</span><span class="o">=</span><span class="s1">&#39;ys&#39;</span><span class="p">,</span>
+                        <span class="n">line_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                        <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">fill_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                        <span class="n">fill_alpha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_alpha&#39;</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">),</span>
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">limit_npt</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">limit_length</span><span class="p">(</span><span class="n">limit_npt</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;polygon&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">FreeDrawBase</span><span class="p">(</span><span class="n">MultiPointsetGlyphBase</span><span class="p">):</span>
+    <span class="n">tool_name</span> <span class="o">=</span> <span class="s1">&#39;Free Draw&#39;</span>
+    <span class="n">tool_description</span> <span class="o">=</span> <span class="s1">&#39;Free Draw&#39;</span>
+
+    <span class="k">def</span> <span class="nf">make_free_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">FreehandDrawTool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_name</span><span class="p">,</span>
+                                <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_description</span><span class="p">,</span>
+                                <span class="n">num_objects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                <span class="n">empty_value</span><span class="o">=</span><span class="n">GlyphBase</span><span class="o">.</span><span class="n">_default_fill_value</span><span class="p">,</span>
+                                <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">,</span>
+                                <span class="n">custom_icon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tool_icon</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">tool</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_icon</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">editable_glyphs</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">MultiLine</span><span class="p">,)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_label</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_empty_cds_dict</span><span class="p">())</span>
+
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">MultiLine</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="s1">&#39;xs&#39;</span><span class="p">,</span>
+                          <span class="n">ys</span><span class="o">=</span><span class="s1">&#39;ys&#39;</span><span class="p">,</span>
+                          <span class="n">line_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                          <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                          <span class="n">line_alpha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FreePointAdd</span><span class="p">(</span><span class="n">FreeDrawBase</span><span class="p">):</span>
+    <span class="n">tool_name</span> <span class="o">=</span> <span class="s1">&#39;Add point&#39;</span>
+    <span class="n">tool_description</span> <span class="o">=</span> <span class="s1">&#39;Add point by dragging around location&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_icon</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">free_point</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">make_freeadd_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_free_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;line_cds&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="s1">&#39;point_cds&#39;</span><span class="p">:</span> <span class="n">pointset</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span>
+                <span class="s1">&#39;add_value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_fill_value</span><span class="p">}</span>
+        <span class="n">add_callback</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_point_js_cb</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">add_callback</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;free_point_add&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_add_point_js_cb</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">if (line_cds.data.xs.length == 0){</span>
+<span class="s1">    return</span>
+<span class="s1">}</span>
+<span class="s1">const xvals = line_cds.data.xs[0]</span>
+<span class="s1">const yvals = line_cds.data.ys[0]</span>
+
+<span class="s1">if (xvals.length == 0){</span>
+<span class="s1">    return</span>
+<span class="s1">}</span>
+
+<span class="s1">const sum_x = xvals.reduce((a,c) =&gt; a + c, 0);</span>
+<span class="s1">const avg_x = sum_x / xvals.length;</span>
+<span class="s1">const sum_y = yvals.reduce((a,c) =&gt; a + c, 0);</span>
+<span class="s1">const avg_y = sum_y / yvals.length;</span>
+
+<span class="s1">var patch = {&#39;cx&#39;: avg_x, &#39;cy&#39;: avg_y}</span>
+<span class="s1">for (const [i, colname] of point_cds.columns().entries()) {</span>
+<span class="s1">    if (colname == &#39;cx&#39; || colname == &#39;cy&#39;){</span>
+<span class="s1">        continue</span>
+<span class="s1">    }</span>
+<span class="s1">    patch[colname] = add_value</span>
+<span class="s1">}</span>
+
+<span class="s1">for (const [i, colname] of point_cds.columns().entries()) {</span>
+<span class="s1">    point_cds.get_column(colname).push(patch[colname])</span>
+<span class="s1">}</span>
+
+<span class="s1">point_cds.change.emit()</span>
+<span class="s1">point_cds.data = point_cds.data;</span>
+<span class="s1">point_cds.properties.data.change.emit();</span>
+
+<span class="s1">line_cds.clear()</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">FreeDrawCallback</span><span class="p">(</span><span class="n">FreeDrawBase</span><span class="p">):</span>
+    <span class="n">tool_description</span> <span class="o">=</span> <span class="s1">&#39;Draw path to trigger callback&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_icon</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">free_draw</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_callback_with_clear</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                <span class="k">return</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">callback</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">column_names</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">_callback_with_clear</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;free_draw_cb&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

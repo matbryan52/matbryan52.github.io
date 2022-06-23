@@ -1,0 +1,52 @@
+Concepts
+========
+
+UI Organisation
+---------------
+
+Provides a single-page webapp based on `Panel <https://panel.holoviz.org/>`_
+using their template framework, which provides:
+
+- A header bar for global controls
+- A collapsible sidebar for page-level controls
+- A full-page modal window for messages etc.
+- A main pane for content
+
+The app is split into many :code:`Window` objects which define how to populate
+the sidebar, modal and main panes. The header bar is reserved for static
+elements, which provide navigation between windows.
+
+There is a single :code:`Session` object which handles initialising, loading
+and unloading :code:`Window` objects, as well as providing some always-available
+windows such as the `Home` screen and `Dataset Manager`.
+
+Underlying framework
+--------------------
+
+Panel was chosen as the frontend language as it provides many convenience
+methods for widget creation, as well as some interesting extensions which
+allow complex functionality (such as in-browser terminals or :code:`DataFrame`
+exploration).
+
+Panel is built on the `Bokeh <https://docs.bokeh.org/en/latest/>`_ library,
+upon which the Panel library is based. Bokeh itself is based on a 
+`Tornado <https://www.tornadoweb.org/en/stable/>`_ web server.
+
+Display tools
+-------------
+
+The display of images, plots, annotations etc is handled by raw Bokeh code,
+and placed into the Panel application using the :code:`pn.pane.Bokeh` object.
+
+A library of wrapper classes is provided in :mod:`aperture.display` to
+eliminate the need to write (or understand) Bokeh figures. This also allows us
+to abstract display from functionality and provide performance optimisations
+in the form of Javascript snippets that execute dirctly in the browser.
+
+The entrypoint to this library is :class:`aperture.display.figure.BokehFigure`.
+
+
+
+
+
+

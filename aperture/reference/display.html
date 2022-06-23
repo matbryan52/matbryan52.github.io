@@ -1,0 +1,1345 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Figure Elements &#8212; Aperture 0.0.1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Layout tools" href="layout.html" />
+    <link rel="prev" title="BokehImage" href="image.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/ap_logo_textpaths.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   Python API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image.html">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/matbryan52/aperture"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/matbryan52/aperture/issues/new?title=Issue%20on%20page%20%2Freference/display.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/reference/display.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Figure Elements</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-aperture.display.text">
+<span id="figure-elements"></span><h1>Figure Elements<a class="headerlink" href="#module-aperture.display.text" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.text.TextOverlay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.text.</span></span><span class="sig-name descname"><span class="pre">TextOverlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/text.html#TextOverlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.text.TextOverlay" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Adds text labels to the figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_xy</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em>) – (x, y) tuples in pixels for label positions</p></li>
+<li><p><strong>strings</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em>) – The labels</p></li>
+<li><p><strong>other_data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Extra data to add to the data source</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Passed directly to the Bokeh Text Glyph, use to
+set display properties, including linking
+columns in other_data to particular properties
+in order to have per-label colors, styles etc</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-aperture.display.pointset"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">PointSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Add a set of x, y points to a figure (scatter plot)</p>
+<p>Serves as baseclass for point-based elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The marker to use for plotting, by default ‘circle’</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>]</em><em>, </em><em>optional</em>) – Dictionary containing at least the keys <code class="code docutils literal notranslate"><span class="pre">'cx',</span> <span class="pre">'cy'</span></code> which are used
+to define the point positions. Values are equal-length sequences of, numeric
+in the case of <code class="code docutils literal notranslate"><span class="pre">'cx',</span> <span class="pre">'cy'</span></code>, which can be used to defined properties
+on each point. If None, and empty glyph is created.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Scatter constructor, can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to properties, allowing per-point style options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.replace_points">
+<span class="sig-name descname"><span class="pre">replace_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Sequence" title="(in Python v3.7)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet.replace_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet.replace_points" title="Permalink to this definition"></a></dt>
+<dd><p>Replace the data backing the plot and trigger a plot update</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>]</em>) – Dictionary containing the same keys as the current data source</p></li>
+<li><p><strong>idx_label</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, add a <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> column to the data source
+consisting of the index of the point in the data, which
+can be used to display the index of each point on the plot.
+Only possible if <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> is not already in data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.add_labels">
+<span class="sig-name descname"><span class="pre">add_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet.add_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet.add_labels" title="Permalink to this definition"></a></dt>
+<dd><p>Add text labels each point in the data source and display on the figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<em>Optional</em><em>[</em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – Custom labels, must match length of current data source.
+By default None, in which case pre-defined labels are used
+or if <code class="code docutils literal notranslate"><span class="pre">as_idx</span> <span class="pre">==</span> <span class="pre">True</span></code> numeric index labels are used
+instead.</p></li>
+<li><p><strong>as_idx</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="code docutils literal notranslate"><span class="pre">labels</span> <span class="pre">is</span> <span class="pre">None</span></code> or labels not already defined on the data
+apply integer index labels to each point, by default True</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Text constructor, which can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to text properties, allowing per-point label options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.make_point_select">
+<span class="sig-name descname"><span class="pre">make_point_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Point</span> <span class="pre">select'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Select</span></span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet.make_point_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet.make_point_select" title="Permalink to this definition"></a></dt>
+<dd><p>Make a selection box to select between points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_idx</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The index of the initial point to select, by default 0</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label applied to the selection box, by default ‘Point select’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Select constructor, which can be
+used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The selection box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.num_points">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></em><a class="headerlink" href="#aperture.display.pointset.PointSet.num_points" title="Permalink to this definition"></a></dt>
+<dd><p>The number of points currently in the data source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of points</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.add_disk">
+<span class="sig-name descname"><span class="pre">add_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GlyphRenderer</span></span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet.add_disk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet.add_disk" title="Permalink to this definition"></a></dt>
+<dd><p>Add a circle annotation around each point with radius
+in data units specified by r0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em>) – Either a single radius or a sequence of radii matching
+the number of defined points</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Circle constructor, which can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to text properties, allowing per-circle options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bokeh GlyphRenderer of the circles</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GlyphRenderer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.PointSet.add_annulus">
+<span class="sig-name descname"><span class="pre">add_annulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#PointSet.add_annulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.PointSet.add_annulus" title="Permalink to this definition"></a></dt>
+<dd><p>Add an annulus annotation around each point with radii
+in data units specified by r0 and r1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em>) – Either a single inner radius or a sequence of inner radii matching
+the number of defined points</p></li>
+<li><p><strong>r0</strong> – Either a single outer radius or a sequence of outer radii matching
+the number of defined points</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Annulus constructor, which can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to text properties, allowing per-annulus options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bokeh GlyphRenderer of the annuli</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GlyphRenderer</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.DiskSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">DiskSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#DiskSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.DiskSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a></p>
+<p>Add a set of points with an associated radius and Circle glyph</p>
+<p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">Pointset</span></code> for the remainder of the signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>disk_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>[</em><em>Any</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Optional dict of kwargs passed to the Circle constructor, which can be
+used to set style options.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>[</em><em>Any</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the PointSet constructor, which can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to text properties, allowing per-point options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.DiskSet.replace_points">
+<span class="sig-name descname"><span class="pre">replace_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#DiskSet.replace_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.DiskSet.replace_points" title="Permalink to this definition"></a></dt>
+<dd><p>Replace the data backing the plot and trigger a plot update</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>]</em>) – Dictionary containing the same keys as the current data source</p></li>
+<li><p><strong>idx_label</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, add a <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> column to the data source
+consisting of the index of the point in the data, which
+can be used to display the index of each point on the plot.
+Only possible if <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> is not already in data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.AnnulusSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">AnnulusSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AnnulusSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AnnulusSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a></p>
+<p>Add a set of points with two associated radii and Annulus glyph</p>
+<p>See <code class="xref py py-class docutils literal notranslate"><span class="pre">Pointset</span></code> for the remainder of the signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>annulus_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional dict of kwargs passed to the Annulus constructor, which can be
+used to set style options.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the PointSet constructor, which can be
+used to set style options, in particular can be used to map extra columns
+in <code class="code docutils literal notranslate"><span class="pre">data</span></code> to text properties, allowing per-point options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.AnnulusSet.replace_points">
+<span class="sig-name descname"><span class="pre">replace_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AnnulusSet.replace_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AnnulusSet.replace_points" title="Permalink to this definition"></a></dt>
+<dd><p>Replace the data backing the plot and trigger a plot update</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Sequence</em><em>]</em>) – Dictionary containing the same keys as the current data source</p></li>
+<li><p><strong>idx_label</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, add a <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> column to the data source
+consisting of the index of the point in the data, which
+can be used to display the index of each point on the plot.
+Only possible if <code class="code docutils literal notranslate"><span class="pre">'label'</span></code> is not already in data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.DiskSliderMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">DiskSliderMixin</span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#DiskSliderMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.DiskSliderMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin allowing interactive setting of circle/disk annotation radius</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.DiskSliderMixin.make_slider">
+<span class="sig-name descname"><span class="pre">make_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Disk</span> <span class="pre">radius'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FloatSlider</span></span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#DiskSliderMixin.make_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.DiskSliderMixin.make_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Get a slider to control the radius of the disk set interactively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The initial radius</p></li>
+<li><p><strong>max_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The maximim radius</p></li>
+<li><p><strong>min_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The minimum radius, by default 0.01</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The radius stepsize, by default 0.01</p></li>
+<li><p><strong>activate</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to set up callbacks, by default True</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label to apply to the slider, by default ‘Disk radius’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the FloatSlider constructor, which can be
+used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The slider to add to the layout</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pn.widgets.FloatSlider</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.AdjustableDiskSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">AdjustableDiskSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AdjustableDiskSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AdjustableDiskSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a>, <a class="reference internal" href="#aperture.display.pointset.DiskSliderMixin" title="aperture.display.pointset.DiskSliderMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSliderMixin</span></code></a></p>
+<p>Add a set of disk-annotated points with the option to
+create an interactive slider allowing adjustment of the radii.</p>
+<p>See <a class="reference internal" href="#aperture.display.pointset.DiskSet" title="aperture.display.pointset.DiskSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSet</span></code></a> for the remainder of the signature.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.AnnulusSliderMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">AnnulusSliderMixin</span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AnnulusSliderMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AnnulusSliderMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin allowing interactive setting of annulus annotation radii</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.AnnulusSliderMixin.make_slider">
+<span class="sig-name descname"><span class="pre">make_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Annulus</span> <span class="pre">radii'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RangeSlider</span></span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AnnulusSliderMixin.make_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AnnulusSliderMixin.make_slider" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The initial inner radius</p></li>
+<li><p><strong>r1</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The initial outer radius</p></li>
+<li><p><strong>max_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The maximim radius</p></li>
+<li><p><strong>min_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The minimum radius, by default 0.01</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The radius stepsize, by default 0.01</p></li>
+<li><p><strong>activate</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to set up callbacks, by default True</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label to apply to the slider, by default ‘Disk radius’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the RangeSlider constructor, which can be
+used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The slider to add to the layout</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pn.widgets.RangeSlider</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.AdjustableAnnulusSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">AdjustableAnnulusSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#AdjustableAnnulusSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.AdjustableAnnulusSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a>, <a class="reference internal" href="#aperture.display.pointset.AnnulusSliderMixin" title="aperture.display.pointset.AnnulusSliderMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnulusSliderMixin</span></code></a></p>
+<p>Add a set of disk-annotated points with the option to
+create an interactive slider allowing adjustment of the radii.</p>
+<p>See <a class="reference internal" href="#aperture.display.pointset.AnnulusSet" title="aperture.display.pointset.AnnulusSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnulusSet</span></code></a> for the remainder of the signature.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.pointset.EditableDiskSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.pointset.</span></span><span class="sig-name descname"><span class="pre">EditableDiskSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/pointset.html#EditableDiskSet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.EditableDiskSet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.DiskSet" title="aperture.display.pointset.DiskSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSet</span></code></a>, <a class="reference internal" href="#aperture.display.pointset.DiskSliderMixin" title="aperture.display.pointset.DiskSliderMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSliderMixin</span></code></a></p>
+<p>A DiskSet allowing interactive addition, removal and selection of indvidual
+disks and subsequently adjustment of the radius of each disk</p>
+<p>See <a class="reference internal" href="#aperture.display.pointset.DiskSet" title="aperture.display.pointset.DiskSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSet</span></code></a> for the remainder of the signature.</p>
+<p>This class is an example and not fully complete, it could be extended
+to provide <code class="code docutils literal notranslate"><span class="pre">EditableAnnulusSet</span></code> or <code class="code docutils literal notranslate"><span class="pre">EditableEllipseSet</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.pointset.EditableDiskSet.make_slider">
+<span class="sig-name descname"><span class="pre">make_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Disk</span> <span class="pre">radius'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Slider</span></span></span><a class="reference internal" href="../_modules/aperture/display/pointset.html#EditableDiskSet.make_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.pointset.EditableDiskSet.make_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Get a slider to control the radius of the disk set interactively</p>
+<p>Uses a raw Bokeh Slider as the panel equivalent cannot be configured
+to run the necessary Javascript callbacks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The initial radius</p></li>
+<li><p><strong>max_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The maximim radius</p></li>
+<li><p><strong>min_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The minimum radius, by default 0.01</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The radius stepsize, by default 0.01</p></li>
+<li><p><strong>activate</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to set up callbacks, by default True</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label to apply to the slider, by default ‘Disk radius’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Slider constructor, which can be
+used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The slider to add to the layout</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Slider</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aperture.display.cursor"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.cursor.Cursor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.cursor.</span></span><span class="sig-name descname"><span class="pre">Cursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/cursor.html#Cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.Cursor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a></p>
+<p>Adds an interactive point cursor to the figure</p>
+<p>Used to provide interaction where a user specifies an <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> position
+in the figure primary axes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>marker</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Bokeh marker specification string to use for the cursor,
+by default ‘circle_dot’</p></li>
+<li><p><strong>pos_xy</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – The initial positions of the cursor point, by default None,
+which will not create a point. The user can create the point
+by double clicking the figure with the tool selected.</p></li>
+<li><p><strong>image</strong> (<a class="reference internal" href="image.html#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><em>BokehImage</em></a><em>, </em><em>optional</em>) – A BokehImage instance used to define the initial point, which will
+be placed in the centre of the image. If <code class="code docutils literal notranslate"><span class="pre">pos_xy</span></code> is provided,
+the tuple values take precendence.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the point Glyph used for the cursor</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.Cursor.get_posxy">
+<span class="sig-name descname"><span class="pre">get_posxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#Cursor.get_posxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.Cursor.get_posxy" title="Permalink to this definition"></a></dt>
+<dd><p>Return the current <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> floating point position of the cursor,
+if defined. Returns the position in the primary axes coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cds</strong> (<em>ColumnDataSource</em><em>, </em><em>optional</em>) – If supplied, use this data source for returning the position,
+else use the internal data source of the cursor.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Position of the cursor <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>, or <code class="code docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">None)</span></code> if invalid</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>, <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>], <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[None, None]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.Cursor.get_int_posxy">
+<span class="sig-name descname"><span class="pre">get_int_posxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#Cursor.get_int_posxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.Cursor.get_int_posxy" title="Permalink to this definition"></a></dt>
+<dd><p>Return the current <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> integer point position of the cursor,
+if defined. Returns the position in the primary axes coordinates, rounded
+to the nearest integer position.</p>
+<p>If bounds are supplied, the point is only considered valid if within these
+integer bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cds</strong> (<em>ColumnDataSource</em><em>, </em><em>optional</em>) – If supplied, use this data source for returning the position,
+else use the internal data source of the cursor.</p></li>
+<li><p><strong>bounds</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Valid bounds for the position, <code class="code docutils literal notranslate"><span class="pre">left,</span> <span class="pre">top,</span> <span class="pre">right,</span> <span class="pre">bottom</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Position of the cursor <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>, or <code class="code docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">None)</span></code> if invalid</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a>, <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)">int</a>], <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[None, None]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.cursor.AdjustableDiskCursor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.cursor.</span></span><span class="sig-name descname"><span class="pre">AdjustableDiskCursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/cursor.html#AdjustableDiskCursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.AdjustableDiskCursor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a>, <a class="reference internal" href="#aperture.display.pointset.DiskSliderMixin" title="aperture.display.pointset.DiskSliderMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiskSliderMixin</span></code></a></p>
+<p>Adds an interactive point cursor linked to a circular
+glyph with adjustable radius.</p>
+<p>Used to provide interaction where a user specifies an <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>
+position in the figure primary axes, as well as a radius.</p>
+<p>See <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a> for the remainder of the signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_radius</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Initial radius of the disk cursor in data units, by default 10.</p></li>
+<li><p><strong>disk_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Optional dictionary of <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> which are passed
+to the glyph rendering the disk, i.e. directly to
+the Bokeh Glyph, which can be used to set style options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.AdjustableDiskCursor.get_radius">
+<span class="sig-name descname"><span class="pre">get_radius</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#AdjustableDiskCursor.get_radius"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.AdjustableDiskCursor.get_radius" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current disk radius in data units</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The current radius</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.cursor.AdjustableAnnulusCursor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.cursor.</span></span><span class="sig-name descname"><span class="pre">AdjustableAnnulusCursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/cursor.html#AdjustableAnnulusCursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.AdjustableAnnulusCursor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a>, <a class="reference internal" href="#aperture.display.pointset.AnnulusSliderMixin" title="aperture.display.pointset.AnnulusSliderMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnnulusSliderMixin</span></code></a></p>
+<p>Adds an interactive point cursor linked to an annular
+glyph with adjustable radii.</p>
+<p>Used to provide interaction where a user specifies an <code class="code docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>
+position in the figure primary axes, as well as an inner and
+outer radius.</p>
+<p>See <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a> for the remainder of the signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_radii</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – Initial radii of the annulus cursor in data units, by default <cite>(10., 15.)</cite></p></li>
+<li><p><strong>annulus_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Optional dictionary of <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> which are passed
+to the glyph rendering the annulus, i.e. directly to
+the Bokeh Glyph, which can be used to set style options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.AdjustableAnnulusCursor.get_radii">
+<span class="sig-name descname"><span class="pre">get_radii</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#AdjustableAnnulusCursor.get_radii"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.AdjustableAnnulusCursor.get_radii" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current annulus radii in data units</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The current inner and outer radii in data units</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>, <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.cursor.SwitchableCursor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.cursor.</span></span><span class="sig-name descname"><span class="pre">SwitchableCursor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/cursor.html#SwitchableCursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.SwitchableCursor" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a></p>
+<p>Adds an interactive point cursor which can be switched between
+point, disk and annulus representations via a selection box.</p>
+<p>Supports overloading of the selection options so that multiple
+point / disk / annulus cursors can be defined with different
+names displayed to the user.</p>
+<p>See <a class="reference internal" href="#aperture.display.cursor.Cursor" title="aperture.display.cursor.Cursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cursor</span></code></a> for the remainder of the signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>annotation_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Optional dictionary of <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> which are passed
+to the glyph rendering the Disk/Annulus, i.e. directly to
+the Bokeh Glyph, which can be used to set style options.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.SwitchableCursor.get_params">
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#SwitchableCursor.get_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.SwitchableCursor.get_params" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current cursor parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary containing the currently selected cursor :code`mode`
+(displayed name) as well as the point position (<code class="code docutils literal notranslate"><span class="pre">'cx'</span></code>,
+<code class="code docutils literal notranslate"><span class="pre">'cy'</span></code>), and any parameters defined on the cursor
+(<code class="code docutils literal notranslate"><span class="pre">'r0'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'r1'</span></code> as appropriate).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>, Union[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>, <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.SwitchableCursor.make_cursor_select">
+<span class="sig-name descname"><span class="pre">make_cursor_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Cursor</span> <span class="pre">type'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'point'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'disk'</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'annulus'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Select</span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#SwitchableCursor.make_cursor_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.SwitchableCursor.make_cursor_select" title="Permalink to this definition"></a></dt>
+<dd><p>Create the selection box used for switching the cursor mode. Supports
+the <code class="code docutils literal notranslate"><span class="pre">mapping</span></code> argument which is used to overload the cursor with
+extra modes with custom display names.</p>
+<p>Automatically sets up callbacks so that the cursor is responsive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Label to apply to the selection box, by default ‘Cursor type’</p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>Literal</em><em>[</em><em>'point'</em><em>]</em><em>, </em><em>Literal</em><em>[</em><em>'disk'</em><em>]</em><em>, </em><em>Literal</em><em>[</em><em>'annulus'</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Dictionary mapping from a displayed name for a cursor and
+one of <code class="code docutils literal notranslate"><span class="pre">'point'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'disk'</span></code>, <code class="code docutils literal notranslate"><span class="pre">'annulus'</span></code>,
+by default None in which case the displayed names are these
+strings but capitalized.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The inital state of the cursor, by default None in which case
+the state is the first of the options.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Select constructor, can be
+used for to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The selection box for the layout</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.cursor.SwitchableCursor.make_radius_slider">
+<span class="sig-name descname"><span class="pre">make_radius_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">r1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Radius'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RangeSlider</span></span></span><a class="reference internal" href="../_modules/aperture/display/cursor.html#SwitchableCursor.make_radius_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.cursor.SwitchableCursor.make_radius_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Create the radius slider used to modify the cursor size. Uses a
+two-point RangeSlider to set a lower/upper limit. When in disk or
+point mode the limit are appropriate ignored when updating.</p>
+<p>Automatically sets up callbacks so that the cursor is responsive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r0</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Inner radius</p></li>
+<li><p><strong>r1</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Outer radius</p></li>
+<li><p><strong>max_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Maximum radius</p></li>
+<li><p><strong>min_r</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Minimum radius, by default 0.01</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Radius step size, by default 0.01</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Label on the slider, by default ‘Radius’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the RangeSlider constructor, can be
+used for to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The radius range slider for the layout</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>RangeSlider</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aperture.display.curves"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.curves.XYPlot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.curves.</span></span><span class="sig-name descname"><span class="pre">XYPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#XYPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.XYPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Base class for XYPlot</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.XYPlot.add_xrange_select">
+<span class="sig-name descname"><span class="pre">add_xrange_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#XYPlot.add_xrange_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.XYPlot.add_xrange_select" title="Permalink to this definition"></a></dt>
+<dd><p>Add a selection tool allowing interactive selection of an x-range</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.XYPlot.add_yrange_select">
+<span class="sig-name descname"><span class="pre">add_yrange_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#XYPlot.add_yrange_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.XYPlot.add_yrange_select" title="Permalink to this definition"></a></dt>
+<dd><p>Add a selection tool allowing interactive selection of a y-range</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.XYPlot.add_v_hover">
+<span class="sig-name descname"><span class="pre">add_v_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#XYPlot.add_v_hover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.XYPlot.add_v_hover" title="Permalink to this definition"></a></dt>
+<dd><p>Add a hover tool which inspects all lines with a vertical cursor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.XYPlot.add_hover">
+<span class="sig-name descname"><span class="pre">add_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#XYPlot.add_hover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.XYPlot.add_hover" title="Permalink to this definition"></a></dt>
+<dd><p>Add a hover tool to allow inspecting individual lines</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.curves.MultiCurve">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.curves.</span></span><span class="sig-name descname"><span class="pre">MultiCurve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#MultiCurve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.MultiCurve" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.curves.XYPlot" title="aperture.display.curves.XYPlot"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYPlot</span></code></a></p>
+<p>Plot one-or-more curves linked by the same x-values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em><em>]</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – The data to plot</p></li>
+<li><p><strong>xkey</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The key in data (if dict-like) to use as x-values, by default ‘x’</p></li>
+<li><p><strong>xidx</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The index in data (if array-like) to use as x-values, by default 0</p></li>
+<li><p><strong>yprefix</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label prefix to use for y-values if data is array-like, by default ‘y’</p></li>
+<li><p><strong>line_props</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Dictionary mapping y-labels to line properties to allow control over
+line styles on a per-line basis, by default None in which case
+lines are automatically styled with a colour sequence.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> which are passed to each Line constructor, which are
+overridden by keys in specific <code class="code docutils literal notranslate"><span class="pre">line_props</span></code>, to set a property
+for all lines with one argument.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.MultiCurve.add_to_legend">
+<span class="sig-name descname"><span class="pre">add_to_legend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#MultiCurve.add_to_legend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.MultiCurve.add_to_legend" title="Permalink to this definition"></a></dt>
+<dd><p>Add curves to figure legend
+If labels is not provided, uses column names supplied to build_figure
+Otherwise, needs a mapping from column name to legend label</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.MultiCurve.get_colnames">
+<span class="sig-name descname"><span class="pre">get_colnames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/curves.html#MultiCurve.get_colnames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.MultiCurve.get_colnames" title="Permalink to this definition"></a></dt>
+<dd><p>Return the keys in the data source for the x- and all y-axes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.curves.SingleCurve">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.curves.</span></span><span class="sig-name descname"><span class="pre">SingleCurve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/curves.html#SingleCurve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.SingleCurve" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.curves.MultiCurve" title="aperture.display.curves.MultiCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiCurve</span></code></a></p>
+<p>Plot a single curve mapping xvals to yvals</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xvals</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em>) – The xvalues</p></li>
+<li><p><strong>yvals</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em>) – The yvalues</p></li>
+<li><p><strong>xlabel</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – x-label used to set legend and axis, by default ‘x’</p></li>
+<li><p><strong>ylabel</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – y-label used to set legend and axis, by default ‘y’</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.curves.SingleCurve.get_colnames">
+<span class="sig-name descname"><span class="pre">get_colnames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/curves.html#SingleCurve.get_colnames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.curves.SingleCurve.get_colnames" title="Permalink to this definition"></a></dt>
+<dd><p>Get the keys in the data source for the x- and y-axes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Keys in the data source for the x- and y-axes</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>, <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aperture.display.draw"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.draw.Rectangles">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.draw.</span></span><span class="sig-name descname"><span class="pre">Rectangles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/draw.html#Rectangles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.draw.Rectangles" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Add a Rectangle glyph to the image. When built with <code class="code docutils literal notranslate"><span class="pre">allow_edit=True</span></code>
+the user can interactively add and remove rectangles using the automatically
+added tool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rectangles</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of inital rectangles in a <code class="code docutils literal notranslate"><span class="pre">cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h</span></code> format.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Bokeh Rect constructor, can be
+used for to set style options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-aperture.display.vectors"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.vectors.</span></span><span class="sig-name descname"><span class="pre">VectorsOverlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#VectorsOverlay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Adds two lines to the figure at right-angles, with options
+to control color and add text labels. Also has functionality
+to interactively set the vector angle using a slider.</p>
+<p>If initialized on a <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a>,
+vector origin location will update based on either changes to the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code> data source, or to the value of the selection box
+returned by <a class="reference internal" href="#aperture.display.vectors.VectorsOverlay.point_select" title="aperture.display.vectors.VectorsOverlay.point_select"><code class="xref py py-meth docutils literal notranslate"><span class="pre">point_select()</span></code></a>.</p>
+<p>This class currently requires the user to call
+<a class="reference internal" href="#aperture.display.vectors.VectorsOverlay.setup_callbacks" title="aperture.display.vectors.VectorsOverlay.setup_callbacks"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setup_callbacks()</span></code></a> to configure which
+types of interactivity should be created. This should be the subject
+of a future refactoring as needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointset</strong> (<a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><em>PointSet</em></a><em>, </em><em>optional</em>) – A <code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code> to use as the source for the vector origin,
+by default None in which case <code class="code docutils literal notranslate"><span class="pre">pos_xy</span></code> must be supplied.</p></li>
+<li><p><strong>pos_xy</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – Values to use for the vector origin, by default None in which
+case <code class="code docutils literal notranslate"><span class="pre">pointset</span></code> must be supplied.</p></li>
+<li><p><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The vector length in data units, by default 100.</p></li>
+<li><p><strong>colors</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – A 2-tuple of color strings, one for each vector, by default None
+in which case colors are red and blue.</p></li>
+<li><p><strong>labels</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – 2-tuple of label strings to applied to the end of each vector,
+by default None in which case there are no labels applied.</p></li>
+<li><p><strong>text_length_mult</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – A multiplier applied to length to defined text label origin,
+by default 1.1</p></li>
+<li><p><strong>initial_idx</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The initial index in the <code class="code docutils literal notranslate"><span class="pre">pointset</span></code> datasource to which to
+attach the vector origin, by default 0</p></li>
+<li><p><strong>initial_angle</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – The inital angle of the vectors in radians, relative to a horizontal-right
+origin, by default 0.</p></li>
+<li><p><strong>labels_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the <code class="xref py py-class docutils literal notranslate"><span class="pre">TextOverlay</span></code> constructor,
+which can be used to set style options on the labels</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Bokeh MultiLine constructor, which
+can be used to set style options on the vector glyph.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.rotation_slider">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotation_slider</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Slider</span></em><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.rotation_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Get or make the rotation slider to control the vectors</p>
+<p>If control is desired over the slider params, call
+<a class="reference internal" href="#aperture.display.vectors.VectorsOverlay.make_rotation_slider" title="aperture.display.vectors.VectorsOverlay.make_rotation_slider"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_rotation_slider()</span></code></a> first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The rotation slider</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Slider</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.make_rotation_slider">
+<span class="sig-name descname"><span class="pre">make_rotation_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Angle</span> <span class="pre">(rad)'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Slider</span></span></span><a class="reference internal" href="../_modules/aperture/display/vectors.html#VectorsOverlay.make_rotation_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.make_rotation_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Make the rotation slider to control the vectors, in radians</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_angle</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Set the initial slider angle, by default 0. radians</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The label to apply to the slider, by default ‘Angle’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Slider constructor,
+which can be used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The rotation slider</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Slider</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.setup_callbacks">
+<span class="sig-name descname"><span class="pre">setup_callbacks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><span class="pre">PointSet</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selectable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#VectorsOverlay.setup_callbacks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.setup_callbacks" title="Permalink to this definition"></a></dt>
+<dd><p>Configure callbacks on the VectorsOverlay depending on requirements</p>
+<p>Currently the user <em>must</em> call this to set up the desired callbacks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotation</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Add rotation via the slider returned by <a class="reference internal" href="#aperture.display.vectors.VectorsOverlay.rotation_slider" title="aperture.display.vectors.VectorsOverlay.rotation_slider"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rotation_slider()</span></code></a>,
+by default True. If control is desired over the slider creation,
+call <code class="xref py py-meth docutils literal notranslate"><span class="pre">VectorsOverlay.self.make_rotation_slider()</span></code> first
+to set this property.</p></li>
+<li><p><strong>pointset</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><em>PointSet</em></a><em>]</em><em>, </em><em>optional</em>) – Link the vector origin to the supplied <code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code>,
+by default None in which case the origin is fixed.</p></li>
+<li><p><strong>selectable</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If linking to a <code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code> enable selection of the
+point to follow by setting selectable to True, by default False.
+If set up, use the select box returned by <a class="reference internal" href="#aperture.display.vectors.VectorsOverlay.point_select" title="aperture.display.vectors.VectorsOverlay.point_select"><code class="xref py py-meth docutils literal notranslate"><span class="pre">point_select()</span></code></a>
+to control the vector location.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.move_centre">
+<span class="sig-name descname"><span class="pre">move_centre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#VectorsOverlay.move_centre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.move_centre" title="Permalink to this definition"></a></dt>
+<dd><p>Moves the centre of the vectors display to pos_xy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos_xy</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em>) – The new coordinates of the vectors origin</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.point_select">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">point_select</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Select</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></em><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.point_select" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current point selection box, if defined</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The selection box</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[Select]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.vectors.VectorsOverlay.get_point_select">
+<span class="sig-name descname"><span class="pre">get_point_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pointset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><span class="pre">PointSet</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Select</span></span></span><a class="reference internal" href="../_modules/aperture/display/vectors.html#VectorsOverlay.get_point_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.VectorsOverlay.get_point_select" title="Permalink to this definition"></a></dt>
+<dd><p>Make a selection box on <code class="code docutils literal notranslate"><span class="pre">pointset</span></code> and set it as the
+selection box for this VectorsOverlay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointset</strong> (<a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><em>PointSet</em></a>) – The pointset to link to</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Selec constructor, which
+can be used to set style options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The selection box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.vectors.PointSetConnector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.vectors.</span></span><span class="sig-name descname"><span class="pre">PointSetConnector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#PointSetConnector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.PointSetConnector" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code></p>
+<p>Add a set of lines which connects points in the provided
+<a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a></p>
+<p>Connections can be integer links or pairs of strings if the pointset
+has a ‘labels’ column in its data source.</p>
+<p>The functionality surrounding labels / indexes should be refactored
+to ensure safety when handing pointsets which are being updated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointset</strong> (<a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><em>PointSet</em></a>) – The pointset to link to</p></li>
+<li><p><strong>connections</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>]</em><em>]</em>) – Pairs of points to connect within pointset, can be int to int or
+str to str, the latter applying when the pointset is labelled</p></li>
+<li><p><strong>colors</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Colors to use for each line, by default None in which
+case a default palette is used</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Bokeh MultiLine constructor, which
+can be used to set style options on glyph.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.vectors.PointSetConnector.add_veclabels">
+<span class="sig-name descname"><span class="pre">add_veclabels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Optional" title="(in Python v3.7)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#PointSetConnector.add_veclabels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.PointSetConnector.add_veclabels" title="Permalink to this definition"></a></dt>
+<dd><p>Add labels to each connection between points in the centre
+of each connecting line</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – List of labels matching list of connections, by default None
+in which case labels must already be defined on the data source</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the <code class="xref py py-class docutils literal notranslate"><span class="pre">TextOverlay</span></code> constructor,
+which can be used to set style options on the labels</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.vectors.SelectLatticeVectors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.vectors.</span></span><span class="sig-name descname"><span class="pre">SelectLatticeVectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/vectors.html#SelectLatticeVectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.vectors.SelectLatticeVectors" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.vectors.PointSetConnector" title="aperture.display.vectors.PointSetConnector"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSetConnector</span></code></a></p>
+<p>Add <cite>‘a’</cite> and <cite>‘b’</cite> lattice vectors to a <code class="code docutils literal notranslate"><span class="pre">PointSet</span></code>, and set up callbacks
+to follow changes to the pointset data source.</p>
+<p>Points to use are defined by their indices.</p>
+<p>Creates and supplies selection boxes to change the selected points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pointset</strong> (<a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><em>PointSet</em></a>) – The pointset to follor.</p></li>
+<li><p><strong>zero</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The initial index of the zero position, by default 0</p></li>
+<li><p><strong>a</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The initial index of the a position, by default 1</p></li>
+<li><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The initial index of the b position, by default 2</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the <a class="reference internal" href="#aperture.display.pointset.PointSet" title="aperture.display.pointset.PointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">PointSet</span></code></a>
+constructor, which can be used to set style options</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.vectors.SelectLatticeVectors.zero_select">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zero_select</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Select</span></em><a class="headerlink" href="#aperture.display.vectors.SelectLatticeVectors.zero_select" title="Permalink to this definition"></a></dt>
+<dd><p>Get the selection box for the zero position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The selection box</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.vectors.SelectLatticeVectors.a_select">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">a_select</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Select</span></em><a class="headerlink" href="#aperture.display.vectors.SelectLatticeVectors.a_select" title="Permalink to this definition"></a></dt>
+<dd><p>Get the selection box for the a position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The selection box</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.vectors.SelectLatticeVectors.b_select">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">b_select</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Select</span></em><a class="headerlink" href="#aperture.display.vectors.SelectLatticeVectors.b_select" title="Permalink to this definition"></a></dt>
+<dd><p>Get the selection box for the b position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The selection box</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="image.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">BokehImage</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="layout.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Layout tools</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

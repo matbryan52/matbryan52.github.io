@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aperture.display.image &#8212; Aperture 0.0.1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../../../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/ap_logo_textpaths.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../reference/index.html">
+   Python API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/image.html">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/display.html">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/matbryan52/aperture"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/matbryan52/aperture/issues/new?title=Issue%20on%20page%20%2F_modules/aperture/display/image.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for aperture.display.image</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.tools</span> <span class="kn">import</span> <span class="n">BoxZoomTool</span>
+
+<span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+<span class="kn">from</span> <span class="nn">.image_mixins</span> <span class="kn">import</span> <span class="n">ColorMixin</span><span class="p">,</span> <span class="n">AlphaMixin</span><span class="p">,</span> <span class="n">HoverMixin</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.figure</span> <span class="kn">import</span> <span class="n">BokehFigure</span>
+    <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xa</span>
+    <span class="kn">from</span> <span class="nn">panel.viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span>
+
+
+<span class="k">def</span> <span class="nf">get_xa</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xa</span>
+    <span class="k">return</span> <span class="n">xa</span>
+
+
+<div class="viewcode-block" id="BokehImage"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage">[docs]</a><span class="k">class</span> <span class="nc">BokehImage</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">,</span> <span class="n">ColorMixin</span><span class="p">,</span> <span class="n">AlphaMixin</span><span class="p">,</span> <span class="n">HoverMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds a Bokeh Image glyph to a figure and provides convenience methods on it</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xar : xa.DataArray</span>
+<span class="sd">        The array to display as the image, which would normally be supplied</span>
+<span class="sd">        by the constructor :meth:`~BokehImage.from_numpy`.</span>
+<span class="sd">    fig : Optional[BokehFigure], optional</span>
+<span class="sd">        The figure on which to place the image, by default None for which</span>
+<span class="sd">        a figure will be created when first accessed. When constructed via</span>
+<span class="sd">        the method on BokehFigure, fig will be automatically set.</span>
+<span class="sd">    anchor_xy : tuple[float, float], optional</span>
+<span class="sd">        The anchor at which to set the image glyph, by default (0., 0.)</span>
+<span class="sd">        This is applied in addition to the :code:`cls._px_offset` attribute</span>
+<span class="sd">        and allows overlaying a BokehImage onto other glyphs with a non-zero</span>
+<span class="sd">        origin (otherwise 0,0 is implicit in the class construction).</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _px_offset: float</span>
+<span class="sd">        -0.5 by default, used to offset the image origin by a half pixel</span>
+<span class="sd">        so that the pixels as-displayed are centred on a whole coordinate</span>
+<span class="sd">        and not anchored at their top-left. Set this to zero to anchor pixels</span>
+<span class="sd">        at their top-left.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_px_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                 <span class="n">xar</span><span class="p">:</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+                 <span class="n">fig</span><span class="p">:</span> <span class="n">BokehFigure</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">anchor_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span> <span class="o">=</span> <span class="n">fig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_anchor</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">anchor_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">anchor_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glyph</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xar</span><span class="p">,</span> <span class="n">get_xa</span><span class="p">()</span><span class="o">.</span><span class="n">DataArray</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span> <span class="o">=</span> <span class="n">xar</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;multichannel images not yet supported&#39;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BokehImage.from_numpy"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.from_numpy">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_numpy</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                   <span class="o">*</span><span class="p">,</span>
+                   <span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+                   <span class="n">dimensions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">attrs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">fig</span><span class="p">:</span> <span class="n">BokehFigure</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BokehImage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a :class:`~BokehImage` from a 2-D numpy array</span>
+
+<span class="sd">        The internal data structure used is an :code:`xarray.DataArray`, which is constructed by</span>
+<span class="sd">        this method before initializing the class. The attributes which can be set</span>
+<span class="sd">        are used by the class to define, at the present, coordinate systems for</span>
+<span class="sd">        each array axis and labels (titles, units).</span>
+
+<span class="sd">        By default the class sets a pixel-aligned coordinate system for the primary</span>
+<span class="sd">        axes (:code:`&#39;_y&#39;, &#39;_x&#39;`), which is used for all annotations defined on the image.</span>
+<span class="sd">        To specify a secondary, dimensioned coordinate system supply the :code:`dimensions`</span>
+<span class="sd">        argument to this class with one of the following formats:</span>
+
+<span class="sd">        **Dimension specification**</span>
+
+<span class="sd">        dimension[&#39;name&#39;] : str, required</span>
+<span class="sd">            A unique name for the dimension, used in the axis label</span>
+<span class="sd">        dimension[&#39;flipped&#39;] : bool, optional</span>
+<span class="sd">            Whether the dimension should be flipped when displayed, False by default</span>
+<span class="sd">        dimension[&#39;unit&#39;] : str, optional</span>
+<span class="sd">            A unit label for the dimension, applied to the axis label</span>
+<span class="sd">        dimension[...] : str, float</span>
+<span class="sd">            See :meth:`~BokehImage.build_coord_range` for numerical dimension</span>
+<span class="sd">            specification.</span>
+
+
+<span class="sd">        Similarly certain attributes can be specficied on the array:</span>
+
+<span class="sd">        **Attribute specification**</span>
+
+<span class="sd">        attrs[&#39;title&#39;] : str, optional</span>
+<span class="sd">            A title for the array</span>
+<span class="sd">        attrs[&#39;array_unit&#39;] : str, optional</span>
+<span class="sd">            A unit for the array elements, appended to the title and colorbar</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : np.ndarray</span>
+<span class="sd">            A 2-dimensional numpy array</span>
+<span class="sd">        dimensions : Optional[list[dict[str, Union[str, float]]]], optional</span>
+<span class="sd">            Coordinate system definition for each dimension of the array, by default None,</span>
+<span class="sd">            in which case only the pixel coordinate system is created. If defined</span>
+<span class="sd">            should be a 2-list of dicts of coordinate attributes as detailed above.</span>
+<span class="sd">        attrs : dict[str, Any], optional</span>
+<span class="sd">            Dict of extra attributes to attach to the image, by default None,</span>
+<span class="sd">            as detailed above.</span>
+<span class="sd">        fig : Optional[BokehFigure], optional</span>
+<span class="sd">            An existing BokehFigure class to attach to, by default None,</span>
+<span class="sd">            usually set automatically if constructed by the :code:`BokehFigure.add_image`</span>
+<span class="sd">            method.</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the BokehImage init</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BokehImage</span>
+<span class="sd">            The image constructed from the array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">get_xa</span><span class="p">()</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Try instantiating the class directly, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">check_nparray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="n">base_dims</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coords</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_base_xa_config</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dimensions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span> <span class="o">==</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span>
+            <span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dimension_def&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">base_dim</span><span class="p">,</span> <span class="n">dim_size</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">base_dims</span><span class="p">,</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+                <span class="n">dim_name</span> <span class="o">=</span> <span class="n">dimension</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dim_name</span> <span class="ow">in</span> <span class="n">base_dims</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dimension names: </span><span class="si">{</span><span class="n">base_dims</span><span class="si">}</span><span class="s1"> are reserved&#39;</span><span class="p">)</span>
+                <span class="n">coordinate_sequence</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">build_coord_range</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dim_size</span><span class="p">)</span>
+                <span class="c1"># Making and assigning the sequence is not actually necessary</span>
+                <span class="c1"># with the current use of dimensioned coordinates, and might</span>
+                <span class="c1"># actually be a perf issue as we interpolate the extra coords each time</span>
+                <span class="c1"># we index into the array</span>
+                <span class="c1"># coords[dim_name] = (base_dim, coordinate_sequence)</span>
+                <span class="k">assert</span> <span class="n">coordinate_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">coordinate_sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> \
+                    <span class="p">(</span><span class="s1">&#39;Coordinate defintion must define a range got &#39;</span>
+                     <span class="sa">f</span><span class="s1">&#39;ll: </span><span class="si">{</span><span class="n">coordinate_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ul: </span><span class="si">{</span><span class="n">coordinate_sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dimension_def&#39;</span><span class="p">][</span><span class="n">base_dim</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">dim_name</span><span class="p">,</span>
+                                                    <span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="n">coordinate_sequence</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                    <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="n">coordinate_sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]}</span>
+                <span class="k">if</span> <span class="s1">&#39;flipped&#39;</span> <span class="ow">in</span> <span class="n">dimension</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dimension_def&#39;</span><span class="p">][</span><span class="n">base_dim</span><span class="p">][</span><span class="s1">&#39;flipped&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dimension</span><span class="p">[</span><span class="s1">&#39;flipped&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s1">&#39;unit&#39;</span> <span class="ow">in</span> <span class="n">dimension</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="n">dim_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">dimension</span><span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span>
+
+        <span class="n">xar</span> <span class="o">=</span> <span class="n">get_xa</span><span class="p">()</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">array</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">base_dims</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">xar</span><span class="o">=</span><span class="n">xar</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_base_xa_config</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attrs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">base_dims</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_y&#39;</span><span class="p">,</span> <span class="s1">&#39;_x&#39;</span><span class="p">]</span>
+        <span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="s1">&#39;px&#39;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">base_dims</span><span class="p">}</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">base_dims</span><span class="p">,</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="n">base_dims</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coords</span>
+
+<div class="viewcode-block" id="BokehImage.from_shape"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.from_shape">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_shape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                   <span class="n">constructor</span><span class="p">:</span> <span class="n">callable</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BokehImage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience method to construct an :class:`~BokehImage` from a shape tuple</span>
+
+<span class="sd">        All other kwargs are forwarded to :meth:`~BokehImage.from_numpy`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        height : int</span>
+<span class="sd">            Height of the array</span>
+<span class="sd">        width : int</span>
+<span class="sd">            Width of the array</span>
+<span class="sd">        dtype : np.dtype, optional</span>
+<span class="sd">            Dtype of the constructed array, by default np.float32</span>
+<span class="sd">        constructor : callable, optional</span>
+<span class="sd">            Cosntructor for the array, by default np.zeros</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BokehImage</span>
+<span class="sd">            The image constructed from the array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">constructor</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">array</span><span class="o">=</span><span class="n">array</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BokehImage.build_coord_range"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.build_coord_range">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">build_coord_range</span><span class="p">(</span><span class="n">dimension_def</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">num_el</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a sequence of coordinate values for a dimension of an array</span>
+<span class="sd">        :code:`dimension_def` can have one of two specifications.</span>
+
+<span class="sd">        This function is not intended to be called by the user,</span>
+<span class="sd">        but is documented to support the constructor :meth:`~BokehFigure.from_numpy`</span>
+
+<span class="sd">        **Spec 1**</span>
+
+<span class="sd">        dimension_def[&#39;px_size&#39;], float</span>
+<span class="sd">            The step size per pixel</span>
+<span class="sd">        dimension_def[&#39;origin&#39;], float, optional, default is 0.</span>
+<span class="sd">            The origin of the coordinate sequence</span>
+
+
+<span class="sd">        **Spec 2**</span>
+
+<span class="sd">        dimension_def[&#39;lower&#39;], float</span>
+<span class="sd">            The inclusive lower bound of the coordinate sequence</span>
+<span class="sd">        dimension_def[&#39;upper&#39;], float</span>
+<span class="sd">            The inclusive upper bound of the coordinate sequence</span>
+
+
+<span class="sd">        A further optional paramter is :code:`dimension_def[&#39;dtype&#39;]`, default</span>
+<span class="sd">        :code:`np.float32` which specifies the dtype of the coordinate</span>
+<span class="sd">        system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dimension_def : dict[str, Any]</span>
+<span class="sd">            A dimension def dictionary, described above</span>
+<span class="sd">        num_el : int</span>
+<span class="sd">            Number of elements along this axis of the array</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            The sequence of coordinate values defined by :code:`dimension_def`</span>
+<span class="sd">            for a dimension of length :code:`num_el`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dtype&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="c1"># if &#39;coord_sequence&#39; in dimension_def:</span>
+        <span class="c1">#     assert len(dimension_def[&#39;coord_sequence&#39;]) == num_el</span>
+        <span class="c1">#     return np.asarray(dimension_def[&#39;coord_sequence&#39;])</span>
+        <span class="k">if</span> <span class="s1">&#39;px_size&#39;</span> <span class="ow">in</span> <span class="n">dimension_def</span><span class="p">:</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+            <span class="n">stepsize</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;px_size&#39;</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">stepsize</span> <span class="o">!=</span> <span class="mf">0.</span>
+            <span class="k">if</span> <span class="n">num_el</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">origin</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">num_el</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,)))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stepsize</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">((</span><span class="n">origin</span> <span class="o">-</span> <span class="p">(</span><span class="n">stepsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">origin</span> <span class="o">+</span> <span class="p">(</span><span class="n">stepsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">k</span> <span class="ow">in</span> <span class="n">dimension_def</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">num_el</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot specify lower/upper for single-element dimension&#39;</span><span class="p">)</span>
+            <span class="n">ll</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
+            <span class="n">ul</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">ul</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num_el</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unrecognized dimension spec </span><span class="si">{</span><span class="n">dimension_def</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">raw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current image displayed by the glyph</span>
+<span class="sd">        before any conversions</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        xa.DataArray</span>
+<span class="sd">            The current raw form of the displayed image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_image</span>
+
+    <span class="nd">@raw_image</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">raw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the raw image to the array supplied</span>
+<span class="sd">        See :meth:`~BokehImage.update_raw_image`.</span>
+<span class="sd">        Should not be called directly by the user.</span>
+
+<span class="sd">        When this is set we automatically trigger an update</span>
+<span class="sd">        to the self.display_image property and push updates</span>
+<span class="sd">        to the plot (if appropriate)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : xa.DataArray</span>
+<span class="sd">            DataArray to set as the current raw image</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xa</span> <span class="o">=</span> <span class="n">get_xa</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
+            <span class="n">base_dims</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_xa_config</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">array</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="n">base_dims</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_image</span> <span class="o">=</span> <span class="n">array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_display_image</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_nparray</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">array</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;No support for multi-channel images yet&#39;</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="nb">complex</span><span class="p">),</span> <span class="s1">&#39;No support for complex images yet&#39;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">convert_dtype</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">)</span> <span class="ow">and</span> <span class="n">array</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">array</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">array</span>
+
+<div class="viewcode-block" id="BokehImage.update_raw_image"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.update_raw_image">[docs]</a>    <span class="k">def</span> <span class="nf">update_raw_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                         <span class="n">maxrate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                         <span class="n">fix_clims</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the current displayed image with the supplied array</span>
+
+<span class="sd">        This is the user-facing endpoint for triggering image updates</span>
+
+<span class="sd">        The supplied array must have the same shape as the array</span>
+<span class="sd">        on which the class was initialized. If a change of shape is desired</span>
+<span class="sd">        the user can try the :meth:`~BokehImage.raw_image` setter, but this</span>
+<span class="sd">        is generally unsupported.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array : np.ndarray</span>
+<span class="sd">            The array to update with</span>
+<span class="sd">        force : bool, optional</span>
+<span class="sd">            Set true to force an update to the plot even if the updates</span>
+<span class="sd">            are being rate limited, otherwise, by default False</span>
+<span class="sd">        maxrate : int, optional</span>
+<span class="sd">            The maximum number of times per-second to update, by default 5.</span>
+<span class="sd">            If this method is called faster than this then the internal data</span>
+<span class="sd">            of the image is updated but updates are not pushed to the browser.</span>
+<span class="sd">            Call :meth:`~BokehImage.refresh_display` after fast updating</span>
+<span class="sd">            in order to ensure the browser version is up-to-date.</span>
+<span class="sd">        fix_clims : Union[bool, tuple[float, float]], optional</span>
+<span class="sd">            Fix the image color limits when updating, by default False.</span>
+<span class="sd">            Can either be a boolean True, in which case the previous color</span>
+<span class="sd">            limits are maintained, or a 2-tuple of floats which are used</span>
+<span class="sd">            to force a particular color limits.</span>
+<span class="sd">            This is mainly interesting when the update rate is expected to be</span>
+<span class="sd">            high, as it prevents the need to calculate the limits and push</span>
+<span class="sd">            updates to the browser (which then has to do the mapping).</span>
+<span class="sd">            Again call :meth:`~BokehImage.refresh_display` to ensure</span>
+<span class="sd">            everything is in sync after fast updating.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_nparray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Cannot update raw image before init&#39;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;Use raw_image setter if changing shape&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">array</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_display_image</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">,</span> <span class="n">maxrate</span><span class="o">=</span><span class="n">maxrate</span><span class="p">,</span> <span class="n">fix_clims</span><span class="o">=</span><span class="n">fix_clims</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">update_display_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">maxrate</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">fix_clims</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal function to convert the recieved raw image into a format</span>
+<span class="sd">        suitable for display, most notably down-converting np.float64</span>
+<span class="sd">        images into np.float32 to reduce transport size. Params as</span>
+<span class="sd">        with :meth:`~BokehImage.update_raw_image`.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is here so we can do dtype conversion to reduce image size</span>
+        <span class="n">display_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_display_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_image</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">display_array</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_array_limits</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_display_hook</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># This is the normal path for an update with an equivalent</span>
+            <span class="c1"># array (shape + dtype + coordinates)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_display_image</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">display_array</span>
+
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span><span class="p">(</span><span class="n">maxrate</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_force_update</span><span class="p">(</span><span class="n">fix_clims</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_display_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Allows datashaded class to inject calls</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_force_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fix_clims</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_im</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fix_clims</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_array_limits</span><span class="p">(</span><span class="n">lims</span><span class="o">=</span><span class="n">fix_clims</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">fix_clims</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_array_limits</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_cds</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BokehImage.refresh_display"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.refresh_display">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call to ensure browser version of image is in sync</span>
+<span class="sd">        with the version stored on this Class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_force_update</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">update_array_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the cache of min/max values of the current array</span>
+<span class="sd">        Computes on the whole array, not a reduced size version,</span>
+<span class="sd">        so for very large arrays this can be quite slow!</span>
+
+<span class="sd">        Assignment to self.display_minmax causes the values to be synced</span>
+<span class="sd">        to the browser and the colorbar and slider to be updated via</span>
+<span class="sd">        Javascript callbacks</span>
+
+<span class="sd">        For maximum speed this update can be skipped by passing fix_clims=True</span>
+<span class="sd">        when calling self.update_raw_image(). For manually fixed colorlimits</span>
+<span class="sd">        pass a 2-tuple of floats which will be used rather than calculating</span>
+<span class="sd">        the values from the array itself.</span>
+
+<span class="sd">        Testing various accelerations for this (numba, ufunclab) show that a double</span>
+<span class="sd">        pass with numpy is fastest on a 1k x 1k np.float32 array</span>
+<span class="sd">        Here we are optimistic and first assume no NaNs, as the nanmin/nanmax way</span>
+<span class="sd">        seems about 5x slower for this same 1k array</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">lims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display_minmax</span> <span class="o">=</span> <span class="n">lims</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">display_minmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_minmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">calc_minmax</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">minmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">minmax</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">minmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">minmax</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used to track when the CDS was last updated</span>
+
+<span class="sd">        Should probably be moved to GlyphBase or even BokehFigure</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_update</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.</span>
+
+    <span class="k">def</span> <span class="nf">update_tick</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Signal that we did an update</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_update</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">rate_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxrate</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes whether we should rate limit</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">maxrate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">assert</span> <span class="n">maxrate</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_update</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">maxrate</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_tick</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_image</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@display_image</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">display_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Don&#39;t set display_image directly&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_minmax</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The current display image min/max values</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disp_minmax</span>
+
+    <span class="nd">@display_minmax</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">display_minmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the current display image min/max values</span>
+
+<span class="sd">        This method also syncs the min/max values to the</span>
+<span class="sd">        browser copy so that sliders and colorbars can respond</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="c1"># should not ever trigger if val == (nan, nan)</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">val</span><span class="p">)</span>
+            <span class="c1"># This avoids various cases where low == high causes errors</span>
+            <span class="c1"># By default use 1% of val, else 1e-5 as a fallback</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.01</span> <span class="k">if</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="mf">1e-5</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disp_minmax</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="n">update</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_low&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;_high&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]]}</span>
+        <span class="n">com_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combined_minmax</span><span class="p">()</span>
+        <span class="n">new_datadict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">com_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">com_val</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="o">**</span><span class="n">update</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">new_datadict</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">new_datadict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds_datadict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_meta_cds</span><span class="p">,</span> <span class="n">new_datadict</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_meta_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColumnDataSource</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A ColumDataSource which is used to synchronize metadata</span>
+<span class="sd">        about the image to the browser for use by Javascript callbacks</span>
+
+<span class="sd">        Currently only used to sync the image min/max levels, and whether</span>
+<span class="sd">        we have initialized a colorbar slider on the Image.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_meta_cds</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_display_meta_cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="s1">&#39;low&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span>
+                                                       <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.</span><span class="p">],</span>
+                                                       <span class="s1">&#39;_low&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span>
+                                                       <span class="s1">&#39;_high&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.</span><span class="p">],</span>
+                                                       <span class="s1">&#39;_null&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span>
+                                                       <span class="s1">&#39;cbar_slider&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+                                                       <span class="s1">&#39;cbar_centered&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">]})</span>
+            <span class="c1"># This is a massive hack to force Bokeh to sync the meta CDS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;_null&#39;</span><span class="p">,</span>
+                                 <span class="n">y</span><span class="o">=</span><span class="s1">&#39;_null&#39;</span><span class="p">,</span>
+                                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+                                 <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_display_meta_cds</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_meta_cds</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_bytesize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of bytes occupied by the current display array</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">im</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the renderer corrseponding to this Image, if defined</span>
+
+<span class="sd">        If there are multiple renderers return the first (error case?)</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="p">(</span><span class="n">Image</span><span class="p">,))</span>
+        <span class="k">if</span> <span class="n">renderers</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">renderers</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">renderers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">has_im</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return if we have a renderer for this image</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_glyph</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">dw</span><span class="o">=</span><span class="s1">&#39;dw&#39;</span><span class="p">,</span> <span class="n">dh</span><span class="o">=</span><span class="s1">&#39;dh&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_glyph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_color_mapper</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">continuous_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">apply_px_offset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The bounds of the full image in continuous coordinates</span>
+<span class="sd">        Returns position of outer edges of pixels as-drawn</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_hw</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">apply_px_offset</span><span class="p">:</span>
+            <span class="n">anchor_x</span> <span class="o">=</span> <span class="n">anchor_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">anchor_x</span> <span class="o">=</span> <span class="n">anchor_y</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">anchor_x</span><span class="p">,</span> <span class="n">anchor_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_anchor</span><span class="p">(</span><span class="n">anchor_x</span><span class="p">,</span> <span class="n">anchor_y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">anchor_x</span><span class="p">,</span> <span class="n">anchor_y</span><span class="p">,</span> <span class="n">anchor_x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">anchor_y</span> <span class="o">+</span> <span class="n">h</span>
+
+    <span class="k">def</span> <span class="nf">array_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The array bounds in integer pixels</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_hw</span><span class="p">()</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span>
+
+    <span class="k">def</span> <span class="nf">array_hw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns full array shape (h, w)</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="k">def</span> <span class="nf">array_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        display_image array aspect ratio (w / h)</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># matches bokeh convention</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_hw</span><span class="p">()</span>
+        <span class="n">aspect</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="n">h</span>
+        <span class="k">assert</span> <span class="n">aspect</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">),</span> <span class="s1">&#39;Implementation changed?&#39;</span>
+        <span class="k">return</span> <span class="n">aspect</span>
+
+    <span class="k">def</span> <span class="nf">current_cds_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Current geometry of the glyph displaying the image</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;dw&#39;</span><span class="p">,</span> <span class="s1">&#39;dh&#39;</span><span class="p">]}</span>
+
+    <span class="k">def</span> <span class="nf">update_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_datadict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">force_full</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the datasource with the full array</span>
+
+<span class="sd">        If the image coordinates have not changed, just update the array data</span>
+<span class="sd">        else update the whole CDS. If this is the first time the CDS</span>
+<span class="sd">        is being populated, this function acts as the constructor.</span>
+<span class="sd">        Should be called automatically each time the image data is updated</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        new_datadict : dict[str, Any], optional</span>
+<span class="sd">            If supplied, update with this specific dictionary, by default None</span>
+<span class="sd">            in which case a full image dictionary is generated from the array</span>
+<span class="sd">        force_full : bool, optional</span>
+<span class="sd">            Force use of a full array dictionary, by default False</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">force_full</span> <span class="ow">or</span> <span class="n">new_datadict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_datadict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_datadict</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds_datadict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">new_datadict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">new_datadict</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_full_datadict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides Bokeh CDS dictionary based on continuous coordinates</span>
+<span class="sd">        left and top are the anchor point accounting for any self._px_offset</span>
+<span class="sd">        (h, w) are the actual number of elements in each dimension</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_bounds</span><span class="p">()</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_hw</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">image_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">image_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_datadict</span><span class="p">(</span><span class="n">image_data</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_datadict</span><span class="p">(</span><span class="n">image_array</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a correctly formatted datadict based on image geometry and data</span>
+<span class="sd">        Formats the anchor point to be plotted with an inverted y-axis</span>
+<span class="sd">        matching numpy/matplotlib convention for arrays/images. As a result</span>
+<span class="sd">        also flips the array data to match.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">top</span> <span class="o">+</span> <span class="n">height</span><span class="p">],</span> <span class="s1">&#39;dw&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">width</span><span class="p">],</span> <span class="s1">&#39;dh&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">height</span><span class="p">],</span>
+                <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">image_array</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]]}</span>
+
+    <span class="k">def</span> <span class="nf">has_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does the image have a coordinate system defined on it</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;dimension_def&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="BokehImage.add_dimensioned_axes"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.add_dimensioned_axes">[docs]</a>    <span class="k">def</span> <span class="nf">add_dimensioned_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hor_pos</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="n">ver_pos</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add dimensioned secondary axes to the figure using the coordinate</span>
+<span class="sd">        system defintion passed to the constructor :meth:`~BokehImage.from_numpy`.</span>
+
+<span class="sd">        The two position arguments are both Bokeh position spec strings.</span>
+
+<span class="sd">        Will do nothing if no coordinate system was defined at construction time.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        hor_pos : str, optional</span>
+<span class="sd">            Position to add the horizontal axis, by default &#39;above&#39;</span>
+<span class="sd">        ver_pos : str, optional</span>
+<span class="sd">            Position to add the vertical axis, by default &#39;right&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_dimensions</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="n">position_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_y&#39;</span><span class="p">:</span> <span class="n">ver_pos</span><span class="p">,</span> <span class="s1">&#39;_x&#39;</span><span class="p">:</span> <span class="n">hor_pos</span><span class="p">}</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">base_dim</span><span class="p">,</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">position_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">dimension_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;dimension_def&#39;</span><span class="p">][</span><span class="n">base_dim</span><span class="p">]</span>
+            <span class="n">lower</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">]</span>
+            <span class="n">upper</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (</span><span class="si">{</span><span class="n">units</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span>
+            <span class="n">flipped</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="n">flipped</span> <span class="o">=</span> <span class="n">dimension_def</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;flipped&#39;</span><span class="p">,</span> <span class="n">flipped</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">_add_extra_axis</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                                     <span class="n">flipped</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">set_axes_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up the default, primary, pixel axes for the figure.</span>
+<span class="sd">        Called automatically by the method setup_figure().</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_bounds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_xrange</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_yrange</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BokehImage.setup_figure"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.setup_figure">[docs]</a>    <span class="k">def</span> <span class="nf">setup_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">data_aspect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+                     <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the :code:`BokehFigure` to have appropriate axes and</span>
+<span class="sd">        dimensions for the `BokehImage` object, notably inverting the</span>
+<span class="sd">        y-axis and setting a specific data aspect. Generally this</span>
+<span class="sd">        should only be called one per `BokehFigure`, and should raise an error</span>
+<span class="sd">        if done multiple times.</span>
+
+<span class="sd">        When constructing this class via the `BokehFigure.add_image` method</span>
+<span class="sd">        the :code:`setup_figure` method is automatically called if it is the first</span>
+<span class="sd">        time an image has been added to this figure.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_aspect : float, optional</span>
+<span class="sd">            Aspect ratio of the data as drawn, by default 1 in which case</span>
+<span class="sd">            pixels will be square.</span>
+<span class="sd">        frame_width : Optional[int], optional</span>
+<span class="sd">            Forwarded to :meth:`BokehFigure.set_frame_aspect`, by default None</span>
+<span class="sd">        frame_height : Optional[int], optional</span>
+<span class="sd">            Forwarded to :meth:`BokehFigure.set_frame_aspect`, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Auto set data_aspect based on dimensioned coordinates ???</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_match_aspect</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_frame_aspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array_aspect</span><span class="p">()</span> <span class="o">*</span> <span class="n">data_aspect</span><span class="p">,</span>
+                                  <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">,</span>
+                                  <span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">force_box_zoom_aspect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_axes_ranges</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_title</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_cds</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">setup_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cds</span><span class="p">(</span><span class="n">force_full</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_default_axis_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">base_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_dim</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_dim</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+<div class="viewcode-block" id="BokehImage.set_axis_labels"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.set_axis_labels">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set primary axis labels on the figure</span>
+
+<span class="sd">        The values are by default x (px) / y (px) but can be overridden here</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : Optional[str], optional</span>
+<span class="sd">            x-axis label, by default None</span>
+<span class="sd">        y : Optional[str], optional</span>
+<span class="sd">            y-axis label, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_axis_label</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_axis_label</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">force_box_zoom_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Sets box zoom aspect ratio to fixed</span>
+        <span class="c1"># This function should probably be a method of BokehFigure</span>
+        <span class="c1"># Also refactor to work with bkfig._tools</span>
+        <span class="n">is_zoom</span> <span class="o">=</span> <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">BoxZoomTool</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">tools</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_zoom</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">is_zoom</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;More than one BoxZoomTool??&#39;</span><span class="p">)</span>
+            <span class="n">true_idx</span> <span class="o">=</span> <span class="n">is_zoom</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">tools</span><span class="p">[</span><span class="n">true_idx</span><span class="p">]</span><span class="o">.</span><span class="n">match_aspect</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="BokehImage.set_title"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.set_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the figure title. If title is not supplied</span>
+<span class="sd">        the title is created from the :code:`attrs[&#39;title&#39;]`</span>
+<span class="sd">        and :code:`attrs[&#39;array_unit&#39;]` attributes on the</span>
+<span class="sd">        underlying array, which were supplied to the constructor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : Optional[str], optional</span>
+<span class="sd">            The title to set, by default None in which case</span>
+<span class="sd">            the title is inferred from the array attributes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;title&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;array_unit&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="n">title</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;array_unit&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">anchor_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anchor_offset</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anchor_offset</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_offset</span>
+
+    <span class="k">def</span> <span class="nf">set_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the image anchor point</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anchor_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">shift_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the forward translation to get the offset anchor</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_offset</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">top</span> <span class="o">+</span> <span class="n">dy</span>
+
+    <span class="k">def</span> <span class="nf">unshift_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the reverse translation to get the non-offset anchor</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_offset</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">-</span> <span class="n">dx</span><span class="p">,</span> <span class="n">top</span> <span class="o">-</span> <span class="n">dy</span>
+
+<div class="viewcode-block" id="BokehImage.centre_anchor"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.centre_anchor">[docs]</a>    <span class="k">def</span> <span class="nf">centre_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shifts the image anchor to place the image with (0, 0)</span>
+<span class="sd">        in axis units in the centre of the glyph</span>
+<span class="sd">        Essentially nullifies cls._px_offset to do this</span>
+<span class="sd">        with consistent behaviour on odd/even dimensions</span>
+
+<span class="sd">        Does not currently update the the axes ranges!!!</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_hw</span><span class="p">()</span>
+        <span class="n">x_shift</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span> <span class="o">-</span> <span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y_shift</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_anchor</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_shift</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y_shift</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">refresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_display</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">reset_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_offset</span> <span class="o">==</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_anchor</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">refresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_display</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BokehImage.current_centre_xy"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image.BokehImage.current_centre_xy">[docs]</a>    <span class="k">def</span> <span class="nf">current_centre_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current centre of the image glyph,</span>
+<span class="sd">        taking the anchor offset into account</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[float, float]</span>
+<span class="sd">            the current centre of the image glyph</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_bounds</span><span class="p">(</span><span class="n">apply_px_offset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="nb">sum</span><span class="p">([</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">get_image_toolbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Direct toolbox instantiation no longer supported&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">glyph_toolbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Layoutable</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;Color range&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cbar_slider</span><span class="p">(),</span>
+            <span class="s1">&#39;Colormap&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cbar_select</span><span class="p">(),</span>
+            <span class="s1">&#39;Center color&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_center_cmap_toggle</span><span class="p">(),</span>
+            <span class="s1">&#39;Alpha&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_alpha_slider</span><span class="p">()</span>
+        <span class="p">}</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

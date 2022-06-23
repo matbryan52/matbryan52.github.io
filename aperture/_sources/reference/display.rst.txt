@@ -1,0 +1,20 @@
+Figure Elements
+---------------
+
+.. automodule:: aperture.display.text
+   :members:
+
+.. automodule:: aperture.display.pointset
+   :members:      
+
+.. automodule:: aperture.display.cursor
+   :members:   
+
+.. automodule:: aperture.display.curves
+   :members:
+
+.. automodule:: aperture.display.draw
+   :members:      
+
+.. automodule:: aperture.display.vectors
+   :members:      

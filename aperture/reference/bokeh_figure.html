@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bokeh Figure &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Bokeh Figure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/bokeh_figure.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-libertem_ui.display.figure">
+<span id="bokeh-figure"></span><h1>Bokeh Figure<a class="headerlink" href="#module-libertem_ui.display.figure" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigureBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libertem_ui.display.figure.</span></span><span class="sig-name descname"><span class="pre">BokehFigureBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigureBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigureBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.element_constructors.ElementConstructorMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure_mixins.GeometryMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure_mixins.AxesMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure_mixins.ColorSequenceMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure_mixins.LegendMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure_mixins.ToolMixin</span></code></p>
+<p>Wrapper for a <code class="code docutils literal notranslate"><span class="pre">bokeh.plotting.figure</span></code> object</p>
+<ul class="simple">
+<li><p>Handles initialization of plots, glpyhs etc</p></li>
+<li><p>Handles figure-level elements (axis labels, size/shape)</p></li>
+</ul>
+<p>This is a base class which doesn’t strictly rely on Panel,
+it could be used in a pure Bokeh environment if you insert
+self.fig into the current Bokeh document. The child BokehFigure
+which inherits this base class is a full Panel component.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">_figure_default_size,</span> <span class="pre">int</span></span></dt>
+<dd><p>The default size of the figure in pixels if no value is provided</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">_figure_size_limit,</span> <span class="pre">int</span></span></dt>
+<dd><p>The figure size limit which the methods on this class will
+respect by downsizing and constant aspect ratio where possible</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">_figure_aspect_limit,</span> <span class="pre">float</span></span></dt>
+<dd><p>the aspect ratio limit (both width/height and height/width) at which
+methods on this class will adjust dimensions to ensure the figure
+is displayable in a reasonable way</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigureBase.fig">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fig</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Figure</span></em><a class="headerlink" href="#libertem_ui.display.figure.BokehFigureBase.fig" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current Bokeh figure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Bokeh figure object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigureBase.on_event">
+<span class="sig-name descname"><span class="pre">on_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigureBase.on_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigureBase.on_event" title="Permalink to this definition"></a></dt>
+<dd><p>Wraps Figure.on_event, used to set up Bokeh figure-level event callbacks</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigureBase.set_title">
+<span class="sig-name descname"><span class="pre">set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigureBase.set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigureBase.set_title" title="Permalink to this definition"></a></dt>
+<dd><p>Set the figure title</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The title to set</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libertem_ui.display.figure.</span></span><span class="sig-name descname"><span class="pre">BokehFigure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigure" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="display.html#libertem_ui.display.figure.BokehFigureBase" title="libertem_ui.display.figure.BokehFigureBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">libertem_ui.display.figure.BokehFigureBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">panel.pane.plot.Bokeh</span></code></p>
+<p>BokehFigureBase which is a standalone Panel component</p>
+<p>This class subclasses pn.pane.Bokeh which means it is treated
+like a standard Panel component able to be inserted into layouts
+and also displayed directly in a notebook or made .servable()</p>
+<p>As a result it is also a param.Parametrized class with default
+Parameters which come from Panel. Currently these parameters are
+not taken into account or set by the BokehFigure class, but this
+could be harmonized in the future with a bit of refactoring.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigure.refresh_pane">
+<span class="sig-name descname"><span class="pre">refresh_pane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigure.refresh_pane"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigure.refresh_pane" title="Permalink to this definition"></a></dt>
+<dd><p>Trigger an update of the panel pane displaying the Bokeh figure</p>
+<p>This is sometimes necessary if callbacks are not correctly updating
+the figure, particularly in the Jupyter context.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigure.update_pane">
+<span class="sig-name descname"><span class="pre">update_pane</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigure.update_pane"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigure.update_pane" title="Permalink to this definition"></a></dt>
+<dd><p>Trigger an update to the panel pane, specifically tailored for
+a change to the figure size. This is probably not necessay
+as <a class="reference internal" href="display.html#libertem_ui.display.figure.BokehFigure.refresh_pane" title="libertem_ui.display.figure.BokehFigure.refresh_pane"><code class="xref py py-meth docutils literal notranslate"><span class="pre">refresh_pane()</span></code></a> should do the same job.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="libertem_ui.display.figure.BokehFigure.async_execute">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">async_execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libertem_ui/display/figure.html#BokehFigure.async_execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libertem_ui.display.figure.BokehFigure.async_execute" title="Permalink to this definition"></a></dt>
+<dd><p>Wraps the panel async_execute endpoint, potentially
+useful when running async updates to the plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fn</strong> (<em>function</em>) – An async callable to execute via panel’s API</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

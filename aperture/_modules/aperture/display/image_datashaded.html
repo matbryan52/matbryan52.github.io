@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aperture.display.image_datashaded &#8212; Aperture 0.0.1 documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../../../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/ap_logo_text.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../reference/index.html">
+   Python API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/image.html">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/display.html">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for aperture.display.image_datashaded</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.events</span> <span class="kn">import</span> <span class="n">RangesUpdate</span>
+
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">BokehImage</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xa</span>
+    <span class="kn">import</span> <span class="nn">datashader</span>
+
+
+<div class="viewcode-block" id="BokehImageDatashaded"><a class="viewcode-back" href="../../../reference/image.html#aperture.display.image_datashaded.BokehImageDatashaded">[docs]</a><span class="k">class</span> <span class="nc">BokehImageDatashaded</span><span class="p">(</span><span class="n">BokehImage</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A subclass of :class:`BokehImage` which automatically</span>
+<span class="sd">    datashades (downsamples) large images and responsively</span>
+<span class="sd">    refreshes the view as the user zooms in/out.</span>
+
+<span class="sd">    Uses the `datashader library &lt;https://datashader.org/&gt;`_.</span>
+
+<span class="sd">    No specific parameters are required to use this class,</span>
+<span class="sd">    though its&#39; use can be enabled/disabled when constructing</span>
+<span class="sd">    the :class:`BokehImage` using :meth:`BokehFigure.add_image`</span>
+<span class="sd">    (see the signature of this method for information).</span>
+
+<span class="sd">    There are two class attributes to control global behaviour:</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _datashade_threshold: float, default 1.05 * (4 * 1024**2)</span>
+<span class="sd">        Threshold size in bytes below which datashading will</span>
+<span class="sd">        be disabled, even if this class is used. The size is</span>
+<span class="sd">        chosen so as to not datashade a 1k x 1k np.float32 image</span>
+<span class="sd">        which corresponds to 4 MB.</span>
+<span class="sd">    _datashade_method: str, default &#39;nearest&#39;</span>
+<span class="sd">        Method used when downsampling, supported modes are</span>
+<span class="sd">        :code:`&#39;nearest&#39;` and :code:`&#39;linear&#39;`. This is a limitation</span>
+<span class="sd">        of the datashader library</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># datashade for images above 1024*1024 @ float32</span>
+    <span class="n">_datashade_threshold</span> <span class="o">=</span> <span class="mf">1.05</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">_datashade_method</span> <span class="o">=</span> <span class="s1">&#39;nearest&#39;</span>
+
+    <span class="k">def</span> <span class="nf">_update_display_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hook called by BokehImage.update_display_image when updating</span>
+<span class="sd">        the display image, allowing the datashader functionality to be kept</span>
+<span class="sd">        up-to-date</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_need_datashade</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_bytesize</span>
+                                <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datashade_threshold</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_datashade</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_canvas</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_canvas_size</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enable_datashade</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disable_datashade</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_full</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the datasource either by datashading or a full array</span>
+<span class="sd">        If the image coordinates have not changed, just update the array data</span>
+<span class="sd">        else update the whole CDS. If this is the first time the CDS</span>
+<span class="sd">        is being populated, this function acts as the constructor.</span>
+<span class="sd">        Should be called automatically each time the image data is updated</span>
+
+<span class="sd">        This overrides the BokehImage.update_cds method</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_datashade</span><span class="p">:</span>
+            <span class="n">new_datadict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_shaded_datadict</span><span class="p">(</span><span class="n">force_full</span><span class="o">=</span><span class="n">force_full</span><span class="p">)</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update_cds</span><span class="p">(</span><span class="n">new_datadict</span><span class="o">=</span><span class="n">new_datadict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update_cds</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setup_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_datashade</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_canvas_size</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">setup_cds</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called by BokehFigure.set_frame_size on all GlyphBases, to allow glyphs</span>
+<span class="sd">        to respond to changes in frame size. Only useful in datashaded case for</span>
+<span class="sd">        the moment.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_height : int</span>
+<span class="sd">            New frame_height</span>
+<span class="sd">        frame_width : int</span>
+<span class="sd">            New frame_width</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_need_datashade</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_canvas_size</span><span class="p">(</span><span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_cds</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datashader</span><span class="o">.</span><span class="n">Canvas</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The Datashader object which does the re-rasterizing</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">build_canvas</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">datashader</span><span class="o">.</span><span class="n">Canvas</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">datashader</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_canvas</span> <span class="o">=</span> <span class="n">datashader</span><span class="o">.</span><span class="n">Canvas</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span>
+
+    <span class="k">def</span> <span class="nf">update_canvas_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                           <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="n">upsampling</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the Datashader canvas size, this is the size of the</span>
+<span class="sd">        re-rastered image that will be sent to the browser</span>
+
+<span class="sd">        By default queries the Figure for the current frame size and uses that</span>
+
+<span class="sd">        Should be called whenever the display image is updated</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_height : Optional[int], optional</span>
+<span class="sd">            Frame size to render, by default None</span>
+<span class="sd">        frame_width : Optional[int], optional</span>
+<span class="sd">            Frame size to render, by default None</span>
+<span class="sd">        upsampling : float, optional</span>
+<span class="sd">            Multiplies the frame size to over-sample the image</span>
+<span class="sd">            for the current frame, by default 1, i.e. no oversampling.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Could update this automatically using fig.inner_height, fig.inner_width</span>
+        <span class="c1"># Currently not necessary as we use a fixed sizing mode for image figures</span>
+        <span class="k">if</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dimensions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">get_frame_size</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dimensions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;frame_height&#39;</span><span class="p">:</span> <span class="n">frame_height</span><span class="p">,</span> <span class="s1">&#39;frame_width&#39;</span><span class="p">:</span> <span class="n">frame_width</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dimensions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;frame_width&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">dimensions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;frame_height&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">upsampling</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dimensions</span><span class="p">[</span><span class="s1">&#39;frame_height&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">upsampling</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">canvas_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_width</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">enable_datashade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up the callback to enable datashading.</span>
+
+<span class="sd">        Called automatically when the image is initialized</span>
+<span class="sd">        or updated with a different sized array.</span>
+
+<span class="sd">        If this were improved it should be made public.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds_is_enabled</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="n">RangesUpdate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_view</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">ds_is_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return if datashading is enabled on this figure by checking</span>
+<span class="sd">        if there are any event callbacks registered to changing the</span>
+<span class="sd">        axis ranges. This function is brittle and could be better</span>
+<span class="sd">        refactored.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trigger_name</span> <span class="o">=</span> <span class="s1">&#39;rangesupdate&#39;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span>
+        <span class="k">if</span> <span class="n">trigger_name</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">subscribed_events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">trigger_name</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_view</span> <span class="ow">in</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="p">[</span><span class="n">trigger_name</span><span class="p">]:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">disable_datashade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disables the datashading update callback.</span>
+
+<span class="sd">        The mechanism is brittle as we assume just one rangesupdate</span>
+<span class="sd">        event trigger has been registered on the figure. Better would</span>
+<span class="sd">        be to save a reference to the callback when we create it.</span>
+
+<span class="sd">        If this were improved it should be made public.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">trigger_name</span> <span class="o">=</span> <span class="s1">&#39;rangesupdate&#39;</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">fig</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds_is_enabled</span><span class="p">():</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="p">[</span><span class="n">trigger_name</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">update_view</span><span class="p">)</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="p">[</span><span class="n">trigger_name</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="p">[</span><span class="n">trigger_name</span><span class="p">]:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">trigger_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subscribed_events</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">trigger_name</span><span class="p">)</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">subscribed_events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">shade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yrange</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shades the display_image with new x- and y- ranges</span>
+<span class="sd">        ranges with None values will shade the whole dimension</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_canvas_ranges</span><span class="p">(</span><span class="n">xrange</span><span class="o">=</span><span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="o">=</span><span class="n">yrange</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reshade</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">set_canvas_ranges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yrange</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">x_range</span> <span class="o">=</span> <span class="n">xrange</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">y_range</span> <span class="o">=</span> <span class="n">yrange</span>
+
+    <span class="k">def</span> <span class="nf">reshade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Re-rasters the display_image using the x_range and y_range stored</span>
+<span class="sd">        on self.canvas. This implicitly supports changing the image data</span>
+<span class="sd">        (assuming same image array size) and updating the in-browser view</span>
+<span class="sd">        without changing the CDS geometry or displayed crop of the image</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="p">,</span>
+                                  <span class="n">interpolate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_datashade_method</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cds_to_ltrb</span><span class="p">(</span><span class="n">cds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the image CDS dict to left, top, right, bottom representation</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[float, float, float, float]</span>
+<span class="sd">            ltrb geometry</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dh&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dw&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">-</span> <span class="n">height</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">bottom</span>
+
+    <span class="k">def</span> <span class="nf">unpack_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">RangesUpdate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unpack the Bokeh event into the geometry used to perform datashading</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : RangesUpdate</span>
+<span class="sd">            The callback event containing the current view information</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            is_visisble, whether the current view overlaps with the</span>
+<span class="sd">            current array</span>
+<span class="sd">        dict[str, list[float]]]</span>
+<span class="sd">            a partial ColumnDataSource dictionary without image data</span>
+<span class="sd">            matching the current view geometry</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># event contains viewport limits in continuous coordinates</span>
+        <span class="c1"># implicitly the coordinates are in units of data/array pixels</span>
+        <span class="c1"># not in screen pixels, but are not necessarily aligned with</span>
+        <span class="c1"># the array origin (depends on what our self._px_offset is)</span>
+        <span class="c1"># First step is to reverse y1 and y0 because we assume an inverted y-axis</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x0</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">y1</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x1</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">y0</span>
+        <span class="c1"># The full array is bounded in continuous coordinates</span>
+        <span class="c1"># by the following geometry (includes self._px_offset)</span>
+        <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_bounds</span><span class="p">()</span>
+        <span class="c1"># Test if our viewport overlaps with the full array</span>
+        <span class="c1"># Used for an early return if we don&#39;t have anything to show</span>
+        <span class="n">is_visible</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_overlaps</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">))</span>
+                      <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_overlaps</span><span class="p">((</span><span class="n">t</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">)))</span>
+        <span class="c1"># Next we expand the coordinates outwards</span>
+        <span class="c1"># This gives us a new &#39;viewport&#39; guaranteed to contain the current</span>
+        <span class="c1"># continuous coordinate viewport even when very zoomed in</span>
+        <span class="c1"># We also expand again to align to the pixel grid</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="c1"># Clip the eventual geometry of the new view to the full</span>
+        <span class="c1"># array, in continuous coords. This allows us to return a</span>
+        <span class="c1"># partial crop of the array if we are partially outside of its range</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="c1"># h and w should work out because we are working in</span>
+        <span class="c1"># continuous coordinates here, but should test this</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">is_visible</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">y1</span><span class="p">],</span> <span class="s1">&#39;dw&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">],</span> <span class="s1">&#39;dh&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">h</span><span class="p">]}</span>
+
+    <span class="k">def</span> <span class="nf">ranges_from_cds_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span> <span class="n">as_int</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets ranges to give to canvas.raster from the display cds</span>
+<span class="sd">        Assumes that the cds anchor has been shifted by self._px_offset</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unshift_anchor</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dw&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dh&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">as_int</span><span class="p">:</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+            <span class="n">x0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">h</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">axis_overlaps</span><span class="p">(</span><span class="n">obj_range</span><span class="p">,</span> <span class="n">view_range</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">obj_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">view_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">view_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">obj_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">update_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">RangesUpdate</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the main callback linked to the RangesUpdate event</span>
+
+<span class="sd">        Triggered every time the axes ranges change due to zooming,</span>
+<span class="sd">        scrolling, reset etc.</span>
+
+<span class="sd">        Unpacks the event information then determines the best array to update</span>
+<span class="sd">        the view with (or to do nothing). In several cases no datashading</span>
+<span class="sd">        is performed, notably when we cannot see the image (out of bounds)</span>
+<span class="sd">        or we are too-far zoomed in, i.e datashading would be oversampling.</span>
+
+<span class="sd">        As the zoom level reaches 1 pixel of the array per pixel on the screen</span>
+<span class="sd">        this function essentially disables datashading by just transferring a</span>
+<span class="sd">        1:1 slice of the array to the browser. If we over-zoom on this block</span>
+<span class="sd">        no update is performed until we leave its bounds, forcing another</span>
+<span class="sd">        1:1 update.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Need to thorougly test this function for off-by-one errors...</span>
+        <span class="n">is_visible</span><span class="p">,</span> <span class="n">new_cds_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpack_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_visible</span><span class="p">:</span>
+            <span class="c1"># Do nothing</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">matching_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cds_dims</span><span class="p">(),</span> <span class="n">new_cds_coords</span><span class="p">):</span>
+            <span class="c1"># Returns when the new displayed bounds match the old bounds</span>
+            <span class="c1"># Implicitly there is nothing to do here</span>
+            <span class="c1"># Covers the case when we zoom out from the full shaded image</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_oversampled</span><span class="p">(</span><span class="n">new_cds_coords</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cds_dims</span><span class="p">(),</span> <span class="n">new_cds_coords</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_oversampled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_cds_dims</span><span class="p">()):</span>
+                    <span class="c1"># Returns when we are oversampling wholly into a</span>
+                    <span class="c1"># displayed image which is already oversampled</span>
+                    <span class="c1"># Avoids unecessary updates when zoomed in</span>
+                    <span class="k">return</span>
+            <span class="c1"># If we are oversampling just return a slice directly from the array</span>
+            <span class="c1"># First update the view dimension so that it fills the canvas size</span>
+            <span class="c1"># completely. This prevents some extra updates</span>
+            <span class="c1"># TODO must see how this behaves when updating the image when already oversampled</span>
+            <span class="n">new_cds_coords</span><span class="p">,</span> <span class="p">(</span><span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maximum_view</span><span class="p">(</span><span class="n">new_cds_coords</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_canvas_ranges</span><span class="p">(</span><span class="n">xrange</span><span class="o">=</span><span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="o">=</span><span class="n">yrange</span><span class="p">)</span>
+            <span class="n">shaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">direct_sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="p">,</span> <span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># TODO test / investigate slight shifts in the image when datashading</span>
+            <span class="c1"># It might be related to the fact that the pixel [0, 0] in the datashaded</span>
+            <span class="c1"># image is an average of several pixels, (the xarray list the average</span>
+            <span class="c1"># coordinates). Here I just anchor the image to the top-left point</span>
+            <span class="c1"># which we used to define the datashading ranges, but this might not</span>
+            <span class="c1"># be the right choice (should perhaps offset by some amount...)</span>
+            <span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranges_from_cds_dict</span><span class="p">(</span><span class="n">new_cds_coords</span><span class="p">)</span>
+            <span class="n">shaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shade</span><span class="p">(</span><span class="n">xrange</span><span class="o">=</span><span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="o">=</span><span class="n">yrange</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="n">new_data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">new_cds_coords</span><span class="p">,</span>
+                    <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">shaded</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]]}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds_datadict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">direct_sample</span><span class="p">(</span><span class="n">xar</span><span class="p">:</span> <span class="n">xa</span><span class="o">.</span><span class="n">DataArray</span><span class="p">,</span>
+                      <span class="n">xrange</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                      <span class="n">yrange</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Take a slice from an xarray based on two</span>
+<span class="sd">        int tuples for x and y-ranges</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">yrange</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xar</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">yrange</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">xrange</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">maximum_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_cds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        When over-zoomed compute the maximum array slice to transfer</span>
+<span class="sd">        to the browser which contains the current view and does not</span>
+<span class="sd">        go out of bounds of the array. The computed array slice will</span>
+<span class="sd">        have the same shape as the current frame size even</span>
+<span class="sd">        if we are so-far zoomed that we see a smaller array on screen.</span>
+<span class="sd">        This prevents some future updates if we then zoom/scroll within this</span>
+<span class="sd">        maximum view/slice.</span>
+
+<span class="sd">        Returns a new_cds aligned with the array grid where the</span>
+<span class="sd">        current view is contained and the pixel offset is applied</span>
+
+<span class="sd">        new_cds is assumed to have already been offset</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This needs to assume that each index/axis is uniformly sampled</span>
+        <span class="n">target_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_height</span>
+        <span class="n">target_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">plot_width</span>
+
+        <span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranges_from_cds_dict</span><span class="p">(</span><span class="n">new_cds</span><span class="p">,</span> <span class="n">as_int</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># These will be ints as float, so map to int</span>
+        <span class="n">max_l</span><span class="p">,</span> <span class="n">max_t</span><span class="p">,</span> <span class="n">max_r</span><span class="p">,</span> <span class="n">max_b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">array_bounds</span><span class="p">())</span>
+        <span class="n">new_yrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounded_slice</span><span class="p">((</span><span class="n">max_t</span><span class="p">,</span> <span class="n">max_b</span><span class="p">),</span> <span class="n">target_height</span><span class="p">,</span> <span class="n">yrange</span><span class="p">)</span>
+        <span class="n">new_xrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounded_slice</span><span class="p">((</span><span class="n">max_l</span><span class="p">,</span> <span class="n">max_r</span><span class="p">),</span> <span class="n">target_width</span><span class="p">,</span> <span class="n">xrange</span><span class="p">)</span>
+        <span class="c1"># these are int ranges for giving to datashader</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">new_xrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">new_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">new_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">new_yrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Need to shift anchor point to get correct position in continuous coords</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">new_xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="n">new_yrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_px_offset</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_anchor</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x0</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">y0</span><span class="p">],</span> <span class="s1">&#39;dw&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">],</span> <span class="s1">&#39;dh&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">h</span><span class="p">]},</span> <span class="p">(</span><span class="n">new_xrange</span><span class="p">,</span> <span class="n">new_yrange</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">bounded_slice</span><span class="p">(</span><span class="n">full_bounds</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                      <span class="n">target_dimension</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                      <span class="n">original_bounds</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an int slice within full_bounds of length target_dimension</span>
+<span class="sd">        ideally centred on original_bounds, otherwise shifted to lie</span>
+<span class="sd">        within full_bounds</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ll</span><span class="p">,</span> <span class="n">ul</span> <span class="o">=</span> <span class="n">full_bounds</span>
+        <span class="k">if</span> <span class="n">ul</span> <span class="o">-</span> <span class="n">ll</span> <span class="o">&lt;=</span> <span class="n">target_dimension</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">full_bounds</span>
+        <span class="n">half_slice</span> <span class="o">=</span> <span class="n">target_dimension</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">centre</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">original_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">target_ll</span><span class="p">,</span> <span class="n">target_ul</span> <span class="o">=</span> <span class="n">centre</span> <span class="o">-</span> <span class="n">half_slice</span><span class="p">,</span> <span class="n">centre</span> <span class="o">+</span> <span class="n">half_slice</span>
+        <span class="k">if</span> <span class="n">target_ll</span> <span class="o">&gt;=</span> <span class="n">ll</span> <span class="ow">and</span> <span class="n">target_ul</span> <span class="o">&lt;</span> <span class="n">ul</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">target_ll</span> <span class="o">&lt;</span> <span class="n">ll</span><span class="p">:</span>
+            <span class="n">target_ll</span> <span class="o">=</span> <span class="n">ll</span>
+            <span class="n">target_ul</span> <span class="o">=</span> <span class="n">target_ll</span> <span class="o">+</span> <span class="n">target_dimension</span>
+        <span class="k">elif</span> <span class="n">target_ul</span> <span class="o">&gt;=</span> <span class="n">ul</span><span class="p">:</span>
+            <span class="n">target_ul</span> <span class="o">=</span> <span class="n">ul</span>
+            <span class="n">target_ll</span> <span class="o">=</span> <span class="n">target_ul</span> <span class="o">-</span> <span class="n">target_dimension</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">full_bounds</span><span class="p">,</span> <span class="n">target_dimension</span><span class="p">,</span> <span class="n">original_bounds</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unexpected bounded_slice behaviour&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">target_ll</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">target_ul</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">is_oversampled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cds</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test if the cds width/height gives an array smaller than the canvas size</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sampled_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dh&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">cds</span><span class="p">[</span><span class="s1">&#39;dw&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sampled_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas_shape</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">in_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                  <span class="n">old_cds_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+                  <span class="n">new_cds_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test if new_cds_coords are within old_cds_coords</span>
+<span class="sd">        {&#39;x&#39;:[x0], &#39;y&#39;:[y0], &#39;dw&#39;: [w], &#39;dh&#39;: [h]}</span>
+<span class="sd">        y0 is the bottom coordinate!!!</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">o_l</span><span class="p">,</span> <span class="n">o_t</span><span class="p">,</span> <span class="n">o_r</span><span class="p">,</span> <span class="n">o_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds_to_ltrb</span><span class="p">(</span><span class="n">old_cds_coords</span><span class="p">)</span>
+        <span class="n">n_l</span><span class="p">,</span> <span class="n">n_t</span><span class="p">,</span> <span class="n">n_r</span><span class="p">,</span> <span class="n">n_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds_to_ltrb</span><span class="p">(</span><span class="n">new_cds_coords</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_l</span> <span class="o">&lt;</span> <span class="n">o_l</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">n_t</span> <span class="o">&lt;</span> <span class="n">o_t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">n_r</span> <span class="o">&gt;</span> <span class="n">o_r</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">n_b</span> <span class="o">&gt;</span> <span class="n">o_b</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">matching_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">old_cds_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+                        <span class="n">new_cds_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test if new_cds_coords bounds match old_cds_coords after being clipped</span>
+<span class="sd">        to the array dimension. Used to return early if we are really zoomed out.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds_to_ltrb</span><span class="p">(</span><span class="n">old_cds_coords</span><span class="p">),</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">cds_to_ltrb</span><span class="p">(</span><span class="n">new_cds_coords</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">get_shaded_datadict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force_full</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called when updating the image data</span>
+<span class="sd">        Will shade and return the CDS with the same display/view</span>
+<span class="sd">        as the previous CDS, except for when initialising the plot</span>
+<span class="sd">        where the shaded image/geometry will be for the whole array</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">force_full</span><span class="p">:</span>
+            <span class="n">image_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shade</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_datadict</span><span class="p">(</span><span class="n">image_data</span><span class="o">=</span><span class="n">image_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_cds_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_cds_dims</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_oversampled</span><span class="p">(</span><span class="n">current_cds_dims</span><span class="p">):</span>
+                <span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranges_from_cds_dict</span><span class="p">(</span><span class="n">current_cds_dims</span><span class="p">,</span> <span class="n">as_int</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">image_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">direct_sample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_image</span><span class="p">,</span> <span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Use .reshade and not .shade here to preserve previous data ranges</span>
+                <span class="n">image_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reshade</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">current_cds_dims</span><span class="p">,</span> <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">image_data</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]]}</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,11 @@
+BokehImage
+----------
+
+.. automodule:: aperture.display.image
+   :members:
+
+.. automodule:: aperture.display.image_datashaded
+   :members:
+
+.. automodule:: aperture.display.image_mixins
+   :members:   

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.display.cursor &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.display.cursor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.display.cursor</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">Scatter</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.tools</span> <span class="kn">import</span> <span class="n">PointDrawTool</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.widgets</span> <span class="kn">import</span> <span class="n">Select</span><span class="p">,</span> <span class="n">RangeSlider</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">icons</span>
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">BokehImage</span>
+<span class="kn">from</span> <span class="nn">.pointset</span> <span class="kn">import</span> <span class="n">PointSet</span><span class="p">,</span> <span class="n">DiskSliderMixin</span><span class="p">,</span> <span class="n">AnnulusSliderMixin</span>
+
+
+<div class="viewcode-block" id="Cursor"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.Cursor">[docs]</a><span class="k">class</span> <span class="nc">Cursor</span><span class="p">(</span><span class="n">PointSet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds an interactive point cursor to the figure</span>
+
+<span class="sd">    Used to provide interaction where a user specifies an :code:`(x, y)` position</span>
+<span class="sd">    in the figure primary axes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    marker : str, optional</span>
+<span class="sd">        Bokeh marker specification string to use for the cursor,</span>
+<span class="sd">        by default &#39;circle_dot&#39;</span>
+<span class="sd">    pos_xy : tuple[float, float], optional</span>
+<span class="sd">        The initial positions of the cursor point, by default None,</span>
+<span class="sd">        which will not create a point. The user can create the point</span>
+<span class="sd">        by double clicking the figure with the tool selected.</span>
+<span class="sd">    image : BokehImage, optional</span>
+<span class="sd">        A BokehImage instance used to define the initial point, which will</span>
+<span class="sd">        be placed in the centre of the image. If :code:`pos_xy` is provided,</span>
+<span class="sd">        the tuple values take precendence.</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the point Glyph used for the cursor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">make_cursor_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">renderers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">PointDrawTool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cursor&#39;</span><span class="p">,</span>
+                             <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Draw cursor points on figure&#39;</span><span class="p">,</span>
+                             <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">,</span>
+                             <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">drag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">num_objects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                             <span class="n">empty_value</span><span class="o">=</span><span class="n">PointSet</span><span class="o">.</span><span class="n">_default_fill_value</span><span class="p">,</span>
+                             <span class="n">custom_icon</span><span class="o">=</span><span class="n">icons</span><span class="o">.</span><span class="n">cursor_icon</span><span class="p">())</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">tool_label</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;cursor&#39;</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;circle_dot&#39;</span><span class="p">,</span> <span class="n">pos_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">image</span><span class="p">:</span> <span class="n">BokehImage</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="s1">&#39;cx&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;cy&#39;</span><span class="p">:</span> <span class="p">[]})</span>
+        <span class="k">if</span> <span class="n">pos_xy</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pos_xy</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">current_centre_xy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pos_xy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">pos_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="s1">&#39;cy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">pos_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]]})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_glyph</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                                     <span class="n">x</span><span class="o">=</span><span class="s1">&#39;cx&#39;</span><span class="p">,</span>
+                                     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;cy&#39;</span><span class="p">,</span>
+                                     <span class="n">line_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">),</span>
+                                     <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                                     <span class="n">fill_alpha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fill_alpha&#39;</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span>
+                                     <span class="n">size</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_glyph</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cursor_glyph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_glyph</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Cursor.get_posxy"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.Cursor.get_posxy">[docs]</a>    <span class="k">def</span> <span class="nf">get_posxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+                                                    <span class="nb">tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the current :code:`(x, y)` floating point position of the cursor,</span>
+<span class="sd">        if defined. Returns the position in the primary axes coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cds : ColumnDataSource, optional</span>
+<span class="sd">            If supplied, use this data source for returning the position,</span>
+<span class="sd">            else use the internal data source of the cursor.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Union[tuple[float, float], tuple[None, None]]</span>
+<span class="sd">            Position of the cursor :code:`(x, y)`, or :code:`(None, None)` if invalid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">xvals</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cx&#39;</span><span class="p">]</span>
+        <span class="n">yvals</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cy&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">xvals</span> <span class="ow">and</span> <span class="n">yvals</span><span class="p">:</span>
+            <span class="n">xv</span> <span class="o">=</span> <span class="n">xvals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">yv</span> <span class="o">=</span> <span class="n">yvals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Cursor.get_int_posxy"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.Cursor.get_int_posxy">[docs]</a>    <span class="k">def</span> <span class="nf">get_int_posxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">bounds</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+                                                                         <span class="nb">tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the current :code:`(x, y)` integer point position of the cursor,</span>
+<span class="sd">        if defined. Returns the position in the primary axes coordinates, rounded</span>
+<span class="sd">        to the nearest integer position.</span>
+
+<span class="sd">        If bounds are supplied, the point is only considered valid if within these</span>
+<span class="sd">        integer bounds.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cds : ColumnDataSource, optional</span>
+<span class="sd">            If supplied, use this data source for returning the position,</span>
+<span class="sd">            else use the internal data source of the cursor.</span>
+<span class="sd">        bounds : tuple[int, int, int, int], optional</span>
+<span class="sd">            Valid bounds for the position, :code:`left, top, right, bottom`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Union[tuple[int, int], tuple[None, None]]</span>
+<span class="sd">            Position of the cursor :code:`(x, y)`, or :code:`(None, None)` if invalid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_posxy</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">xv</span> <span class="ow">and</span> <span class="n">yv</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">xv</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">xv</span><span class="p">))</span>
+        <span class="n">yv</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">yv</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">bounds</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bounds</span><span class="p">)</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span> <span class="o">=</span> <span class="n">bounds</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">xv</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">):</span>
+                <span class="n">xv</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;=</span> <span class="n">yv</span> <span class="o">&lt;</span> <span class="n">bottom</span><span class="p">):</span>
+                <span class="n">yv</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">xv</span><span class="p">,</span> <span class="n">yv</span></div>
+
+    <span class="k">def</span> <span class="nf">get_int_posyx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_int_posxy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">move_to_posxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">posxy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">posxy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="s1">&#39;cy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span><span class="p">]})</span>
+
+    <span class="k">def</span> <span class="nf">move_to_posyx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">posyx</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_to_posxy</span><span class="p">(</span><span class="n">posyx</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="AdjustableDiskCursor"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.AdjustableDiskCursor">[docs]</a><span class="k">class</span> <span class="nc">AdjustableDiskCursor</span><span class="p">(</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">DiskSliderMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds an interactive point cursor linked to a circular</span>
+<span class="sd">    glyph with adjustable radius.</span>
+
+<span class="sd">    Used to provide interaction where a user specifies an :code:`(x, y)`</span>
+<span class="sd">    position in the figure primary axes, as well as a radius.</span>
+
+<span class="sd">    See :class:`~Cursor` for the remainder of the signature.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_radius : float, optional</span>
+<span class="sd">        Initial radius of the disk cursor in data units, by default 10.</span>
+<span class="sd">    disk_kwargs : dict[str, Any], optional</span>
+<span class="sd">        Optional dictionary of :code:`kwargs` which are passed</span>
+<span class="sd">        to the glyph rendering the disk, i.e. directly to</span>
+<span class="sd">        the Bokeh Glyph, which can be used to set style options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">initial_radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">10.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">disk_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;disk_kwargs&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_disk</span><span class="p">(</span><span class="n">initial_radius</span><span class="p">,</span> <span class="o">**</span><span class="n">disk_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AdjustableDiskCursor.get_radius"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.AdjustableDiskCursor.get_radius">[docs]</a>    <span class="k">def</span> <span class="nf">get_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current disk radius in data units</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The current radius</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;circle&#39;</span></div>
+
+
+<div class="viewcode-block" id="AdjustableAnnulusCursor"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.AdjustableAnnulusCursor">[docs]</a><span class="k">class</span> <span class="nc">AdjustableAnnulusCursor</span><span class="p">(</span><span class="n">Cursor</span><span class="p">,</span> <span class="n">AnnulusSliderMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds an interactive point cursor linked to an annular</span>
+<span class="sd">    glyph with adjustable radii.</span>
+
+<span class="sd">    Used to provide interaction where a user specifies an :code:`(x, y)`</span>
+<span class="sd">    position in the figure primary axes, as well as an inner and</span>
+<span class="sd">    outer radius.</span>
+
+<span class="sd">    See :class:`~Cursor` for the remainder of the signature.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_radii : tuple[float, float], optional</span>
+<span class="sd">        Initial radii of the annulus cursor in data units, by default `(10., 15.)`</span>
+<span class="sd">    annulus_kwargs : dict[str, Any], optional</span>
+<span class="sd">        Optional dictionary of :code:`kwargs` which are passed</span>
+<span class="sd">        to the glyph rendering the annulus, i.e. directly to</span>
+<span class="sd">        the Bokeh Glyph, which can be used to set style options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">initial_radii</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">15.</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">annulus_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;annulus_kwargs&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_annulus</span><span class="p">(</span><span class="o">*</span><span class="n">initial_radii</span><span class="p">,</span> <span class="o">**</span><span class="n">annulus_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AdjustableAnnulusCursor.get_radii"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.AdjustableAnnulusCursor.get_radii">[docs]</a>    <span class="k">def</span> <span class="nf">get_radii</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current annulus radii in data units</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[float, float]</span>
+<span class="sd">            The current inner and outer radii in data units</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;circular_annulus&#39;</span></div>
+
+
+<div class="viewcode-block" id="SwitchableCursor"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.SwitchableCursor">[docs]</a><span class="k">class</span> <span class="nc">SwitchableCursor</span><span class="p">(</span><span class="n">Cursor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds an interactive point cursor which can be switched between</span>
+<span class="sd">    point, disk and annulus representations via a selection box.</span>
+
+<span class="sd">    Supports overloading of the selection options so that multiple</span>
+<span class="sd">    point / disk / annulus cursors can be defined with different</span>
+<span class="sd">    names displayed to the user.</span>
+
+<span class="sd">    See :class:`~Cursor` for the remainder of the signature.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    annotation_kwargs : dict[str, Any], optional</span>
+<span class="sd">        Optional dictionary of :code:`kwargs` which are passed</span>
+<span class="sd">        to the glyph rendering the Disk/Annulus, i.e. directly to</span>
+<span class="sd">        the Bokeh Glyph, which can be used to set style options.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;annotation_kwargs&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SwitchableCursor.get_params"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.SwitchableCursor.get_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current cursor parameters</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, Union[str, float]]</span>
+<span class="sd">            Dictionary containing the currently selected cursor :code`mode`</span>
+<span class="sd">            (displayed name) as well as the point position (:code:`&#39;cx&#39;`,</span>
+<span class="sd">            :code:`&#39;cy&#39;`), and any parameters defined on the cursor</span>
+<span class="sd">            (:code:`&#39;r0&#39;`, :code:`&#39;r1&#39;` as appropriate).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_name</span>
+        <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_posxy</span><span class="p">()</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;cx&#39;</span><span class="p">:</span> <span class="n">cx</span><span class="p">,</span> <span class="s1">&#39;cy&#39;</span><span class="p">:</span> <span class="n">cy</span><span class="p">}</span>
+        <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_getter</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_mode</span><span class="p">]())</span>
+        <span class="k">return</span> <span class="n">params</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_select</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor_select</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cursor_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cursor_mode&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cursor_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_select</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_cursor_select</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SwitchableCursor.make_cursor_select"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.SwitchableCursor.make_cursor_select">[docs]</a>    <span class="k">def</span> <span class="nf">make_cursor_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                           <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Cursor type&#39;</span><span class="p">,</span>
+                           <span class="n">mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">],</span>
+                                                    <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;disk&#39;</span><span class="p">],</span>
+                                                    <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;annulus&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="n">value</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                           <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the selection box used for switching the cursor mode. Supports</span>
+<span class="sd">        the :code:`mapping` argument which is used to overload the cursor with</span>
+<span class="sd">        extra modes with custom display names.</span>
+
+<span class="sd">        Automatically sets up callbacks so that the cursor is responsive.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            Label to apply to the selection box, by default &#39;Cursor type&#39;</span>
+<span class="sd">        mapping : dict[str, Union[Literal[&#39;point&#39;], Literal[&#39;disk&#39;], Literal[&#39;annulus&#39;]]], optional</span>
+<span class="sd">            Dictionary mapping from a displayed name for a cursor and</span>
+<span class="sd">            one of :code:`&#39;point&#39;`, :code:`&#39;disk&#39;`, :code:`&#39;annulus&#39;`,</span>
+<span class="sd">            by default None in which case the displayed names are these</span>
+<span class="sd">            strings but capitalized.</span>
+<span class="sd">        value : str, optional</span>
+<span class="sd">            The inital state of the cursor, by default None in which case</span>
+<span class="sd">            the state is the first of the options.</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the Select constructor, can be</span>
+<span class="sd">            used for to set style options.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Select</span>
+<span class="sd">            The selection box for the layout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_constructors</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">o</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">options</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">mapping</span>
+            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_annotation_constructors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name_mapping</span> <span class="o">=</span> <span class="n">mapping</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">options</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_select</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                                     <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+                                     <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cursor_mode&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name_mapping</span><span class="p">[</span><span class="n">value</span><span class="p">]]})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;r0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.</span><span class="p">],</span> <span class="s1">&#39;r1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.</span><span class="p">]})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_select</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_annotation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor_select</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_select</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_annotation_constructors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_point</span><span class="p">,</span>
+                <span class="s1">&#39;disk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_disk</span><span class="p">,</span>
+                <span class="s1">&#39;annulus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_annulus</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_slider_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_point</span><span class="p">,</span>
+                <span class="s1">&#39;disk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_disk</span><span class="p">,</span>
+                <span class="s1">&#39;annulus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_annulus</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_param_getter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params_point</span><span class="p">,</span>
+                <span class="s1">&#39;disk&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params_disk</span><span class="p">,</span>
+                <span class="s1">&#39;annulus&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params_annulus</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">set_annotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;value&#39;</span>
+        <span class="k">if</span> <span class="n">new</span> <span class="o">==</span> <span class="n">old</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">remove_renderer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_constructors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_mode</span><span class="p">]()</span>
+
+    <span class="k">def</span> <span class="nf">_add_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cursor_mode&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">]})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_point</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_set_slider_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_params_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_add_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cursor_mode&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;disk&#39;</span><span class="p">]})</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">100.</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_disk</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_disk</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_annotation_kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_slider_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">r0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_params_disk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;r0&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]}</span>
+
+    <span class="k">def</span> <span class="nf">_add_annulus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;cursor_mode&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;annulus&#39;</span><span class="p">]})</span>
+        <span class="n">r0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;r0&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">100.</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">r1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;r1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">350.</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">r0</span> <span class="o">==</span> <span class="n">r1</span><span class="p">):</span>
+            <span class="n">r0</span> <span class="o">=</span> <span class="mf">0.33</span> <span class="o">*</span> <span class="n">r1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_slider_annulus</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_renderer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_annulus</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_annotation_kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_slider_annulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_params_annulus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;r0&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r0&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s1">&#39;r1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radius_slider</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slider</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SwitchableCursor.make_radius_slider"><a class="viewcode-back" href="../../../reference/display.html#libertem_ui.display.cursor.SwitchableCursor.make_radius_slider">[docs]</a>    <span class="k">def</span> <span class="nf">make_radius_slider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">r0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">max_r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                           <span class="n">min_r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+                           <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Radius&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RangeSlider</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the radius slider used to modify the cursor size. Uses a</span>
+<span class="sd">        two-point RangeSlider to set a lower/upper limit. When in disk or</span>
+<span class="sd">        point mode the limit are appropriate ignored when updating.</span>
+
+<span class="sd">        Automatically sets up callbacks so that the cursor is responsive.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        r0 : float</span>
+<span class="sd">            Inner radius</span>
+<span class="sd">        r1 : float</span>
+<span class="sd">            Outer radius</span>
+<span class="sd">        max_r : float</span>
+<span class="sd">            Maximum radius</span>
+<span class="sd">        min_r : float, optional</span>
+<span class="sd">            Minimum radius, by default 0.01</span>
+<span class="sd">        step : float, optional</span>
+<span class="sd">            Radius step size, by default 0.01</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            Label on the slider, by default &#39;Radius&#39;</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the RangeSlider constructor, can be</span>
+<span class="sd">            used for to set style options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        RangeSlider</span>
+<span class="sd">            The radius range slider for the layout</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slider</span> <span class="o">=</span> <span class="n">AnnulusSliderMixin</span><span class="o">.</span><span class="n">_make_slider</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">max_r</span><span class="p">,</span> <span class="n">min_r</span><span class="o">=</span><span class="n">min_r</span><span class="p">,</span>
+                                                       <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slider</span><span class="o">.</span><span class="n">jscallback</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_radius_js</span><span class="p">(),</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cds&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">})</span>
+        <span class="n">cursor_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor_mode</span>
+        <span class="k">if</span> <span class="n">cursor_mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slider_setup</span><span class="p">[</span><span class="n">cursor_mode</span><span class="p">](</span><span class="n">r0</span><span class="p">,</span> <span class="n">r1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;r0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r0</span><span class="p">],</span> <span class="s1">&#39;r1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r1</span><span class="p">]})</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius_slider</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_radius_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">if (cds.data.cursor_mode[0] == &#39;point&#39;){</span>
+<span class="s1">    return</span>
+<span class="s1">} else if (cds.data.cursor_mode[0] == &#39;disk&#39;){</span>
+<span class="s1">    cds.data.r0.fill(cb_obj.value[1]);</span>
+<span class="s1">    cds.data.r1.fill(cb_obj.value[1]);</span>
+<span class="s1">} else if (cds.data.cursor_mode[0] == &#39;annulus&#39;){</span>
+<span class="s1">    cds.data.r0.fill(cb_obj.value[0]);</span>
+<span class="s1">    cds.data.r1.fill(cb_obj.value[1]);</span>
+<span class="s1">}</span>
+<span class="s1">cds.change.emit();</span>
+<span class="s1">// see https://discourse.bokeh.org/t/synchronizing-columndatasource</span>
+<span class="s1">// -with-bokeh-server-with-when-editing-data-in-js-callbacks/4355/4</span>
+<span class="s1">cds.data = cds.data;</span>
+<span class="s1">cds.properties.data.change.emit();</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">annotation_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="s1">&#39;point&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;disk&#39;</span><span class="p">:</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;annulus&#39;</span><span class="p">:</span> <span class="s1">&#39;circular_annulus&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">annotation_mapping</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_mode</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,919 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aperture.display.vectors &#8212; Aperture 0.0.1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../../../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/ap_logo_textpaths.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../reference/index.html">
+   Python API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/image.html">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/display.html">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/matbryan52/aperture"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/matbryan52/aperture/issues/new?title=Issue%20on%20page%20%2F_modules/aperture/display/vectors.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for aperture.display.vectors</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">CustomJS</span><span class="p">,</span> <span class="n">Slider</span><span class="p">,</span> <span class="n">Select</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">MultiLine</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">import</span> <span class="nn">bokeh.palettes</span> <span class="k">as</span> <span class="nn">bokeh_palettes</span>
+
+<span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.pointset</span> <span class="kn">import</span> <span class="n">PointSet</span>
+
+
+<div class="viewcode-block" id="VectorsOverlay"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.VectorsOverlay">[docs]</a><span class="k">class</span> <span class="nc">VectorsOverlay</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds two lines to the figure at right-angles, with options</span>
+<span class="sd">    to control color and add text labels. Also has functionality</span>
+<span class="sd">    to interactively set the vector angle using a slider.</span>
+
+<span class="sd">    If initialized on a :class:`.PointSet`,</span>
+<span class="sd">    vector origin location will update based on either changes to the</span>
+<span class="sd">    :class:`PointSet` data source, or to the value of the selection box</span>
+<span class="sd">    returned by :meth:`~VectorsOverlay.point_select`.</span>
+
+<span class="sd">    This class currently requires the user to call</span>
+<span class="sd">    :meth:`~VectorsOverlay.setup_callbacks` to configure which</span>
+<span class="sd">    types of interactivity should be created. This should be the subject</span>
+<span class="sd">    of a future refactoring as needed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pointset : PointSet, optional</span>
+<span class="sd">        A :class:`~PointSet` to use as the source for the vector origin,</span>
+<span class="sd">        by default None in which case :code:`pos_xy` must be supplied.</span>
+<span class="sd">    pos_xy : tuple[float, float], optional</span>
+<span class="sd">        Values to use for the vector origin, by default None in which</span>
+<span class="sd">        case :code:`pointset` must be supplied.</span>
+<span class="sd">    length : float, optional</span>
+<span class="sd">        The vector length in data units, by default 100.</span>
+<span class="sd">    colors : tuple[str, str], optional</span>
+<span class="sd">        A 2-tuple of color strings, one for each vector, by default None</span>
+<span class="sd">        in which case colors are red and blue.</span>
+<span class="sd">    labels : tuple[str, str], optional</span>
+<span class="sd">        2-tuple of label strings to applied to the end of each vector,</span>
+<span class="sd">        by default None in which case there are no labels applied.</span>
+<span class="sd">    text_length_mult : float, optional</span>
+<span class="sd">        A multiplier applied to length to defined text label origin,</span>
+<span class="sd">        by default 1.1</span>
+<span class="sd">    initial_idx : int, optional</span>
+<span class="sd">        The initial index in the :code:`pointset` datasource to which to</span>
+<span class="sd">        attach the vector origin, by default 0</span>
+<span class="sd">    initial_angle : float, optional</span>
+<span class="sd">        The inital angle of the vectors in radians, relative to a horizontal-right</span>
+<span class="sd">        origin, by default 0.</span>
+<span class="sd">    labels_kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the :class:`~TextOverlay` constructor,</span>
+<span class="sd">        which can be used to set style options on the labels</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the Bokeh MultiLine constructor, which</span>
+<span class="sd">        can be used to set style options on the vector glyph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rotation_slider</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Slider</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or make the rotation slider to control the vectors</span>
+
+<span class="sd">        If control is desired over the slider params, call</span>
+<span class="sd">        :meth:`~VectorsOverlay.make_rotation_slider` first.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Slider</span>
+<span class="sd">            The rotation slider</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotation_slider</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_rotation_slider</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VectorsOverlay.make_rotation_slider"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.VectorsOverlay.make_rotation_slider">[docs]</a>    <span class="k">def</span> <span class="nf">make_rotation_slider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Angle (rad)&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Slider</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the rotation slider to control the vectors, in radians</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start_angle : float, optional</span>
+<span class="sd">            Set the initial slider angle, by default 0. radians</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            The label to apply to the slider, by default &#39;Angle&#39;</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the Slider constructor,</span>
+<span class="sd">            which can be used to set style options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Slider</span>
+<span class="sd">            The rotation slider</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">start_angle</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_angle</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">start_angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">&lt;</span> <span class="n">start_angle</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rotation_slider</span> <span class="o">=</span> <span class="n">Slider</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="n">start_angle</span><span class="p">,</span>
+                                       <span class="n">start</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+                                       <span class="n">end</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>
+                                       <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation_slider</span></div>
+
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">pos_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.</span><span class="p">,</span>
+                     <span class="n">colors</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">labels</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">text_length_mult</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span>
+                     <span class="n">initial_idx</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                     <span class="n">initial_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span>
+                     <span class="n">labels_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+        <span class="k">if</span> <span class="n">pointset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">pos_xy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;can build VectorsOverlay either from PointSet or fixed position&#39;</span>
+            <span class="n">pos_xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_initial_pos_xy</span><span class="p">(</span><span class="n">pointset</span><span class="p">,</span> <span class="n">initial_idx</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">pos_xy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;can build VectorsOverlay either from &#39;</span>
+                                        <span class="s1">&#39;PointSet or fixed position&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Build vectors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_vectors_init</span><span class="p">(</span><span class="n">pos_xy</span><span class="p">,</span> <span class="n">initial_angle</span><span class="p">,</span> <span class="n">length</span><span class="p">),</span>
+                                     <span class="s1">&#39;line_color&#39;</span><span class="p">:</span> <span class="n">colors</span><span class="p">,</span>
+                                     <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">length</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                                     <span class="s1">&#39;angle&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">initial_angle</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
+                                     <span class="s1">&#39;idx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">initial_idx</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">MultiLine</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span>
+                          <span class="n">ys</span><span class="o">=</span><span class="s2">&quot;ys&quot;</span><span class="p">,</span>
+                          <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span>
+                          <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+        <span class="c1"># Add Text overlay for labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">labels_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">labels_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">)</span>
+            <span class="n">initial_pos_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_init</span><span class="p">(</span><span class="n">pos_xy</span><span class="p">,</span> <span class="n">initial_angle</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span>
+                                                  <span class="n">mult</span><span class="o">=</span><span class="n">text_length_mult</span><span class="p">)</span>
+            <span class="n">initial_pos_text</span> <span class="o">=</span> <span class="p">[(</span><span class="n">initial_pos_text</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">initial_pos_text</span><span class="p">[</span><span class="s1">&#39;ys&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
+                                <span class="p">(</span><span class="n">initial_pos_text</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">initial_pos_text</span><span class="p">[</span><span class="s1">&#39;ys&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">as_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_text_overlay</span><span class="p">(</span><span class="n">pos_xy</span><span class="o">=</span><span class="n">initial_pos_text</span><span class="p">,</span>
+                                                    <span class="n">strings</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                                                    <span class="n">other_data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text_color&#39;</span><span class="p">:</span> <span class="n">colors</span><span class="p">,</span>
+                                                                <span class="s1">&#39;length_mult&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">text_length_mult</span><span class="p">,</span>
+                                                                                <span class="n">text_length_mult</span><span class="p">]},</span>
+                                                    <span class="n">text_color</span><span class="o">=</span><span class="s1">&#39;text_color&#39;</span><span class="p">,</span>
+                                                    <span class="n">text_baseline</span><span class="o">=</span><span class="n">labels_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;text_baseline&#39;</span><span class="p">,</span>
+                                                                                    <span class="s1">&#39;middle&#39;</span><span class="p">),</span>
+                                                    <span class="n">text_align</span><span class="o">=</span><span class="n">labels_kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;text_align&#39;</span><span class="p">,</span>
+                                                                                 <span class="s1">&#39;center&#39;</span><span class="p">),</span>
+                                                    <span class="o">**</span><span class="n">labels_kwargs</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_initial_pos_xy</span><span class="p">(</span><span class="n">pointset</span><span class="p">,</span> <span class="n">initial_idx</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cx&#39;</span><span class="p">][</span><span class="n">initial_idx</span><span class="p">],</span> <span class="n">pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cy&#39;</span><span class="p">][</span><span class="n">initial_idx</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Initialising VectorsOverlay with initial_idx </span><span class="si">{</span><span class="n">initial_idx</span><span class="si">}</span><span class="s1">&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;but PointSet has length </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;cx&quot;</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_vectors_init</span><span class="p">(</span><span class="n">pos_xy</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">mult</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">pos_xy</span>
+        <span class="n">dx0</span><span class="p">,</span> <span class="n">dy0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">mult</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">mult</span>
+        <span class="n">dx1</span><span class="p">,</span> <span class="n">dy1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">mult</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">length</span> <span class="o">*</span> <span class="n">mult</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">cx</span><span class="p">,</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">dx0</span><span class="p">],</span> <span class="p">[</span><span class="n">cx</span><span class="p">,</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">dx1</span><span class="p">]],</span>
+                <span class="s1">&#39;ys&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="n">cy</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">dy0</span><span class="p">],</span> <span class="p">[</span><span class="n">cy</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">dy1</span><span class="p">]]}</span>
+
+<div class="viewcode-block" id="VectorsOverlay.setup_callbacks"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.VectorsOverlay.setup_callbacks">[docs]</a>    <span class="k">def</span> <span class="nf">setup_callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">rotation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">selectable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configure callbacks on the VectorsOverlay depending on requirements</span>
+
+<span class="sd">        Currently the user *must* call this to set up the desired callbacks.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rotation : bool, optional</span>
+<span class="sd">            Add rotation via the slider returned by :meth:`~VectorsOverlay.rotation_slider`,</span>
+<span class="sd">            by default True. If control is desired over the slider creation,</span>
+<span class="sd">            call :meth:`VectorsOverlay.self.make_rotation_slider` first</span>
+<span class="sd">            to set this property.</span>
+<span class="sd">        pointset : Optional[PointSet], optional</span>
+<span class="sd">            Link the vector origin to the supplied :class:`~PointSet`,</span>
+<span class="sd">            by default None in which case the origin is fixed.</span>
+<span class="sd">        selectable : bool, optional</span>
+<span class="sd">            If linking to a :class:`~PointSet` enable selection of the</span>
+<span class="sd">            point to follow by setting selectable to True, by default False.</span>
+<span class="sd">            If set up, use the select box returned by :meth:`~VectorsOverlay.point_select`</span>
+<span class="sd">            to control the vector location.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;vector_source&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;text_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">cds</span>
+            <span class="n">text_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text_cb_js</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text_code</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">pointset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;point_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pointset</span><span class="o">.</span><span class="n">cds</span>
+            <span class="k">if</span> <span class="n">selectable</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_select</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_point_select</span><span class="p">(</span><span class="n">pointset</span><span class="p">)</span>
+                <span class="n">args</span><span class="p">[</span><span class="s1">&#39;point_select&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_select</span>
+
+        <span class="k">if</span> <span class="n">rotation</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;angle_slider&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation_slider</span>
+            <span class="n">rotation_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_cb_rotation_js</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_cb_base_js</span><span class="p">()</span> <span class="o">+</span> <span class="n">text_code</span>
+            <span class="n">callback_rot</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                    <span class="n">code</span><span class="o">=</span><span class="n">rotation_code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotation_slider</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">callback_rot</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pointset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pointset_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_cb_pointset_js</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_cb_base_js</span><span class="p">()</span> <span class="o">+</span> <span class="n">text_code</span>
+            <span class="n">callback_pointset</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                         <span class="n">code</span><span class="o">=</span><span class="n">pointset_code</span><span class="p">)</span>
+            <span class="n">pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">callback_pointset</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">selectable</span><span class="p">:</span>
+                <span class="n">callback_select</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                           <span class="n">code</span><span class="o">=</span><span class="n">pointset_code</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_select</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">callback_select</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="VectorsOverlay.move_centre"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.VectorsOverlay.move_centre">[docs]</a>    <span class="k">def</span> <span class="nf">move_centre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos_xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Moves the centre of the vectors display to pos_xy</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pos_xy : tuple[float, float]</span>
+<span class="sd">            The new coordinates of the vectors origin</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation_slider</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">original_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;length&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_cds_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_init</span><span class="p">(</span><span class="n">pos_xy</span><span class="p">,</span> <span class="n">current_angle</span><span class="p">,</span> <span class="n">original_length</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds_datadict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">new_cds_coords</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">text_mult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;length_mult&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">new_text_cds_coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectors_init</span><span class="p">(</span><span class="n">pos_xy</span><span class="p">,</span>
+                                                     <span class="n">current_angle</span><span class="p">,</span>
+                                                     <span class="n">original_length</span><span class="p">,</span>
+                                                     <span class="n">mult</span><span class="o">=</span><span class="n">text_mult</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">_update_cds_datadict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">new_text_cds_coords</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point_select</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current point selection box, if defined</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Optional[Select]</span>
+<span class="sd">            The selection box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_select</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="VectorsOverlay.get_point_select"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.VectorsOverlay.get_point_select">[docs]</a>    <span class="k">def</span> <span class="nf">get_point_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a selection box on :code:`pointset` and set it as the</span>
+<span class="sd">        selection box for this VectorsOverlay.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pointset : PointSet</span>
+<span class="sd">            The pointset to link to</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the Selec constructor, which</span>
+<span class="sd">            can be used to set style options.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Select</span>
+<span class="sd">            The selection box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_point_select</span> <span class="o">=</span> <span class="n">pointset</span><span class="o">.</span><span class="n">make_point_select</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_select</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_vectors_cb_pointset_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">var point_idx;</span>
+<span class="s1">if (typeof point_select !== &#39;undefined&#39;) {</span>
+<span class="s1">  if (point_source.data.hasOwnProperty(&#39;label&#39;)) {</span>
+<span class="s1">      point_idx = point_source.data.label.findIndex(element =&gt;  element === point_select.value)</span>
+<span class="s1">      if (point_idx == -1) {</span>
+<span class="s1">          point_idx = 0</span>
+<span class="s1">      }</span>
+<span class="s1">  } else {</span>
+<span class="s1">      point_idx = point_select.value;</span>
+<span class="s1">  }</span>
+<span class="s1">} else {</span>
+<span class="s1">  point_idx = vector_source.data.idx[0];</span>
+<span class="s1">}</span>
+<span class="s1">const centre_x = point_source.data.cx[point_idx]</span>
+<span class="s1">const centre_y = point_source.data.cy[point_idx]</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_vectors_cb_rotation_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">const centre_x = vector_source.data.xs[0][0]</span>
+<span class="s1">const centre_y = vector_source.data.ys[0][0]</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_vectors_cb_base_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">var angle;</span>
+<span class="s1">if (typeof angle_slider !== &#39;undefined&#39;) {</span>
+<span class="s1">  angle = angle_slider.value;</span>
+<span class="s1">} else {</span>
+<span class="s1">  angle = vector_source.data.angle[0];</span>
+<span class="s1">}</span>
+
+<span class="s1">const length = vector_source.data.length</span>
+
+<span class="s1">const cos_dir = Math.cos(angle)</span>
+<span class="s1">const sin_dir = Math.sin(angle)</span>
+<span class="s1">const cos_dir_pi2 = Math.cos(angle + Math.PI/2)</span>
+<span class="s1">const sin_dir_pi2 = Math.sin(angle + Math.PI/2)</span>
+
+<span class="s1">vector_source.data.xs = []</span>
+<span class="s1">vector_source.data.ys = []</span>
+<span class="s1">vector_source.data.angle = [angle, angle]</span>
+<span class="s1">vector_source.data.xs.push([centre_x, centre_x + length[0] * cos_dir])</span>
+<span class="s1">vector_source.data.ys.push([centre_y, centre_y + length[0] * sin_dir])</span>
+<span class="s1">vector_source.data.xs.push([centre_x, centre_x + length[1] * cos_dir_pi2])</span>
+<span class="s1">vector_source.data.ys.push([centre_y, centre_y + length[1] * sin_dir_pi2])</span>
+<span class="s1">vector_source.change.emit()</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_text_cb_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+
+<span class="s1">text_source.data.x = []</span>
+<span class="s1">text_source.data.y = []</span>
+<span class="s1">text_source.data.x.push(centre_x + length[0] * text_source.data.length_mult[0] * cos_dir)</span>
+<span class="s1">text_source.data.x.push(centre_x + length[1] * text_source.data.length_mult[1] * cos_dir_pi2)</span>
+<span class="s1">text_source.data.y.push(centre_y + length[0] * text_source.data.length_mult[0] * sin_dir)</span>
+<span class="s1">text_source.data.y.push(centre_y + length[1] * text_source.data.length_mult[1] * sin_dir_pi2)</span>
+<span class="s1">text_source.change.emit()</span>
+<span class="s1">&#39;&#39;&#39;</span></div>
+
+
+<div class="viewcode-block" id="PointSetConnector"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.PointSetConnector">[docs]</a><span class="k">class</span> <span class="nc">PointSetConnector</span><span class="p">(</span><span class="n">GlyphBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a set of lines which connects points in the provided</span>
+<span class="sd">    :class:`.PointSet`</span>
+
+<span class="sd">    Connections can be integer links or pairs of strings if the pointset</span>
+<span class="sd">    has a &#39;labels&#39; column in its data source.</span>
+
+<span class="sd">    The functionality surrounding labels / indexes should be refactored</span>
+<span class="sd">    to ensure safety when handing pointsets which are being updated.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pointset : PointSet</span>
+<span class="sd">        The pointset to link to</span>
+<span class="sd">    connections : list[Union[tuple[int, int], tuple[str, str]]]</span>
+<span class="sd">        Pairs of points to connect within pointset, can be int to int or</span>
+<span class="sd">        str to str, the latter applying when the pointset is labelled</span>
+<span class="sd">    colors : Iterable[str], optional</span>
+<span class="sd">        Colors to use for each line, by default None in which</span>
+<span class="sd">        case a default palette is used</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the Bokeh MultiLine constructor, which</span>
+<span class="sd">        can be used to set style options on glyph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+                     <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span><span class="p">,</span>
+                     <span class="n">connections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+                     <span class="n">colors</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="o">=</span> <span class="n">colors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pointset</span> <span class="o">=</span> <span class="n">pointset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="s1">&#39;connections&#39;</span><span class="p">:</span> <span class="n">connections</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">({</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">current_connections</span><span class="p">)})</span>
+
+        <span class="n">glyph</span> <span class="o">=</span> <span class="n">MultiLine</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="s2">&quot;xs&quot;</span><span class="p">,</span>
+                          <span class="n">ys</span><span class="o">=</span><span class="s2">&quot;ys&quot;</span><span class="p">,</span>
+                          <span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;line_color&#39;</span><span class="p">,</span>
+                          <span class="n">line_width</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;line_width&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">update_lines</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">get_lines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                                                  <span class="bp">self</span><span class="o">.</span><span class="n">current_connections</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pointset</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">update_lines</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">update_lines</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;connections&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">update_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connections</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;connections&#39;</span><span class="p">:</span> <span class="n">connections</span><span class="p">})</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">colors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bokeh_palettes</span><span class="o">.</span><span class="n">Category10_10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_colors</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_pick_point_int</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cx&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cy&#39;</span><span class="p">][</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_pick_idx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="k">return</span> <span class="n">idx</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_pick_label</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">connections</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]):</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_idx</span>
+        <span class="k">if</span> <span class="s1">&#39;label&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c1"># label column must be string</span>
+            <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_label</span>
+
+        <span class="n">pointlists</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;ys&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;line_color&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">),</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
+            <span class="c1"># if start == end:</span>
+            <span class="c1">#     continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">start_idx</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+                <span class="n">start_xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_point_int</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">end_idx</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+                <span class="n">end_xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick_point_int</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">pointlists</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">start_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">end_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="n">pointlists</span><span class="p">[</span><span class="s1">&#39;ys&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">start_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">end_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">pointlists</span><span class="p">[</span><span class="s1">&#39;line_color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pointlists</span>
+
+<div class="viewcode-block" id="PointSetConnector.add_veclabels"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.PointSetConnector.add_veclabels">[docs]</a>    <span class="k">def</span> <span class="nf">add_veclabels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add labels to each connection between points in the centre</span>
+<span class="sd">        of each connecting line</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        labels : list[str], optional</span>
+<span class="sd">            List of labels matching list of connections, by default None</span>
+<span class="sd">            in which case labels must already be defined on the data source</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Optional :code:`kwargs` passed to the :class:`~TextOverlay` constructor,</span>
+<span class="sd">            which can be used to set style options on the labels</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="s1">&#39;label&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">})</span>
+        <span class="n">initial_pos</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">],</span>
+                                                                          <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ys&#39;</span><span class="p">])]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;line_color&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">as_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_text_overlay</span><span class="p">(</span><span class="n">pos_xy</span><span class="o">=</span><span class="n">initial_pos</span><span class="p">,</span>
+                                                   <span class="n">strings</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                                                   <span class="n">other_data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text_color&#39;</span><span class="p">:</span> <span class="n">colors</span><span class="p">},</span>
+                                                   <span class="n">text_color</span><span class="o">=</span><span class="s1">&#39;text_color&#39;</span><span class="p">,</span>
+                                                   <span class="n">text_baseline</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;text_baseline&#39;</span><span class="p">,</span>
+                                                                            <span class="s1">&#39;middle&#39;</span><span class="p">),</span>
+                                                   <span class="n">text_align</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;text_align&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;center&#39;</span><span class="p">),</span>
+                                                   <span class="n">text_font_style</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;text_font_style&#39;</span><span class="p">,</span>
+                                                                              <span class="s1">&#39;bold&#39;</span><span class="p">),</span>
+                                                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">update_labels</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lines_source&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="p">,</span>
+                                       <span class="s1">&#39;text_source&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_text</span><span class="o">.</span><span class="n">cds</span><span class="p">},</span>
+                                 <span class="n">code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_label_update_js</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cds</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">update_labels</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_label_update_js</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">text_source.data.x = lines_source.data.xs.map(xs =&gt; (xs.reduce((a, b) =&gt; a + b, 0) / xs.length));</span>
+<span class="s1">text_source.data.y = lines_source.data.ys.map(xs =&gt; (xs.reduce((a, b) =&gt; a + b, 0) / xs.length));</span>
+<span class="s1">text_source.data.text = lines_source.data.label;</span>
+<span class="s1">text_source.data.text_color = lines_source.data.line_color;</span>
+<span class="s1">text_source.change.emit();</span>
+<span class="s1">&#39;&#39;&#39;</span></div>
+
+
+<div class="viewcode-block" id="SelectLatticeVectors"><a class="viewcode-back" href="../../../reference/display.html#aperture.display.vectors.SelectLatticeVectors">[docs]</a><span class="k">class</span> <span class="nc">SelectLatticeVectors</span><span class="p">(</span><span class="n">PointSetConnector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add `&#39;a&#39;` and `&#39;b&#39;` lattice vectors to a :code:`PointSet`, and set up callbacks</span>
+<span class="sd">    to follow changes to the pointset data source.</span>
+
+<span class="sd">    Points to use are defined by their indices.</span>
+
+<span class="sd">    Creates and supplies selection boxes to change the selected points.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pointset : PointSet</span>
+<span class="sd">        The pointset to follor.</span>
+<span class="sd">    zero : int, optional</span>
+<span class="sd">        The initial index of the zero position, by default 0</span>
+<span class="sd">    a : int, optional</span>
+<span class="sd">        The initial index of the a position, by default 1</span>
+<span class="sd">    b : int, optional</span>
+<span class="sd">        The initial index of the b position, by default 2</span>
+<span class="sd">    **kwargs : dict, optional</span>
+<span class="sd">        Optional :code:`kwargs` passed to the :class:`.PointSet`</span>
+<span class="sd">        constructor, which can be used to set style options</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">build_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">pointset</span><span class="p">:</span> <span class="n">PointSet</span><span class="p">,</span>
+                     <span class="n">zero</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zero_select</span> <span class="o">=</span> <span class="n">pointset</span><span class="o">.</span><span class="n">make_point_select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Zero&#39;</span><span class="p">,</span> <span class="n">init_idx</span><span class="o">=</span><span class="n">zero</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_a_select</span> <span class="o">=</span> <span class="n">pointset</span><span class="o">.</span><span class="n">make_point_select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">init_idx</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_b_select</span> <span class="o">=</span> <span class="n">pointset</span><span class="o">.</span><span class="n">make_point_select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">init_idx</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_figure</span><span class="p">(</span><span class="n">pointset</span><span class="o">=</span><span class="n">pointset</span><span class="p">,</span> <span class="n">connections</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_veclabels</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_select</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_vectors</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_select</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_vectors</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_select</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_vectors</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_select</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a_select</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_select</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b_select</span><span class="o">.</span><span class="n">value</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">update_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_connections</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">zero_select</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the selection box for the zero position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Select</span>
+<span class="sd">            The selection box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zero_select</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">a_select</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the selection box for the a position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Select</span>
+<span class="sd">            The selection box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_a_select</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">b_select</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Select</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the selection box for the b position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Select</span>
+<span class="sd">            The selection box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_b_select</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

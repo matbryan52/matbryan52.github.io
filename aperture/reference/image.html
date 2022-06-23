@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>BokehImage &#8212; Aperture 0.0.1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Figure Elements" href="display.html" />
+    <link rel="prev" title="BokehFigure" href="figure.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/ap_logo_textpaths.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="index.html">
+   Python API reference
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="display.html">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/matbryan52/aperture"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/matbryan52/aperture/issues/new?title=Issue%20on%20page%20%2Freference/image.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/reference/image.rst.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.rst</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>BokehImage</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="module-aperture.display.image">
+<span id="bokehimage"></span><h1>BokehImage<a class="headerlink" href="#module-aperture.display.image" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.image.</span></span><span class="sig-name descname"><span class="pre">BokehImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">xa.DataArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GlyphBase</span></code>, <a class="reference internal" href="#aperture.display.image_mixins.ColorMixin" title="aperture.display.image_mixins.ColorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColorMixin</span></code></a>, <a class="reference internal" href="#aperture.display.image_mixins.AlphaMixin" title="aperture.display.image_mixins.AlphaMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">AlphaMixin</span></code></a>, <a class="reference internal" href="#aperture.display.image_mixins.HoverMixin" title="aperture.display.image_mixins.HoverMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">HoverMixin</span></code></a></p>
+<p>Adds a Bokeh Image glyph to a figure and provides convenience methods on it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xar</strong> (<em>xa.DataArray</em>) – The array to display as the image, which would normally be supplied
+by the constructor <a class="reference internal" href="#aperture.display.image.BokehImage.from_numpy" title="aperture.display.image.BokehImage.from_numpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_numpy()</span></code></a>.</p></li>
+<li><p><strong>fig</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><em>BokehFigure</em></a><em>]</em><em>, </em><em>optional</em>) – The figure on which to place the image, by default None for which
+a figure will be created when first accessed. When constructed via
+the method on BokehFigure, fig will be automatically set.</p></li>
+<li><p><strong>anchor_xy</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – The anchor at which to set the image glyph, by default (0., 0.)
+This is applied in addition to the <code class="code docutils literal notranslate"><span class="pre">cls._px_offset</span></code> attribute
+and allows overlaying a BokehImage onto other glyphs with a non-zero
+origin (otherwise 0,0 is implicit in the class construction).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage._px_offset">
+<span class="sig-name descname"><span class="pre">_px_offset</span></span><a class="headerlink" href="#aperture.display.image.BokehImage._px_offset" title="Permalink to this definition"></a></dt>
+<dd><p>-0.5 by default, used to offset the image origin by a half pixel
+so that the pixels as-displayed are centred on a whole coordinate
+and not anchored at their top-left. Set this to zero to anchor pixels
+at their top-left.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.from_numpy">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><span class="pre">BokehImage</span></a></span></span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.from_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.from_numpy" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a <a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code></a> from a 2-D numpy array</p>
+<p>The internal data structure used is an <code class="code docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>, which is constructed by
+this method before initializing the class. The attributes which can be set
+are used by the class to define, at the present, coordinate systems for
+each array axis and labels (titles, units).</p>
+<p>By default the class sets a pixel-aligned coordinate system for the primary
+axes (<code class="code docutils literal notranslate"><span class="pre">'_y',</span> <span class="pre">'_x'</span></code>), which is used for all annotations defined on the image.
+To specify a secondary, dimensioned coordinate system supply the <code class="code docutils literal notranslate"><span class="pre">dimensions</span></code>
+argument to this class with one of the following formats:</p>
+<p><strong>Dimension specification</strong></p>
+<dl class="simple">
+<dt>dimension[‘name’]<span class="classifier">str, required</span></dt><dd><p>A unique name for the dimension, used in the axis label</p>
+</dd>
+<dt>dimension[‘flipped’]<span class="classifier">bool, optional</span></dt><dd><p>Whether the dimension should be flipped when displayed, False by default</p>
+</dd>
+<dt>dimension[‘unit’]<span class="classifier">str, optional</span></dt><dd><p>A unit label for the dimension, applied to the axis label</p>
+</dd>
+<dt>dimension[…]<span class="classifier">str, float</span></dt><dd><p>See <a class="reference internal" href="#aperture.display.image.BokehImage.build_coord_range" title="aperture.display.image.BokehImage.build_coord_range"><code class="xref py py-meth docutils literal notranslate"><span class="pre">build_coord_range()</span></code></a> for numerical dimension
+specification.</p>
+</dd>
+</dl>
+<p>Similarly certain attributes can be specficied on the array:</p>
+<p><strong>Attribute specification</strong></p>
+<dl class="simple">
+<dt>attrs[‘title’]<span class="classifier">str, optional</span></dt><dd><p>A title for the array</p>
+</dd>
+<dt>attrs[‘array_unit’]<span class="classifier">str, optional</span></dt><dd><p>A unit for the array elements, appended to the title and colorbar</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.ndarray</em>) – A 2-dimensional numpy array</p></li>
+<li><p><strong>dimensions</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Coordinate system definition for each dimension of the array, by default None,
+in which case only the pixel coordinate system is created. If defined
+should be a 2-list of dicts of coordinate attributes as detailed above.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Dict of extra attributes to attach to the image, by default None,
+as detailed above.</p></li>
+<li><p><strong>fig</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><em>BokehFigure</em></a><em>]</em><em>, </em><em>optional</em>) – An existing BokehFigure class to attach to, by default None,
+usually set automatically if constructed by the <code class="code docutils literal notranslate"><span class="pre">BokehFigure.add_image</span></code>
+method.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the BokehImage init</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The image constructed from the array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage">BokehImage</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.from_shape">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype:</span> <span class="pre">~numpy.dtype</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.float32'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor:</span> <span class="pre">callable</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">zeros&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><span class="pre">BokehImage</span></a></span></span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.from_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.from_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Convenience method to construct an <a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code></a> from a shape tuple</p>
+<p>All other kwargs are forwarded to <a class="reference internal" href="#aperture.display.image.BokehImage.from_numpy" title="aperture.display.image.BokehImage.from_numpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_numpy()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Height of the array</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Width of the array</p></li>
+<li><p><strong>dtype</strong> (<em>np.dtype</em><em>, </em><em>optional</em>) – Dtype of the constructed array, by default np.float32</p></li>
+<li><p><strong>constructor</strong> (<em>callable</em><em>, </em><em>optional</em>) – Cosntructor for the array, by default np.zeros</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The image constructed from the array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage">BokehImage</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.build_coord_range">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build_coord_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dimension_def</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/typing.html#typing.Any" title="(in Python v3.7)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_el</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.build_coord_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.build_coord_range" title="Permalink to this definition"></a></dt>
+<dd><p>Create a sequence of coordinate values for a dimension of an array
+<code class="code docutils literal notranslate"><span class="pre">dimension_def</span></code> can have one of two specifications.</p>
+<p>This function is not intended to be called by the user,
+but is documented to support the constructor <code class="xref py py-meth docutils literal notranslate"><span class="pre">from_numpy()</span></code></p>
+<p><strong>Spec 1</strong></p>
+<dl class="simple">
+<dt>dimension_def[‘px_size’], float</dt><dd><p>The step size per pixel</p>
+</dd>
+<dt>dimension_def[‘origin’], float, optional, default is 0.</dt><dd><p>The origin of the coordinate sequence</p>
+</dd>
+</dl>
+<p><strong>Spec 2</strong></p>
+<dl class="simple">
+<dt>dimension_def[‘lower’], float</dt><dd><p>The inclusive lower bound of the coordinate sequence</p>
+</dd>
+<dt>dimension_def[‘upper’], float</dt><dd><p>The inclusive upper bound of the coordinate sequence</p>
+</dd>
+</dl>
+<p>A further optional paramter is <code class="code docutils literal notranslate"><span class="pre">dimension_def['dtype']</span></code>, default
+<code class="code docutils literal notranslate"><span class="pre">np.float32</span></code> which specifies the dtype of the coordinate
+system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension_def</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – A dimension def dictionary, described above</p></li>
+<li><p><strong>num_el</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of elements along this axis of the array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sequence of coordinate values defined by <code class="code docutils literal notranslate"><span class="pre">dimension_def</span></code>
+for a dimension of length <code class="code docutils literal notranslate"><span class="pre">num_el</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.raw_image">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">xa.DataArray</span></em><a class="headerlink" href="#aperture.display.image.BokehImage.raw_image" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current image displayed by the glyph
+before any conversions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The current raw form of the displayed image</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>xa.DataArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.update_raw_image">
+<span class="sig-name descname"><span class="pre">update_raw_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_clims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.update_raw_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.update_raw_image" title="Permalink to this definition"></a></dt>
+<dd><p>Update the current displayed image with the supplied array</p>
+<p>This is the user-facing endpoint for triggering image updates</p>
+<p>The supplied array must have the same shape as the array
+on which the class was initialized. If a change of shape is desired
+the user can try the <a class="reference internal" href="#aperture.display.image.BokehImage.raw_image" title="aperture.display.image.BokehImage.raw_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">raw_image()</span></code></a> setter, but this
+is generally unsupported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.ndarray</em>) – The array to update with</p></li>
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Set true to force an update to the plot even if the updates
+are being rate limited, otherwise, by default False</p></li>
+<li><p><strong>maxrate</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The maximum number of times per-second to update, by default 5.
+If this method is called faster than this then the internal data
+of the image is updated but updates are not pushed to the browser.
+Call <a class="reference internal" href="#aperture.display.image.BokehImage.refresh_display" title="aperture.display.image.BokehImage.refresh_display"><code class="xref py py-meth docutils literal notranslate"><span class="pre">refresh_display()</span></code></a> after fast updating
+in order to ensure the browser version is up-to-date.</p></li>
+<li><p><strong>fix_clims</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – Fix the image color limits when updating, by default False.
+Can either be a boolean True, in which case the previous color
+limits are maintained, or a 2-tuple of floats which are used
+to force a particular color limits.
+This is mainly interesting when the update rate is expected to be
+high, as it prevents the need to calculate the limits and push
+updates to the browser (which then has to do the mapping).
+Again call <a class="reference internal" href="#aperture.display.image.BokehImage.refresh_display" title="aperture.display.image.BokehImage.refresh_display"><code class="xref py py-meth docutils literal notranslate"><span class="pre">refresh_display()</span></code></a> to ensure
+everything is in sync after fast updating.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.refresh_display">
+<span class="sig-name descname"><span class="pre">refresh_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.refresh_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.refresh_display" title="Permalink to this definition"></a></dt>
+<dd><p>Call to ensure browser version of image is in sync
+with the version stored on this Class</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.add_dimensioned_axes">
+<span class="sig-name descname"><span class="pre">add_dimensioned_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hor_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'above'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ver_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'right'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.add_dimensioned_axes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.add_dimensioned_axes" title="Permalink to this definition"></a></dt>
+<dd><p>Add dimensioned secondary axes to the figure using the coordinate
+system defintion passed to the constructor <a class="reference internal" href="#aperture.display.image.BokehImage.from_numpy" title="aperture.display.image.BokehImage.from_numpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_numpy()</span></code></a>.</p>
+<p>The two position arguments are both Bokeh position spec strings.</p>
+<p>Will do nothing if no coordinate system was defined at construction time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hor_pos</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Position to add the horizontal axis, by default ‘above’</p></li>
+<li><p><strong>ver_pos</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Position to add the vertical axis, by default ‘right’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.setup_figure">
+<span class="sig-name descname"><span class="pre">setup_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_aspect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.setup_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.setup_figure" title="Permalink to this definition"></a></dt>
+<dd><p>Set the <code class="code docutils literal notranslate"><span class="pre">BokehFigure</span></code> to have appropriate axes and
+dimensions for the <cite>BokehImage</cite> object, notably inverting the
+y-axis and setting a specific data aspect. Generally this
+should only be called one per <cite>BokehFigure</cite>, and should raise an error
+if done multiple times.</p>
+<p>When constructing this class via the <cite>BokehFigure.add_image</cite> method
+the <code class="code docutils literal notranslate"><span class="pre">setup_figure</span></code> method is automatically called if it is the first
+time an image has been added to this figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_aspect</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Aspect ratio of the data as drawn, by default 1 in which case
+pixels will be square.</p></li>
+<li><p><strong>frame_width</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Forwarded to <code class="xref py py-meth docutils literal notranslate"><span class="pre">BokehFigure.set_frame_aspect()</span></code>, by default None</p></li>
+<li><p><strong>frame_height</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Forwarded to <code class="xref py py-meth docutils literal notranslate"><span class="pre">BokehFigure.set_frame_aspect()</span></code>, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.set_axis_labels">
+<span class="sig-name descname"><span class="pre">set_axis_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.set_axis_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.set_axis_labels" title="Permalink to this definition"></a></dt>
+<dd><p>Set primary axis labels on the figure</p>
+<p>The values are by default x (px) / y (px) but can be overridden here</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – x-axis label, by default None</p></li>
+<li><p><strong>y</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – y-axis label, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.set_title">
+<span class="sig-name descname"><span class="pre">set_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.set_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.set_title" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the figure title. If title is not supplied
+the title is created from the <code class="code docutils literal notranslate"><span class="pre">attrs['title']</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">attrs['array_unit']</span></code> attributes on the
+underlying array, which were supplied to the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>title</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – The title to set, by default None in which case
+the title is inferred from the array attributes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.centre_anchor">
+<span class="sig-name descname"><span class="pre">centre_anchor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refresh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.centre_anchor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.centre_anchor" title="Permalink to this definition"></a></dt>
+<dd><p>Shifts the image anchor to place the image with (0, 0)
+in axis units in the centre of the glyph
+Essentially nullifies cls._px_offset to do this
+with consistent behaviour on odd/even dimensions</p>
+<p>Does not currently update the the axes ranges!!!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image.BokehImage.current_centre_xy">
+<span class="sig-name descname"><span class="pre">current_centre_xy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/image.html#BokehImage.current_centre_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image.BokehImage.current_centre_xy" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current centre of the image glyph,
+taking the anchor offset into account</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the current centre of the image glyph</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>, <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aperture.display.image_datashaded"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.image_datashaded.BokehImageDatashaded">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.image_datashaded.</span></span><span class="sig-name descname"><span class="pre">BokehImageDatashaded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">xa.DataArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="figure.html#aperture.display.figure.BokehFigure" title="aperture.display.figure.BokehFigure"><span class="pre">BokehFigure</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0)</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_datashaded.html#BokehImageDatashaded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_datashaded.BokehImageDatashaded" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code></a></p>
+<p>A subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code> which automatically
+datashades (downsamples) large images and responsively
+refreshes the view as the user zooms in/out.</p>
+<p>Uses the <a class="reference external" href="https://datashader.org/">datashader library</a>.</p>
+<p>No specific parameters are required to use this class,
+though its’ use can be enabled/disabled when constructing
+the <code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code> using <code class="xref py py-meth docutils literal notranslate"><span class="pre">BokehFigure.add_image()</span></code>
+(see the signature of this method for information).</p>
+<p>There are two class attributes to control global behaviour:</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aperture.display.image_datashaded.BokehImageDatashaded._datashade_threshold">
+<span class="sig-name descname"><span class="pre">_datashade_threshold</span></span><a class="headerlink" href="#aperture.display.image_datashaded.BokehImageDatashaded._datashade_threshold" title="Permalink to this definition"></a></dt>
+<dd><p>Threshold size in bytes below which datashading will
+be disabled, even if this class is used. The size is
+chosen so as to not datashade a 1k x 1k np.float32 image
+which corresponds to 4 MB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a>, default 1.05 * (4 * 1024**2)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="aperture.display.image_datashaded.BokehImageDatashaded._datashade_method">
+<span class="sig-name descname"><span class="pre">_datashade_method</span></span><a class="headerlink" href="#aperture.display.image_datashaded.BokehImageDatashaded._datashade_method" title="Permalink to this definition"></a></dt>
+<dd><p>Method used when downsampling, supported modes are
+<code class="code docutils literal notranslate"><span class="pre">'nearest'</span></code> and <code class="code docutils literal notranslate"><span class="pre">'linear'</span></code>. This is a limitation
+of the datashader library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>, default ‘nearest’</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-aperture.display.image_mixins"></span><dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.image_mixins.</span></span><span class="sig-name descname"><span class="pre">ColorMixin</span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin to <code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code> providing colormap
+and color bar-related functionalites</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.add_colorbar">
+<span class="sig-name descname"><span class="pre">add_colorbar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.add_colorbar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.add_colorbar" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a colorbar to the image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – A title/label to add to the colorbar, by default None,
+in which case the image array attributes are checked for
+an ‘array_unit’ which will be used if present</p></li>
+<li><p><strong>palette</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – A Bokeh color palette string, by default None in which
+case a default palette will be used (greyscale)</p></li>
+<li><p><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A Bokeh location specification string, by default ‘auto’</p></li>
+<li><p><strong>dimension</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – The width/height of the colorscale (depending on orientation),
+by default 25 pixels. Sets the narrow dimension as appropriate.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Bokeh ColorBar constructor, which
+can be used to set style and other options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.link_colormap">
+<span class="sig-name descname"><span class="pre">link_colormap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bkim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><span class="pre">BokehImage</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.link_colormap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.link_colormap" title="Permalink to this definition"></a></dt>
+<dd><p>Links the colormap of this image to that of another image</p>
+<p>Configures callbacks such that only wigets on the parent image
+bkim will control the colormap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bkim</strong> (<a class="reference internal" href="#aperture.display.image.BokehImage" title="aperture.display.image.BokehImage"><em>BokehImage</em></a>) – The other image with a colormap/bar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.get_cbar_select">
+<span class="sig-name descname"><span class="pre">get_cbar_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Colormap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pn.widgets.Select</span></span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.get_cbar_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.get_cbar_select" title="Permalink to this definition"></a></dt>
+<dd><p>Create a select box to change the image colormap interactively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A label to apply on the box, by default ‘Colormap’</p></li>
+<li><p><strong>default</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>options</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Select constructor, which
+can be used to set style and other options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The select box with callbacks registered</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pn.widgets.Select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.set_max_clim_manual">
+<span class="sig-name descname"><span class="pre">set_max_clim_manual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">high</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.set_max_clim_manual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.set_max_clim_manual" title="Permalink to this definition"></a></dt>
+<dd><p>Force a particular low/high limit for the colormapper
+To maintain this over updates to the displayed image
+supply fix_clims=True when calling .update_raw_image</p>
+<p>Updates both the colormap and the colormap slider, if present,
+with the new lower/upper values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>low</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Low-limit for the colormap</p></li>
+<li><p><strong>high</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – High-limit for the colormap</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.cbar_slider">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cbar_slider</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">RangeSlider</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></em><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.cbar_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the current colormap slider, if initialized</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Slider if present, else None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[RangeSlider]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.get_cbar_slider">
+<span class="sig-name descname"><span class="pre">get_cbar_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Colormap</span> <span class="pre">range'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RangeSlider</span></span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.get_cbar_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.get_cbar_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Create a two-handled RangeSlider used to interactively modify
+the colormapper lower/upper limits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A label to apply to the slider, by default ‘Colormap range’</p></li>
+<li><p><strong>fixed_range</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – Explicit initial range for the slider, by default None, in which
+case the current image min/max will be used.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the RangeSlider constructor, which
+can be used to set style and other options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The colormap slider with callbacks registered.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>RangeSlider</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.set_color_mapper">
+<span class="sig-name descname"><span class="pre">set_color_mapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">palette</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ColorMapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#bool" title="(in Python v3.7)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#ColorMixin.set_color_mapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.set_color_mapper" title="Permalink to this definition"></a></dt>
+<dd><p>Set the colormap for the image. Can supply either a palette
+name, in which case a linear colormapper will be created, or an
+already initialized Bokeh ColorMapper which will be linked
+to the image and colorbar, if present.</p>
+<p>Must test how this behaves wrt. callbacks if this is called
+after the sliders/selectors have been initialized!!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>palette</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – A colormap palette name, by default None, in which case a default
+palette will be used.</p></li>
+<li><p><strong>mapper</strong> (<em>ColorMapper</em><em>, </em><em>optional</em>) – A bokeh ColorMapper sub-class, by default None, overrides palette
+if both arguments are suppled.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.ColorMixin.color_mapper">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">color_mapper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ColorMapper</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></em><a class="headerlink" href="#aperture.display.image_mixins.ColorMixin.color_mapper" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current image ColorMapper, if initialized</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The colormapper or None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Optional[ColorMapper]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.HoverMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.image_mixins.</span></span><span class="sig-name descname"><span class="pre">HoverMixin</span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#HoverMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.HoverMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin to <code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code> providing hover
+tool-related functionalites</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.HoverMixin.add_hover">
+<span class="sig-name descname"><span class="pre">add_hover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#HoverMixin.add_hover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.HoverMixin.add_hover" title="Permalink to this definition"></a></dt>
+<dd><p>Adds a hover tool which can be used to inspect pixel values
+and coordinates in the image array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed directly to the Bokeh HoverTool
+constructor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.HoverMixin._hover_tooltips">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_hover_tooltips</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#HoverMixin._hover_tooltips"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.HoverMixin._hover_tooltips" title="Permalink to this definition"></a></dt>
+<dd><p>The Bokeh hover tooltip spec that the tool will display</p>
+<p>Override this method to change the spec.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The hover spec</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#list" title="(in Python v3.7)">list</a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>, <a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.AlphaMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aperture.display.image_mixins.</span></span><span class="sig-name descname"><span class="pre">AlphaMixin</span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#AlphaMixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.AlphaMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.7/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Mixin to <code class="xref py py-class docutils literal notranslate"><span class="pre">BokehImage</span></code> providing alpha
+channel-related functionalites</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.AlphaMixin.set_alpha">
+<span class="sig-name descname"><span class="pre">set_alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#AlphaMixin.set_alpha"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.AlphaMixin.set_alpha" title="Permalink to this definition"></a></dt>
+<dd><p>Set the image glpyh alpha value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Alpha value between 0. and 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.AlphaMixin.current_alpha">
+<span class="sig-name descname"><span class="pre">current_alpha</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#AlphaMixin.current_alpha"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.AlphaMixin.current_alpha" title="Permalink to this definition"></a></dt>
+<dd><p>Get the current image glyph alpha value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The alpha value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aperture.display.image_mixins.AlphaMixin.get_alpha_slider">
+<span class="sig-name descname"><span class="pre">get_alpha_slider</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.7/library/constants.html#None" title="(in Python v3.7)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Alpha'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Slider</span></span></span><a class="reference internal" href="../_modules/aperture/display/image_mixins.html#AlphaMixin.get_alpha_slider"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aperture.display.image_mixins.AlphaMixin.get_alpha_slider" title="Permalink to this definition"></a></dt>
+<dd><p>Get a slider allowing setting the image alpha value interactively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3.7/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>]</em><em>, </em><em>optional</em>) – An initial alpha value, by default None in which case 1.0</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – A label to apply  to the slider, by default ‘Alpha’</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.7/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Optional <code class="code docutils literal notranslate"><span class="pre">kwargs</span></code> passed to the Slider constructor, which
+can be used to set style and other options.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The alpha slider</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Slider</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="figure.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">BokehFigure</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="display.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Figure Elements</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,5 @@
+Layout tools
+------------
+
+.. automodule:: aperture.layouts.auto
+   :members:

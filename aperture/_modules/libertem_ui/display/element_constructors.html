@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.display.element_constructors &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.display.element_constructors</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.display.element_constructors</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">BokehImage</span>
+<span class="kn">from</span> <span class="nn">.image_datashaded</span> <span class="kn">import</span> <span class="n">BokehImageDatashaded</span>
+<span class="kn">from</span> <span class="nn">.cursor</span> <span class="kn">import</span> <span class="n">Cursor</span><span class="p">,</span> <span class="n">AdjustableDiskCursor</span><span class="p">,</span> <span class="n">AdjustableAnnulusCursor</span><span class="p">,</span> <span class="n">SwitchableCursor</span>
+<span class="kn">from</span> <span class="nn">.vectors</span> <span class="kn">import</span> <span class="n">VectorsOverlay</span><span class="p">,</span> <span class="n">PointSetConnector</span><span class="p">,</span> <span class="n">SelectLatticeVectors</span>
+<span class="kn">from</span> <span class="nn">.pointset</span> <span class="kn">import</span> <span class="n">PointSet</span><span class="p">,</span> <span class="n">AdjustableDiskSet</span><span class="p">,</span> <span class="n">AdjustableAnnulusSet</span>
+<span class="kn">from</span> <span class="nn">.pointset</span> <span class="kn">import</span> <span class="n">DiskSet</span><span class="p">,</span> <span class="n">AnnulusSet</span><span class="p">,</span> <span class="n">EditableDiskSet</span>
+<span class="kn">from</span> <span class="nn">.draw</span> <span class="kn">import</span> <span class="n">Rectangles</span><span class="p">,</span> <span class="n">Lines</span><span class="p">,</span> <span class="n">Polygons</span><span class="p">,</span> <span class="n">FreePointAdd</span><span class="p">,</span> <span class="n">FreeDrawCallback</span>
+<span class="kn">from</span> <span class="nn">.curves</span> <span class="kn">import</span> <span class="n">MultiCurve</span><span class="p">,</span> <span class="n">SingleCurve</span>
+<span class="kn">from</span> <span class="nn">.text</span> <span class="kn">import</span> <span class="n">TextOverlay</span>
+<span class="kn">from</span> <span class="nn">.span</span> <span class="kn">import</span> <span class="n">MultiSpan</span><span class="p">,</span> <span class="n">DualEditSpan</span>
+<span class="kn">from</span> <span class="nn">.draggable_image</span> <span class="kn">import</span> <span class="n">DraggableImage</span>
+<span class="kn">from</span> <span class="nn">.multi_image</span> <span class="kn">import</span> <span class="n">MultiImage</span><span class="p">,</span> <span class="n">MultiImageDatashaded</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.figure</span> <span class="kn">import</span> <span class="n">BokehFigure</span>
+
+
+<div class="viewcode-block" id="ElementConstructorMixin"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin">[docs]</a><span class="k">class</span> <span class="nc">ElementConstructorMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides constructor methods for elements on a :class:`BokehFigure`</span>
+
+<span class="sd">    These should be the main user-facing endpoints for adding elements</span>
+
+<span class="sd">    By default, :code:`*args, **kwargs` are passed to the constructor</span>
+<span class="sd">    of the associated element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ElementConstructorMixin.add_image"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_image">[docs]</a>    <span class="k">def</span> <span class="nf">add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                  <span class="n">autosetup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                  <span class="n">datashade</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                  <span class="n">data_aspect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+                  <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BokehImage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct a :class:`.image.BokehImage` on the figure</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        autosetup : bool, optional</span>
+<span class="sd">            Set if the figure should be configured as an image,</span>
+<span class="sd">            by default True, notably changing the y-axis orientation</span>
+<span class="sd">            and setting the data aspect</span>
+<span class="sd">        datashade : bool, optional</span>
+<span class="sd">            Whether to allow the image to be datashaded, by default True</span>
+<span class="sd">        data_aspect : float, optional</span>
+<span class="sd">            The intial data aspect ratio, by default 1.</span>
+<span class="sd">        frame_height : int, optional</span>
+<span class="sd">            The initial frame height, by default None</span>
+<span class="sd">        frame_width : int, optional</span>
+<span class="sd">            The initial frame width, by default None</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments which are passed directly to</span>
+<span class="sd">            the :meth:`~BokehImage.build_figure` method</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        BokehImage</span>
+<span class="sd">            The constructed image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">BokehImageDatashaded</span> <span class="k">if</span> <span class="n">datashade</span> <span class="k">else</span> <span class="n">BokehImage</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                               <span class="n">autosetup</span><span class="o">=</span><span class="n">autosetup</span><span class="p">,</span>
+                               <span class="n">data_aspect</span><span class="o">=</span><span class="n">data_aspect</span><span class="p">,</span>
+                               <span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span>
+                               <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">,</span>
+                               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_image</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                   <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">BokehImage</span><span class="p">],</span>
+                   <span class="n">autosetup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                   <span class="n">data_aspect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+                   <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BokehImage</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;array&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;height&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="s1">&#39;width&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_shape</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;array_dict&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;array_stack&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_stack</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;callbacks_dict&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_callbacks</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Unrecognized image constructor args&#39;</span><span class="p">)</span>
+        <span class="c1"># We do auto-setup for the first image created on this Figure</span>
+        <span class="c1"># Don&#39;t want this for subsequent images as it sets axis ranges/labels etc.</span>
+        <span class="k">if</span> <span class="n">autosetup</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_image_fig</span><span class="p">:</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">setup_figure</span><span class="p">(</span><span class="n">data_aspect</span><span class="o">=</span><span class="n">data_aspect</span><span class="p">,</span>
+                             <span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span>
+                             <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_image_fig</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">img</span>
+
+    <span class="k">def</span> <span class="nf">_add_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Cursor</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+        <span class="n">tool_label</span> <span class="o">=</span> <span class="n">Cursor</span><span class="o">.</span><span class="n">tool_label</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">allow_edit</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="n">Cursor</span><span class="o">.</span><span class="n">make_cursor_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cursor</span>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_cursor"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">add_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.Cursor` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_cursor</span><span class="p">(</span><span class="n">Cursor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_disk_cursor"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_disk_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">add_disk_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdjustableDiskCursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.AdjustableDiskCursor` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_cursor</span><span class="p">(</span><span class="n">AdjustableDiskCursor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_annulus_cursor"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_annulus_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">add_annulus_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdjustableAnnulusCursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.AdjustableAnnulusCursor` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_cursor</span><span class="p">(</span><span class="n">AdjustableAnnulusCursor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_switchable_cursor"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_switchable_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">add_switchable_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SwitchableCursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.SwitchableCursor` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_cursor</span><span class="p">(</span><span class="n">SwitchableCursor</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_vectors_overlay"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_vectors_overlay">[docs]</a>    <span class="k">def</span> <span class="nf">add_vectors_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">VectorsOverlay</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.VectorsOverlay` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">VectorsOverlay</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_text_overlay"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_text_overlay">[docs]</a>    <span class="k">def</span> <span class="nf">add_text_overlay</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TextOverlay</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.TextOverlay` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TextOverlay</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_pointset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">PointSet</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">pointset</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">allow_edit</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">pointset</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+            <span class="n">tool_label</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">tool_label</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">make_point_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+            <span class="n">pointset</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">pointset</span>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_pointset"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_pointset">[docs]</a>    <span class="k">def</span> <span class="nf">add_pointset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PointSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.PointSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">PointSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_adjustable_diskset"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_adjustable_diskset">[docs]</a>    <span class="k">def</span> <span class="nf">add_adjustable_diskset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdjustableDiskSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.AdjustableDiskSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">AdjustableDiskSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_adjustable_annulusset"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_adjustable_annulusset">[docs]</a>    <span class="k">def</span> <span class="nf">add_adjustable_annulusset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AdjustableAnnulusSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.AdjustableAnnulusSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">AdjustableAnnulusSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_diskset"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_diskset">[docs]</a>    <span class="k">def</span> <span class="nf">add_diskset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DiskSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.DiskSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">DiskSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_annulusset"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_annulusset">[docs]</a>    <span class="k">def</span> <span class="nf">add_annulusset</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnnulusSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.AnnulusSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">AnnulusSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_editable_disks"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_editable_disks">[docs]</a>    <span class="k">def</span> <span class="nf">add_editable_disks</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EditableDiskSet</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.EditableDiskSet` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;allow_edit&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot have EditableDiskSet with allow_edit = False&#39;</span><span class="p">)</span>
+        <span class="n">editable_pointset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_pointset</span><span class="p">(</span><span class="n">EditableDiskSet</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">editable_pointset</span><span class="p">,</span>
+                                       <span class="n">filter_glyphs</span><span class="o">=</span><span class="n">editable_pointset</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+        <span class="n">tool_label</span> <span class="o">=</span> <span class="n">editable_pointset</span><span class="o">.</span><span class="n">select_tool_name</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">editable_pointset</span><span class="o">.</span><span class="n">make_select_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">editable_pointset</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_connector"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_connector">[docs]</a>    <span class="k">def</span> <span class="nf">add_connector</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PointSetConnector</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.PointSetConnector` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PointSetConnector</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_lattice_select"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_lattice_select">[docs]</a>    <span class="k">def</span> <span class="nf">add_lattice_select</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SelectLatticeVectors</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.SelectLatticeVectors` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SelectLatticeVectors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_rectangles"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_rectangles">[docs]</a>    <span class="k">def</span> <span class="nf">add_rectangles</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Rectangles</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.Rectangles` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">boxes</span> <span class="o">=</span> <span class="n">Rectangles</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">allow_edit</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="n">Rectangles</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+            <span class="n">tool_label</span> <span class="o">=</span> <span class="n">Rectangles</span><span class="o">.</span><span class="n">tool_label</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tool</span> <span class="o">=</span> <span class="n">Rectangles</span><span class="o">.</span><span class="n">make_rectangle_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+            <span class="n">boxes</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">boxes</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_multi_curve"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_multi_curve">[docs]</a>    <span class="k">def</span> <span class="nf">add_multi_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiCurve</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.MultiCurve` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MultiCurve</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_curve"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_curve">[docs]</a>    <span class="k">def</span> <span class="nf">add_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SingleCurve</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a :class:`.SingleCurve` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SingleCurve</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_multi_pointset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">allow_edit</span><span class="p">:</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+            <span class="n">tool_labels</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">tool_labels</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">tool_label</span> <span class="ow">in</span> <span class="n">tool_labels</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_renderers_to_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">renderers</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tool</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">tool_mapping</span><span class="p">[</span><span class="n">tool_label</span><span class="p">](</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+            <span class="n">element</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">element</span>
+
+    <span class="k">def</span> <span class="nf">add_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lines</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_multi_pointset</span><span class="p">(</span><span class="n">Lines</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_polygons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polygons</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_multi_pointset</span><span class="p">(</span><span class="n">Polygons</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_free_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">allow_edit</span><span class="p">,</span> <span class="s1">&#39;Edit-only tool&#39;</span>
+        <span class="k">assert</span> <span class="s1">&#39;pointset&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span>
+        <span class="n">free_draw</span> <span class="o">=</span> <span class="n">FreePointAdd</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">free_draw</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="n">free_draw</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+        <span class="n">tool_label</span> <span class="o">=</span> <span class="n">free_draw</span><span class="o">.</span><span class="n">tool_label</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Only one free point add currently supported&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">free_draw</span><span class="o">.</span><span class="n">make_freeadd_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="n">free_draw</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">free_draw</span>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_span"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_span">[docs]</a>    <span class="k">def</span> <span class="nf">add_span</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiSpan</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.MultiSpan` object to the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MultiSpan</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_edit_span"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_edit_span">[docs]</a>    <span class="k">def</span> <span class="nf">add_edit_span</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DualEditSpan</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.DualEditSpan` object to the figure</span>
+
+<span class="sd">        Allows interactively selecting a 1D range along an axis with visual feedback</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">allow_edit</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="n">DualEditSpan</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">tool_label</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">tool_name</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Only one editable span allowed per dimension!&#39;</span><span class="p">)</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">span</span><span class="o">.</span><span class="n">make_span_tool</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="n">span</span><span class="o">.</span><span class="n">setup_callback</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">span</span></div>
+
+<div class="viewcode-block" id="ElementConstructorMixin.add_draggable_image"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.element_constructors.ElementConstructorMixin.add_draggable_image">[docs]</a>    <span class="k">def</span> <span class="nf">add_draggable_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DraggableImage</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an :class:`.DraggableImage` object to the figure</span>
+
+<span class="sd">        Allows interactively moving an image overlay around the axes using the rectangles tool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">allow_edit</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_image</span><span class="p">(</span><span class="n">DraggableImage</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">add_multi_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datashade</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultiImage</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">MultiImageDatashaded</span> <span class="k">if</span> <span class="n">datashade</span> <span class="k">else</span> <span class="n">MultiImage</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_image</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_free_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">allow_edit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FreeDrawCallback</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">allow_edit</span><span class="p">,</span> <span class="s1">&#39;Edit-only tool&#39;</span>
+        <span class="k">assert</span> <span class="s1">&#39;callback&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span>
+        <span class="n">free_cb</span> <span class="o">=</span> <span class="n">FreeDrawCallback</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="n">allow_edit</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">free_cb</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="n">free_cb</span><span class="o">.</span><span class="n">editable_glyphs</span><span class="p">())</span>
+        <span class="n">tool_label</span> <span class="o">=</span> <span class="n">free_cb</span><span class="o">.</span><span class="n">tool_label</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Only one free point add currently supported&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tool</span> <span class="o">=</span> <span class="n">free_cb</span><span class="o">.</span><span class="n">make_free_tool</span><span class="p">(</span><span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_tool</span><span class="p">(</span><span class="n">tool_label</span><span class="p">,</span> <span class="n">tool</span><span class="p">)</span>
+        <span class="n">free_cb</span><span class="o">.</span><span class="n">add_autofill</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">free_cb</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.session &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.session</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.session</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
+
+<span class="kn">from</span> <span class="nn">.backend_defs</span> <span class="kn">import</span> <span class="n">backend_defs</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">random_hash</span>
+<span class="kn">from</span> <span class="nn">.applications</span> <span class="kn">import</span> <span class="n">available_applications</span>
+<span class="kn">from</span> <span class="nn">.applications.window</span> <span class="kn">import</span> <span class="n">Window</span>
+
+<span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;stretch_width&#39;</span><span class="p">)</span>
+
+<span class="c1"># This line is required to allow Sphinx to correctly parse the docstring</span>
+<span class="c1"># of a param.Parameterized child without adding the params docstrings</span>
+<span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">docstring_signature</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.libertem_config</span> <span class="kn">import</span> <span class="n">LiberTEMMixin</span>
+
+
+<div class="viewcode-block" id="PanelInterface"><a class="viewcode-back" href="../../reference/session.html#libertem_ui.session.PanelInterface">[docs]</a><span class="k">class</span> <span class="nc">PanelInterface</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin handling the Panel application aspects of the UI</span>
+<span class="sd">    in particular the creation and management of :code:`Window`</span>
+<span class="sd">    objects.</span>
+
+<span class="sd">    Constructs the main application using a Panel template</span>
+<span class="sd">    and is responsible for switching the contents of</span>
+<span class="sd">    main / sidebar / modal when Windows are loaded/unloaded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">error_trigger</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panel_spec</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span> <span class="o">=</span> <span class="n">panel_spec</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_window</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span> <span class="o">=</span> <span class="s1">&#39;home&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options_callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_triggers</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Unique bokeh session id linked to this Session to</span>
+            <span class="c1"># make the user session re-connectable</span>
+            <span class="c1"># This will not work well in a multi-user single-server</span>
+            <span class="c1"># context but for now that&#39;s not the goal, this can</span>
+            <span class="c1"># be later solved with proper auth hooks</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;?bokeh-session-id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="nd">@session_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">html_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># The endpoint the site is being served on</span>
+            <span class="c1"># Used to set a URL in the titlebar</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_html_endpoint</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;/&#39;</span>
+
+    <span class="nd">@html_endpoint</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">html_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_html_endpoint</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">site_url_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_endpoint</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span>
+
+    <span class="k">def</span> <span class="nf">windows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">panel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pn</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Template</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_panel</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_interface</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_has_panel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_template_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">pn</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Template</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;template&#39;</span><span class="p">,</span> <span class="n">pn</span><span class="o">.</span><span class="n">template</span><span class="o">.</span><span class="n">FastListTemplate</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_title</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;LiberTEM&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;logo&#39;</span><span class="p">,</span> <span class="s1">&#39;app/static/libertem_logo.png&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_favicon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;favicon&#39;</span><span class="p">,</span> <span class="s1">&#39;app/static/favicon.ico&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_bkg_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;bkg_color&#39;</span><span class="p">,</span> <span class="s1">&#39;#aaaaaa&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_template_class</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_title</span><span class="p">,</span>
+                                           <span class="n">logo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logo</span><span class="p">,</span>
+                                           <span class="n">site_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_url_id</span><span class="p">,</span>
+                                           <span class="n">header_background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bkg_color</span><span class="p">,</span>
+                                           <span class="n">favicon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_favicon</span><span class="p">,</span>
+                                           <span class="n">main_layout</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                           <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_panel_spec</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span><span class="o">.</span><span class="n">sidebar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span><span class="o">.</span><span class="n">modal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panel</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Row</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;fixed&#39;</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_subtitle</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+                                        <span class="n">width</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                                        <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                        <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;fixed&#39;</span><span class="p">,</span>
+                                        <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Spacer</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                     <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;stretch_width&#39;</span><span class="p">,</span>
+                                     <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_bar</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_central_text</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">),</span>
+                                       <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                       <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                                       <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;fixed&#39;</span><span class="p">,</span>
+                                       <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                       <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_bar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_format_central_text</span><span class="p">(</span><span class="s1">&#39;Open windows:&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">),</span>
+                                        <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>
+                                        <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                        <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;fixed&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                                  <span class="n">options</span><span class="o">=</span><span class="p">[],</span>
+                                                  <span class="n">max_width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                                                  <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                                  <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;stretch_width&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_update_window_select</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_window_cb</span><span class="p">(</span><span class="n">_update_window_select</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="p">)</span>
+        <span class="n">go_button</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Switch&#39;</span><span class="p">,</span>
+                                      <span class="n">button_type</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                                      <span class="n">width</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                      <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;stretch_height&#39;</span><span class="p">,</span>
+                                      <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">go_button</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_switch_window</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">select_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">select_value</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_window</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="n">select_value</span><span class="p">)</span>
+
+        <span class="n">go_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">_switch_window</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_go_home</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_window</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span><span class="p">)</span>
+
+        <span class="n">home_button</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Home&#39;</span><span class="p">,</span>
+                                        <span class="n">button_type</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                                        <span class="n">width</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>
+                                        <span class="c1"># height=35,</span>
+                                        <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">&#39;stretch_height&#39;</span><span class="p">,</span>
+                                        <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">home_button</span><span class="p">)</span>
+
+        <span class="n">home_button</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">_go_home</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">set_subtitle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_subtitle</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_format_subtitle</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div class=&quot;title&quot;&gt;</span>
+<span class="s2">    &lt;span style=&quot;text-align: left; vertical-align: middle;&quot;&gt;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">&lt;/div&gt;&quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_format_central_text</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;div style=&quot;line-height: </span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s1">px; &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;text-align: </span><span class="si">{</span><span class="n">align</span><span class="si">}</span><span class="s1">; vertical-align: middle;&quot;&gt;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&lt;/div&gt;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">load_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_main</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">main</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_sidebar</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">sidebar</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_modal</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">modal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_subtitle</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">subtitle</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">switch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">window</span><span class="o">.</span><span class="n">_creation_time</span><span class="p">:</span>
+            <span class="n">window</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">window</span><span class="o">.</span><span class="n">_creation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Must call super() on &#39;</span>
+                                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">window</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1">.create()&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">shortname</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="n">random_hash</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">fullname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fullname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">window</span><span class="o">.</span><span class="n">shortname</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="n">window</span><span class="o">.</span><span class="n">_selectable</span><span class="p">:</span>
+            <span class="n">fullname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window_classname</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fullname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">switch</span><span class="o">=</span><span class="n">switch</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span> <span class="o">=</span> <span class="n">window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_window_lists</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">window</span><span class="o">.</span><span class="n">_selectable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_selected_window</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">switch</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="n">fullname</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fullname</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">add_window_classname</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ident</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ident</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">window</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ident</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">subtitle</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> [</span><span class="si">{</span><span class="n">ident</span><span class="si">}</span><span class="s1">]&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">remove_window_classname</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">stop</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">AssertionError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="n">name</span><span class="p">[:</span><span class="n">start</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">remove_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_window</span><span class="p">()</span> <span class="o">==</span> <span class="n">window_name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_selected_window</span><span class="p">()</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">window_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">window</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_window_lists</span><span class="p">()</span>
+            <span class="k">del</span> <span class="n">window</span>
+
+    <span class="k">def</span> <span class="nf">get_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">window_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_window_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">with_classname</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">windows</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">window</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">with_classname</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_window_classname</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">k</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Window not known to Session </span><span class="si">{</span><span class="n">window</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">rename_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="c1"># Could add a modal popup for an invalid name here</span>
+        <span class="k">if</span> <span class="n">window_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_window_names</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">new_name</span><span class="p">:</span>
+            <span class="c1"># No name supplied or window doesn&#39;t exist</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">window_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_window</span><span class="p">()</span>
+        <span class="n">new_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">new_name</span><span class="p">)</span>
+
+        <span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">window_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">window</span><span class="o">.</span><span class="n">_selectable</span><span class="p">:</span>
+            <span class="c1"># Can&#39;t rename a non-selectable window</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">new_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window_classname</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">window</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">new_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_window_names</span><span class="p">():</span>
+            <span class="c1"># Name already exists</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="n">new_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">window_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_window_lists</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_selected_window</span><span class="p">(</span><span class="n">window_name</span><span class="o">=</span><span class="n">new_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">switch_to_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">window_name</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_window</span> <span class="o">==</span> <span class="n">window_name</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">assert</span> <span class="n">window_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="sa">f</span><span class="s1">&#39;Unrecognized window name: </span><span class="si">{</span><span class="n">window_name</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="n">window_name</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_window</span> <span class="o">=</span> <span class="n">window_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_window</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+        <span class="n">window</span><span class="o">.</span><span class="n">post_switch_hook</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">selectable_window_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">selectable</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">_creation_time</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">windows</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">_selectable</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">selectable</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">selectable</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">all_window_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">windows</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">update_window_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectable_window_names</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options_callbacks</span><span class="p">:</span>
+            <span class="n">cb</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">selected_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">set_selected_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">available_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectable_window_names</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">window_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">available_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">window_name</span> <span class="ow">in</span> <span class="n">available_names</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_window_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">window_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unrecognized window name </span><span class="si">{</span><span class="n">window_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">register_window_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sidebar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">sidebar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">set_sidebar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sidebar</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sidebar</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">main</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">set_main</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">modal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">modal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">set_modal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modal</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">open_modal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">open_modal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">close_modal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panel</span><span class="o">.</span><span class="n">close_modal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">clear_current_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modal</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sidebar</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">entrypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.applications.home</span> <span class="kn">import</span> <span class="n">HomePage</span>
+        <span class="n">home</span> <span class="o">=</span> <span class="n">HomePage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window</span><span class="p">(</span><span class="n">home</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch_to_window</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_home_window_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setup_triggers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_timeout</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_display_error_async</span><span class="p">,</span> <span class="s1">&#39;error_trigger&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">display_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;error_trigger&#39;</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_display_error_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_bar</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_central_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_message</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_error_timeout</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_bar</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_central_text</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Session"><a class="viewcode-back" href="../../reference/session.html#libertem_ui.session.Session">[docs]</a><span class="k">class</span> <span class="nc">Session</span><span class="p">(</span><span class="n">PanelInterface</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main entry-point which handles the functionality of the application,</span>
+<span class="sd">    in particular managing backends, datasets, results and the tools</span>
+<span class="sd">    which can be launched within the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_application_classes</span> <span class="o">=</span> <span class="n">available_applications</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panel_spec</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">panel_spec</span><span class="o">=</span><span class="n">panel_spec</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backend_definitions</span> <span class="o">=</span> <span class="n">backend_defs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_open_backends</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets_cbs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramsets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">tool_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">subtitle</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_application_classes</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">launch_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">,</span> <span class="n">suffix</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">suffix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">suffix</span><span class="p">:</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">tool_cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_mapping</span><span class="p">()[</span><span class="n">tool_name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">Window</span><span class="p">)</span>
+            <span class="n">tool_cls</span> <span class="o">=</span> <span class="n">tool_name</span>
+        <span class="k">if</span> <span class="n">tool_cls</span><span class="o">.</span><span class="n">_needs_backend</span> <span class="ow">and</span> <span class="n">tool_cls</span><span class="o">.</span><span class="n">_needs_backend</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_backends</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool_cls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span> <span class="n">switch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">register_datasets_cb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets_cbs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">rename_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_datasets</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_name</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span>
+        <span class="n">new_fullname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window_classname</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">ident</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">ident</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_fullname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="p">[</span><span class="n">new_fullname</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_dataset_lists</span><span class="p">()</span>
+            <span class="c1"># Try to rename any windows which reference this dataset</span>
+            <span class="n">to_update</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">windows</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="s1">&#39;datasets&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">window</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+                        <span class="n">to_update</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">to_update</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">window</span><span class="o">.</span><span class="n">update_name</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">remove_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_datasets</span><span class="p">():</span>
+            <span class="k">return</span>
+
+        <span class="n">ds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_dataset_lists</span><span class="p">()</span>
+        <span class="c1"># Try to unload any windows which use this dataset</span>
+        <span class="n">to_unload</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">windows</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">window</span><span class="p">,</span> <span class="s1">&#39;datasets&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">window</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+                    <span class="n">to_unload</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">to_unload</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">window</span><span class="o">.</span><span class="n">unload</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">del</span> <span class="n">ds</span>
+
+    <span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dataset_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_dataset_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">with_classname</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_datasets</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="n">dataset</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">with_classname</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_window_classname</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">k</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Dataset not know to Session&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">open_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span>
+
+    <span class="k">def</span> <span class="nf">ordered_dataset_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">opened</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">_creation_time</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_datasets</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">opened</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">opened</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">update_dataset_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordered_dataset_names</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasets_cbs</span><span class="p">:</span>
+            <span class="n">cb</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_dataset_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="s1">&#39;Dataset:&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">display_name</span><span class="p">,</span>
+                                     <span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ordered_dataset_names</span><span class="p">(),</span>
+                                     <span class="n">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_update_options</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">selector</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordered_dataset_names</span><span class="p">()</span>
+
+        <span class="c1"># Need a mechanism to remove cb and selector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_datasets_cb</span><span class="p">(</span><span class="n">_update_options</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">selector</span>
+
+    <span class="k">def</span> <span class="nf">add_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_window</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_window</span><span class="p">,</span> <span class="n">Window</span><span class="p">):</span>
+            <span class="n">config_window</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">config_window</span><span class="p">)</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="n">config_window</span><span class="o">.</span><span class="n">_needs_backend</span><span class="p">)</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">config_window</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dataset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">shortname</span> <span class="o">=</span> <span class="n">config_window</span><span class="o">.</span><span class="n">shortname</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="n">random_hash</span><span class="p">()</span>
+        <span class="n">fullname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">shortname</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">fullname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_window_classname</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="n">config_window</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_dataset_lists</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fullname</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">possible_backends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend_definitions</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">open_backends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open_backends</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">active_backends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">is_active</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_backends</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lt</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;LiberTEMMixin&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;lt&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_backend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend_name</span><span class="p">):</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_backends</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">backend_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">backend_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">possible_backends</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">backend_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">backend_def</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Unrecognized backend name </span><span class="si">{</span><span class="n">backend_name</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_backends</span><span class="p">[</span><span class="n">backend_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">backend_def</span><span class="o">.</span><span class="n">constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="n">backend_name</span><span class="p">)</span>
+            <span class="n">backend</span><span class="o">.</span><span class="n">post_init_tasks</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">backend</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

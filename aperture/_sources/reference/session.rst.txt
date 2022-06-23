@@ -1,0 +1,5 @@
+Session
+-------
+
+.. automodule:: libertem_ui.session
+   :members:

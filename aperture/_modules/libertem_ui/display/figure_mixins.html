@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libertem_ui.display.figure_mixins &mdash; LiberTEM UI 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> LiberTEM UI
+            <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Python API reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">LiberTEM UI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>libertem_ui.display.figure_mixins</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libertem_ui.display.figure_mixins</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models.tools</span> <span class="kn">import</span> <span class="n">Tool</span><span class="p">,</span> <span class="n">EditTool</span><span class="p">,</span> <span class="n">Drag</span><span class="p">,</span> <span class="n">Tap</span><span class="p">,</span> <span class="n">Scroll</span><span class="p">,</span> <span class="n">InspectTool</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Legend</span><span class="p">,</span> <span class="n">LegendItem</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">LinearAxis</span><span class="p">,</span> <span class="n">Range1d</span><span class="p">,</span> <span class="n">ColorBar</span><span class="p">,</span> <span class="n">Axis</span>
+<span class="kn">import</span> <span class="nn">bokeh.palettes</span> <span class="k">as</span> <span class="nn">bokeh_palettes</span>
+
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">BokehImage</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">GlyphRenderer</span><span class="p">,</span> <span class="n">Glyph</span>
+    <span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+    <span class="kn">from</span> <span class="nn">.figure</span> <span class="kn">import</span> <span class="n">BokehFigure</span>
+
+
+<div class="viewcode-block" id="GeometryMixin"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin">[docs]</a><span class="k">class</span> <span class="nc">GeometryMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides figure/frame geometry methods on :class:`~BokehFigure`</span>
+
+<span class="sd">    The terminology &#39;frame&#39; refers to the canvas between the figure</span>
+<span class="sd">    axes. Therefore :code:`frame_height` / :code:`frame_width` refer</span>
+<span class="sd">    to the pixel size of the plotting area, excluding any elements like</span>
+<span class="sd">    colorbars, axis labels etc.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _figure_default_size, int</span>
+<span class="sd">        The default size of the figure in pixels if no value is provided</span>
+<span class="sd">    _figure_size_limit, tuple[int, int]</span>
+<span class="sd">        The figure size (lower, upper) limit which the methods on this class will</span>
+<span class="sd">        respect by up/downsizing at constant aspect ratio where possible</span>
+<span class="sd">    _figure_aspect_limit, float</span>
+<span class="sd">        the aspect ratio limit (both width/height and height/width) at which</span>
+<span class="sd">        methods on this class will adjust dimensions to ensure the figure</span>
+<span class="sd">        is displayable in a reasonable way</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_figure_default_size</span> <span class="o">=</span> <span class="mi">600</span>
+    <span class="n">_figure_size_limit</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1200</span><span class="p">)</span>
+    <span class="n">_figure_aspect_limit</span> <span class="o">=</span> <span class="mi">12</span>
+
+    <span class="k">def</span> <span class="nf">set_match_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set or unset the match_aspect property on Figure</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        val : bool</span>
+<span class="sd">            bool to set</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">match_aspect</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">set_aspect_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the aspect_scale property on Figure</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        val : float</span>
+<span class="sd">            value to set, default 1.0</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">aspect_scale</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">set_aspect_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the aspect_ratio property on Figure</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        val : float</span>
+<span class="sd">            value to set, default 1.0</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">aspect_ratio</span> <span class="o">=</span> <span class="n">val</span>
+
+<div class="viewcode-block" id="GeometryMixin.set_frame_aspect"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.set_frame_aspect">[docs]</a>    <span class="k">def</span> <span class="nf">set_frame_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                         <span class="n">aspect</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                         <span class="n">frame_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">frame_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                         <span class="n">apply_limits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                         <span class="n">autoconfig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the figure to have a given frame aspect ratio</span>
+<span class="sd">        for a given fixed dimension (height or width)</span>
+
+<span class="sd">        Cannot specify both height and width, as this will prevent</span>
+<span class="sd">        the aspect ratio being respected.</span>
+
+<span class="sd">        When computing the size to apply, the dimensions will</span>
+<span class="sd">        be subject to the size and aspect ratio limits defined on this class,</span>
+<span class="sd">        unless disabled. See the signature of :meth:`~GeometryMixin.set_frame_size`</span>
+<span class="sd">        for information on this behaviour.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        aspect : float</span>
+<span class="sd">            The axes aspect ratio to target</span>
+<span class="sd">        frame_width : Optional[int], optional</span>
+<span class="sd">            The axis width to target, by default None</span>
+<span class="sd">        frame_height : Optional[int], optional</span>
+<span class="sd">            The axis height to target, by default None</span>
+<span class="sd">        apply_limits : bool, optional</span>
+<span class="sd">            Whether to apply figure size and aspect ratio limiting,</span>
+<span class="sd">            by default True</span>
+<span class="sd">        autoconfig : bool, optional</span>
+<span class="sd">            Whether to run figure/element hooks to respond to</span>
+<span class="sd">            changes in frame size, by default True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot set all of aspect, height, width&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_default_size</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame_width</span> <span class="o">/</span> <span class="n">aspect</span>
+        <span class="k">elif</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_width</span> <span class="o">=</span> <span class="n">frame_height</span> <span class="o">*</span> <span class="n">aspect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_frame_size</span><span class="p">(</span><span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span>
+                            <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">,</span>
+                            <span class="n">apply_limits</span><span class="o">=</span><span class="n">apply_limits</span><span class="p">,</span>
+                            <span class="n">autoconfig</span><span class="o">=</span><span class="n">autoconfig</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">aspect_ratio_def</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Definition of the aspect ratio, same convention as Bokeh</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">width</span> <span class="o">/</span> <span class="n">height</span>
+
+<div class="viewcode-block" id="GeometryMixin.set_frame_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.set_frame_size">[docs]</a>    <span class="k">def</span> <span class="nf">set_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                       <span class="o">*</span><span class="p">,</span>
+                       <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                       <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                       <span class="n">apply_limits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                       <span class="n">autoconfig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the fixed figure frame size</span>
+
+<span class="sd">        If :code:`apply_limits` is set, the dimensions will be clipped/adjusted</span>
+<span class="sd">        to conform to size and aspect ratio limits according to the class properties</span>
+<span class="sd">        :code:`_figure_size_limit` and :code:`_figure_aspect_limit`. The former defines</span>
+<span class="sd">        a maximum figure dimension, which will be obeyed by scaling at constant aspect ratio.</span>
+<span class="sd">        The latter defines an aspect ratio limit which will be obeyed by increasing the</span>
+<span class="sd">        minimum dimension un the case of very tall or wide plots.</span>
+
+<span class="sd">        Will also notify elements which need to adapt to frame size changes</span>
+<span class="sd">        if autoconfig is set.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_height : int</span>
+<span class="sd">            The height to set</span>
+<span class="sd">        frame_width : int</span>
+<span class="sd">            The width to set</span>
+<span class="sd">        apply_limits : bool, optional</span>
+<span class="sd">            Whether to apply figure size and aspect ratio limiting,</span>
+<span class="sd">            by default True</span>
+<span class="sd">        autoconfig : bool, optional</span>
+<span class="sd">            Whether to run hooks, by default True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;For aspect-based scaling use set_frame_aspect&#39;</span>
+        <span class="k">assert</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;For aspect-based scaling use set_frame_aspect&#39;</span>
+        <span class="k">if</span> <span class="n">apply_limits</span><span class="p">:</span>
+            <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_frame_aspect</span><span class="p">(</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">)</span>
+            <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clip_frame_size</span><span class="p">(</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_width</span> <span class="o">=</span> <span class="n">frame_width</span>
+        <span class="k">if</span> <span class="n">autoconfig</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">autoset_toolbar</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">element</span><span class="o">.</span><span class="n">update_frame_size</span><span class="p">(</span><span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="GeometryMixin.get_frame_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.get_frame_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current figure frame geometry</span>
+
+<span class="sd">        This is not necessarily the size in the browser, rather the</span>
+<span class="sd">        values that are set on the figure object which should be</span>
+<span class="sd">        communicated to the browser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;frame_width&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_width</span><span class="p">,</span>
+                <span class="s1">&#39;frame_height&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_height</span><span class="p">,</span>
+                <span class="s1">&#39;sizing_mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">sizing_mode</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="GeometryMixin.get_displayed_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.get_displayed_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_displayed_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Queries Bokeh for the whole figure dimension (outer)</span>
+<span class="sd">        or axes dimension in pixels (inner)</span>
+
+<span class="sd">        When not yet displayed/initialized this will return zeros!</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mode : str</span>
+<span class="sd">            Whether to get the whole-figure (&#39;outer&#39;) or axis frame</span>
+<span class="sd">            dimensions (&#39;inner&#39;), be default &#39;outer&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;outer&#39;</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">outer_width</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">outer_height</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;inner&#39;</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">inner_width</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">inner_height</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized size mode&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">height</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;displayed_width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+                    <span class="s1">&#39;displayed_height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span></div>
+
+<div class="viewcode-block" id="GeometryMixin.current_aspect_ratio"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.current_aspect_ratio">[docs]</a>    <span class="k">def</span> <span class="nf">current_aspect_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current frame aspect ratio as defined by frame_height/frame_width</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The desired frame aspect ratio</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">frame_width</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="c1"># Guard against aspect ratio calculation for uninitialized frame</span>
+            <span class="k">return</span> <span class="mf">1.</span></div>
+
+<div class="viewcode-block" id="GeometryMixin.scale_to_frame_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.scale_to_frame_size">[docs]</a>    <span class="k">def</span> <span class="nf">scale_to_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                            <span class="n">frame_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">frame_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">apply_limits</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                            <span class="n">autoconfig</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scale the figure at the current aspect ratio to</span>
+<span class="sd">        the desired frame height or width</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_height : int</span>
+<span class="sd">            The height to set</span>
+<span class="sd">        frame_width : int</span>
+<span class="sd">            The width to set</span>
+<span class="sd">        apply_limits : bool, optional</span>
+<span class="sd">            Whether to apply figure size and aspect ratio limiting,</span>
+<span class="sd">            by default True</span>
+<span class="sd">        autoconfig : bool, optional</span>
+<span class="sd">            Whether to run hooks, by default True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>  <span class="c1"># Nothing to do</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot maintain aspect ratio while setting both &#39;</span>
+                             <span class="s1">&#39;height/width, use .set_frame_size&#39;</span><span class="p">)</span>
+        <span class="n">current_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_frame_aspect</span><span class="p">(</span><span class="n">current_ar</span><span class="p">,</span>
+                                  <span class="n">frame_width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">,</span>
+                                  <span class="n">apply_limits</span><span class="o">=</span><span class="n">apply_limits</span><span class="p">,</span>
+                                  <span class="n">autoconfig</span><span class="o">=</span><span class="n">autoconfig</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_frame_aspect</span><span class="p">(</span><span class="n">current_ar</span><span class="p">,</span>
+                                  <span class="n">frame_height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span>
+                                  <span class="n">apply_limits</span><span class="o">=</span><span class="n">apply_limits</span><span class="p">,</span>
+                                  <span class="n">autoconfig</span><span class="o">=</span><span class="n">autoconfig</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GeometryMixin.aspect_ratio_tag"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.aspect_ratio_tag">[docs]</a>    <span class="k">def</span> <span class="nf">aspect_ratio_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">limit_ar</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a string tag identifying the figure as tall, wide or square</span>
+
+<span class="sd">        Used to categorize the figure when performing automatic layouts</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        limit_ar : float, optional</span>
+<span class="sd">            The aspect ratio defining the threshold between the categories,</span>
+<span class="sd">            by default 4.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            A tag in [&#39;tall&#39;, &#39;wide&#39;, &#39;square&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">limit_ar</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ar</span> <span class="o">&lt;=</span> <span class="n">limit_ar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;square&#39;</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">limit_ar</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;tall&#39;</span>
+        <span class="k">elif</span> <span class="n">ar</span> <span class="o">&gt;</span> <span class="n">limit_ar</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;wide&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span></div>
+
+    <span class="k">def</span> <span class="nf">_clip_frame_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales height/width to have an aspect ratio (w/h) between</span>
+<span class="sd">        (1 / self._figure_aspect_limit) and self._figure_aspect_limit</span>
+<span class="sd">        by increasing the smallest dimension while keeping the</span>
+<span class="sd">        larger dimension constant</span>
+
+<span class="sd">        Resulting huge dimensions will be clipped with the new</span>
+<span class="sd">        aspect ratio in the next function called (_clip_frame_size)</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span>
+        <span class="n">base_aspect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
+        <span class="n">inverted_limit</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inverted_limit</span> <span class="o">&lt;=</span> <span class="n">base_aspect</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span><span class="p">:</span>
+            <span class="c1"># Nothing to do</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">base_aspect</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span><span class="p">:</span>
+            <span class="c1"># Increase height to reach limit</span>
+            <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame_width</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span>
+        <span class="k">elif</span> <span class="n">base_aspect</span> <span class="o">&lt;</span> <span class="n">inverted_limit</span><span class="p">:</span>
+            <span class="c1"># Increase width to reach limit</span>
+            <span class="n">frame_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span> <span class="o">*</span> <span class="n">frame_height</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Should not reach here, negative values?&#39;</span><span class="p">)</span>
+        <span class="n">new_aspect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">frame_width</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">inverted_limit</span> <span class="o">&lt;=</span> <span class="n">new_aspect</span>
+        <span class="k">assert</span> <span class="n">new_aspect</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_aspect_limit</span>
+        <span class="k">return</span> <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span>
+
+    <span class="k">def</span> <span class="nf">_clip_frame_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scales height/width to max self._figure_size_limit</span>
+<span class="sd">        while maintaining a constant aspect ratio</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_size_limit</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">((</span><span class="n">frame_height</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">))</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>  <span class="c1"># Just in case!</span>
+        <span class="n">min_dim</span><span class="p">,</span> <span class="n">max_dim</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">shape</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_figure_size_limit</span>
+        <span class="k">if</span> <span class="n">max_dim</span> <span class="o">&gt;</span> <span class="n">ulim</span><span class="p">:</span>
+            <span class="n">sf</span> <span class="o">=</span> <span class="n">ulim</span> <span class="o">/</span> <span class="n">max_dim</span>
+            <span class="n">shape</span> <span class="o">*=</span> <span class="n">sf</span>
+        <span class="k">elif</span> <span class="n">min_dim</span> <span class="o">&lt;</span> <span class="n">llim</span><span class="p">:</span>
+            <span class="n">sf</span> <span class="o">=</span> <span class="n">llim</span> <span class="o">/</span> <span class="n">min_dim</span>
+            <span class="n">shape</span> <span class="o">*=</span> <span class="n">sf</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_make_responsive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">aspect_scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">max_width</span><span class="o">=</span><span class="mi">800</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a prototype function to make the figure size responsively</span>
+<span class="sd">        within the provided maximum dimensions while maintaining an aspect ratio.</span>
+
+<span class="sd">        Not 100% functional at this time.</span>
+
+<span class="sd">        This function does not mean the data aspect ratio will stay exactly correct,</span>
+<span class="sd">        as the property fig.aspect_ratio takes into account everything on the figure</span>
+<span class="sd">        (colorbar, toolbar etc included!). There is currently no clear mechanism</span>
+<span class="sd">        to use a fixed data aspect ratio while having responsive sizing in Bokeh</span>
+
+<span class="sd">        For more information on all of the parameters see:</span>
+<span class="sd">        https://docs.bokeh.org/en/latest/docs/reference/plotting/figure.html</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">width_policy</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">height_policy</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">match_aspect</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="o">=</span> <span class="s1">&#39;scale_both&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">aspect_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">aspect_scale</span> <span class="o">=</span> <span class="n">aspect_scale</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">frame_height</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">frame_width</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="n">max_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="n">max_width</span>
+
+    <span class="k">def</span> <span class="nf">_fit_to_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertical_bounds</span><span class="p">,</span> <span class="n">horizontal_bounds</span><span class="p">):</span>
+        <span class="n">h_llim</span><span class="p">,</span> <span class="n">h_ulim</span> <span class="o">=</span> <span class="n">horizontal_bounds</span>
+        <span class="n">hor_extent</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">h_llim</span> <span class="o">-</span> <span class="n">h_ulim</span><span class="p">)</span>
+        <span class="n">v_llim</span><span class="p">,</span> <span class="n">v_ulim</span> <span class="o">=</span> <span class="n">vertical_bounds</span>
+        <span class="n">ver_extent</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v_llim</span> <span class="o">-</span> <span class="n">v_ulim</span><span class="p">)</span>
+        <span class="n">bounds_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">ver_extent</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">hor_extent</span><span class="p">)</span>
+        <span class="n">frame_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">frame_ar</span> <span class="o">&gt;</span> <span class="n">bounds_ar</span><span class="p">:</span>
+            <span class="c1"># Frame wider than bounds, expand horizontal</span>
+            <span class="n">new_hor_extent</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame_ar</span> <span class="o">/</span> <span class="n">bounds_ar</span><span class="p">)</span> <span class="o">*</span> <span class="n">hor_extent</span>
+            <span class="n">hor_centre</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">horizontal_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+            <span class="n">horizontal_bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">hor_centre</span> <span class="o">-</span> <span class="n">new_hor_extent</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span>
+                                 <span class="n">hor_centre</span> <span class="o">+</span> <span class="n">new_hor_extent</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">frame_ar</span> <span class="o">&lt;</span> <span class="n">bounds_ar</span><span class="p">:</span>
+            <span class="c1"># Frame narrower than bounds, Expand vertical</span>
+            <span class="n">new_ver_extent</span> <span class="o">=</span> <span class="p">(</span><span class="n">bounds_ar</span> <span class="o">/</span> <span class="n">frame_ar</span><span class="p">)</span> <span class="o">*</span> <span class="n">ver_extent</span>
+            <span class="n">ver_centre</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vertical_bounds</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+            <span class="n">vertical_bounds</span> <span class="o">=</span> <span class="p">(</span><span class="n">ver_centre</span> <span class="o">-</span> <span class="n">new_ver_extent</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span>
+                               <span class="n">ver_centre</span> <span class="o">+</span> <span class="n">new_ver_extent</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vertical_bounds</span><span class="p">,</span> <span class="n">horizontal_bounds</span>
+
+<div class="viewcode-block" id="GeometryMixin.estimate_displayed_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.estimate_displayed_size">[docs]</a>    <span class="k">def</span> <span class="nf">estimate_displayed_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                                <span class="o">*</span><span class="p">,</span>
+                                <span class="n">frame_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                <span class="n">frame_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to estimate the displayed figure size before it is rendered</span>
+<span class="sd">        taking into account colorbars, axes labels, toolbar position etc.</span>
+
+<span class="sd">        Useful for optimizing layout of multiple figures. Will never be 100%</span>
+<span class="sd">        correct as it depends on knowing browser-properties (text font scaling</span>
+<span class="sd">        in particular) to correctly estimate the sizing.</span>
+
+<span class="sd">        Assumes normal :code:`BokehFigure` behaviour, i.e. fixed frame canvas</span>
+<span class="sd">        size and minimum height and width policies.</span>
+
+<span class="sd">        If none of :code:`frame_height` or :code:`frame_width` are provided, uses values from</span>
+<span class="sd">        :code:`self.get_frame_size()`. If one value is provided, calculates the other</span>
+<span class="sd">        using the current frame aspect ratio.</span>
+
+<span class="sd">        # TODO support Legend objects outside the frame canvas</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        frame_height : int, optional</span>
+<span class="sd">            The frame_height to use, by default None, in which case height will be calculated</span>
+<span class="sd">            from other available properties. By default uses value from</span>
+<span class="sd">            :code:`self.get_frame_size()`.</span>
+<span class="sd">        frame_width : int, optional</span>
+<span class="sd">            The frame_width to use, by default None, in which case height will be calculated</span>
+<span class="sd">            from other available properties. By default uses value from</span>
+<span class="sd">            :code:`self.get_frame_size()`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict[str, int]</span>
+<span class="sd">            Dictionary containing the estimated figure size. This can be</span>
+<span class="sd">            compared to the output of :code:`self.get_displayed_size()`</span>
+<span class="sd">            after the figure has been rendered in the browser.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_size_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_frame_size</span><span class="p">()</span>
+            <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame_size_dict</span><span class="p">[</span><span class="s1">&#39;frame_height&#39;</span><span class="p">]</span>
+            <span class="n">frame_width</span> <span class="o">=</span> <span class="n">frame_size_dict</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">frame_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame_width</span> <span class="o">/</span> <span class="n">frame_ar</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">frame_width</span> <span class="o">=</span> <span class="n">frame_height</span> <span class="o">*</span> <span class="n">frame_ar</span>
+
+        <span class="k">assert</span> <span class="n">frame_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">frame_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">toolbar_short_dim</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">title_height</span> <span class="o">=</span> <span class="mi">23</span>
+
+        <span class="n">extra_width</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">extra_height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">areas</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;vertical&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">left</span><span class="p">],</span>
+                 <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">above</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">below</span><span class="p">]}</span>
+        <span class="k">for</span> <span class="n">orientation</span><span class="p">,</span> <span class="n">areas</span> <span class="ow">in</span> <span class="n">areas</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">area</span> <span class="ow">in</span> <span class="n">areas</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">area</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">ColorBar</span><span class="p">):</span>
+                        <span class="n">short_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_colorbar_shortdim</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">orientation</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">Axis</span><span class="p">):</span>
+                        <span class="n">short_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_axis_shortdim</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">orientation</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized element to estimate&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+                        <span class="n">extra_width</span> <span class="o">+=</span> <span class="n">short_dim</span>
+                    <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+                        <span class="n">extra_height</span> <span class="o">+=</span> <span class="n">short_dim</span>
+
+        <span class="n">_has_above_toolbar</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar_location</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="s1">&#39;below&#39;</span><span class="p">]:</span>
+                <span class="n">extra_height</span> <span class="o">+=</span> <span class="n">toolbar_short_dim</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar_location</span> <span class="o">==</span> <span class="s1">&#39;above&#39;</span><span class="p">:</span>
+                    <span class="n">_has_above_toolbar</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar_location</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">]:</span>
+                <span class="n">extra_width</span> <span class="o">+=</span> <span class="n">toolbar_short_dim</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unrecognized toolbar location&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_has_above_toolbar</span><span class="p">:</span>
+                <span class="n">extra_height</span> <span class="o">+=</span> <span class="n">title_height</span>
+
+        <span class="c1"># Some fuzz for padding etc</span>
+        <span class="n">extra_width</span> <span class="o">+=</span> <span class="mi">10</span>
+        <span class="n">extra_height</span> <span class="o">+=</span> <span class="mi">5</span>
+
+        <span class="c1"># Final cast</span>
+        <span class="n">extra_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">extra_width</span><span class="p">)</span>
+        <span class="n">extra_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">extra_height</span><span class="p">)</span>
+
+        <span class="n">est_width</span> <span class="o">=</span> <span class="n">frame_width</span> <span class="o">+</span> <span class="n">extra_width</span>
+        <span class="n">est_height</span> <span class="o">=</span> <span class="n">frame_height</span> <span class="o">+</span> <span class="n">extra_height</span>
+        <span class="n">est_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="n">est_height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">est_width</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;estimated_width&#39;</span><span class="p">:</span> <span class="n">est_width</span><span class="p">,</span>
+                <span class="s1">&#39;estimated_height&#39;</span><span class="p">:</span> <span class="n">est_height</span><span class="p">,</span>
+                <span class="s1">&#39;estimated_aspect_ratio&#39;</span><span class="p">:</span> <span class="n">est_ar</span><span class="p">,</span>
+                <span class="s1">&#39;extra_height&#39;</span><span class="p">:</span> <span class="n">extra_height</span><span class="p">,</span>
+                <span class="s1">&#39;extra_width&#39;</span><span class="p">:</span> <span class="n">extra_width</span><span class="p">}</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_estimate_colorbar_shortdim</span><span class="p">(</span><span class="n">colorbar</span><span class="p">:</span> <span class="n">ColorBar</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Estimates the dimension of a ColorBar object which is</span>
+<span class="sd">        perpendicular to the canvas (i.e. height or width depending on</span>
+<span class="sd">        the orientation of the colorbar)</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_default_short_dim</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="n">colorbar</span><span class="o">.</span><span class="n">width</span>
+            <span class="n">text_contrib</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="n">colorbar</span><span class="o">.</span><span class="n">height</span>
+            <span class="n">text_contrib</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span>
+        <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="n">_default_short_dim</span>
+        <span class="n">dim</span> <span class="o">+=</span> <span class="n">colorbar</span><span class="o">.</span><span class="n">padding</span>
+        <span class="n">dim</span> <span class="o">+=</span> <span class="n">colorbar</span><span class="o">.</span><span class="n">label_standoff</span>
+        <span class="n">dim</span> <span class="o">+=</span> <span class="n">text_contrib</span>
+        <span class="k">if</span> <span class="n">colorbar</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dim</span> <span class="o">+=</span> <span class="mi">20</span>
+        <span class="k">return</span> <span class="n">dim</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_estimate_axis_shortdim</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Estimates the dimension of an Axis tick / label object which is</span>
+<span class="sd">        perpendicular to the canvas (i.e. height or width depending on</span>
+<span class="sd">        the orientation of the axis)</span>
+
+<span class="sd">        Accounts for tick length, the presence of axis label etc</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tick_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">major_tick_out</span><span class="p">,</span> <span class="n">axis</span><span class="o">.</span><span class="n">minor_tick_out</span><span class="p">)</span>
+        <span class="n">line_height</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">major_label_text_line_height</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">major_font_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">major_label_text_font_size</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="n">major_font_size</span> <span class="o">=</span> <span class="mi">11</span>
+        <span class="n">major_height</span> <span class="o">=</span> <span class="n">line_height</span> <span class="o">*</span> <span class="n">major_font_size</span>
+        <span class="n">major_standoff</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">major_label_standoff</span>
+        <span class="n">label_height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">axis_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label_height</span> <span class="o">+=</span> <span class="n">axis</span><span class="o">.</span><span class="n">axis_label_standoff</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">font_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">axis_label_text_font_size</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="n">font_size</span> <span class="o">=</span> <span class="mi">13</span>
+            <span class="n">label_height</span> <span class="o">+=</span> <span class="p">(</span><span class="n">font_size</span> <span class="o">*</span> <span class="n">axis</span><span class="o">.</span><span class="n">axis_label_text_line_height</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+                <span class="c1"># There is some extra padding which I can&#39;t find the source of</span>
+                <span class="n">label_height</span> <span class="o">+</span> <span class="mi">10</span>
+        <span class="k">return</span> <span class="n">tick_length</span> <span class="o">+</span> <span class="n">major_standoff</span> <span class="o">+</span> <span class="n">major_height</span> <span class="o">+</span> <span class="n">label_height</span>
+
+<div class="viewcode-block" id="GeometryMixin.advise_outer_size"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.GeometryMixin.advise_outer_size">[docs]</a>    <span class="k">def</span> <span class="nf">advise_outer_size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                          <span class="o">*</span><span class="p">,</span>
+                          <span class="n">outer_height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">outer_width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to set the Figure frame size to provide an outer Figure size</span>
+<span class="sd">        close to outer_height/outer_width.</span>
+
+<span class="sd">        The functionality is only approximate as we cannot know the rendered size</span>
+<span class="sd">        of the figure until after it is rendered!</span>
+
+<span class="sd">        One possibility for improvement would be to use periodic callbacks to</span>
+<span class="sd">        occasionally optimize the layout in response to screen size changes,</span>
+<span class="sd">        and also to better measure the size of all the elements on the figure</span>
+<span class="sd">        (colorbars etc). This would be a very complicated task to do well.</span>
+
+<span class="sd">        This function has some strange behaviour if both height and width</span>
+<span class="sd">        are supplied, depending on the sizes of extra_height/width. Better to</span>
+<span class="sd">        use just one where possible</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">outer_height</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">outer_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Need to specify one or both of outer_height/width&#39;</span><span class="p">)</span>
+
+        <span class="n">current_estimate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_displayed_size</span><span class="p">()</span>
+        <span class="n">current_frame_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+
+        <span class="n">candidate_dimensions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">outer_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_h</span> <span class="o">=</span> <span class="n">outer_height</span> <span class="o">-</span> <span class="n">current_estimate</span><span class="p">[</span><span class="s1">&#39;extra_height&#39;</span><span class="p">]</span>
+            <span class="n">frame_w</span> <span class="o">=</span> <span class="n">current_frame_ar</span> <span class="o">*</span> <span class="n">frame_h</span>
+            <span class="n">candidate_dimensions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">frame_h</span><span class="p">,</span> <span class="n">frame_w</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">outer_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">frame_w</span> <span class="o">=</span> <span class="n">outer_width</span> <span class="o">-</span> <span class="n">current_estimate</span><span class="p">[</span><span class="s1">&#39;extra_width&#39;</span><span class="p">]</span>
+            <span class="n">frame_h</span> <span class="o">=</span> <span class="n">frame_w</span> <span class="o">/</span> <span class="n">current_frame_ar</span>
+            <span class="n">candidate_dimensions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">frame_h</span><span class="p">,</span> <span class="n">frame_w</span><span class="p">))</span>
+        <span class="c1"># Set to the average dimension if both width and height are specified</span>
+        <span class="c1"># This is unsatisfactory, could possible work around by setting some kind</span>
+        <span class="c1"># of Figure-level outer margin to give a specific outer size while</span>
+        <span class="c1"># ensuring the frame size / aspect ratio ?</span>
+        <span class="n">frame_h</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidate_dimensions</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate_dimensions</span><span class="p">)</span>
+        <span class="n">frame_w</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">candidate_dimensions</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate_dimensions</span><span class="p">)</span>
+        <span class="c1"># Use scale to frame_size with the height as this ensure the frame aspect ratio</span>
+        <span class="c1"># is correctly maintained. If the above code is correct should be equivalent to</span>
+        <span class="c1"># set h or w in this case</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale_to_frame_size</span><span class="p">(</span><span class="n">frame_height</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">frame_h</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="AxesMixin"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin">[docs]</a><span class="k">class</span> <span class="nc">AxesMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides axis-related functionality on :class:`~BokehFigure`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_set_data_range</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">range_name</span><span class="p">,</span> <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the figure&#39;s x_range or y_range properties to a DataRange1d</span>
+<span class="sd">        with the arguments, either by replacing the current range with</span>
+<span class="sd">        a DataRange1d or updating the exising range</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">ulim</span> <span class="o">&gt;=</span> <span class="n">llim</span>
+        <span class="k">if</span> <span class="n">flipped</span><span class="p">:</span>
+            <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span> <span class="o">=</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">llim</span>
+
+        <span class="n">current_range</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">range_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_range</span><span class="p">,</span> <span class="n">Range1d</span><span class="p">):</span>
+            <span class="n">new_range</span> <span class="o">=</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">llim</span><span class="p">,</span>
+                                <span class="n">end</span><span class="o">=</span><span class="n">ulim</span><span class="p">,</span>
+                                <span class="n">reset_start</span><span class="o">=</span><span class="n">llim</span><span class="p">,</span>
+                                <span class="n">reset_end</span><span class="o">=</span><span class="n">ulim</span><span class="p">,</span>
+                                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">range_name</span><span class="p">,</span> <span class="n">new_range</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">update</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="n">llim</span><span class="p">,</span>
+                      <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="n">ulim</span><span class="p">,</span>
+                      <span class="s1">&#39;reset_start&#39;</span><span class="p">:</span> <span class="n">llim</span><span class="p">,</span>
+                      <span class="s1">&#39;reset_end&#39;</span><span class="p">:</span> <span class="n">ulim</span><span class="p">,</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">v</span> <span class="o">==</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current_range</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">update</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">return</span>
+            <span class="n">cb</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">current_range</span><span class="o">.</span><span class="n">update</span><span class="p">,</span> <span class="o">**</span><span class="n">update</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cb</span><span class="p">()</span>
+
+<div class="viewcode-block" id="AxesMixin.set_xrange"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin.set_xrange">[docs]</a>    <span class="k">def</span> <span class="nf">set_xrange</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                   <span class="n">llim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">ulim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">flipped</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the primary x-axis data range to lie in the bounds</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        llim : float</span>
+<span class="sd">            The lower axis limit</span>
+<span class="sd">        ulim : float</span>
+<span class="sd">            The lower axis limit</span>
+<span class="sd">        flipped : bool, optional</span>
+<span class="sd">            Whether to flip the axis, by default False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_data_range</span><span class="p">(</span><span class="s1">&#39;x_range&#39;</span><span class="p">,</span> <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AxesMixin.set_yrange"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin.set_yrange">[docs]</a>    <span class="k">def</span> <span class="nf">set_yrange</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                   <span class="n">llim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">ulim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">flipped</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the primary y-axis data range to lie in the bounds</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        llim : float</span>
+<span class="sd">            The lower axis limit</span>
+<span class="sd">        ulim : float</span>
+<span class="sd">            The lower axis limit</span>
+<span class="sd">        flipped : bool, optional</span>
+<span class="sd">            Whether to flip the axis, by default False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_data_range</span><span class="p">(</span><span class="s1">&#39;y_range&#39;</span><span class="p">,</span> <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_base_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">)</span>
+        <span class="n">range_name</span> <span class="o">=</span> <span class="n">axis_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;axis&#39;</span><span class="p">,</span> <span class="s1">&#39;_range_name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">base_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">range_name</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">base_axes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Multiple default axes not supported&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<div class="viewcode-block" id="AxesMixin.autorange_images"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin.autorange_images">[docs]</a>    <span class="k">def</span> <span class="nf">autorange_images</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">respect_frame_aspect</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Auto-set axes ranges based on maximum extent of all</span>
+<span class="sd">        BokehImage instances contained in the figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">BokehImage</span><span class="p">)]</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">continuous_bounds</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">images</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">min_bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">max_bounds</span> <span class="o">=</span> <span class="n">bounds</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">containing_bounds</span> <span class="o">=</span> <span class="n">min_bounds</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">max_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">xrange</span> <span class="o">=</span> <span class="n">containing_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">containing_bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">yrange</span> <span class="o">=</span> <span class="n">containing_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">containing_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">respect_frame_aspect</span><span class="p">:</span>
+            <span class="n">yrange</span><span class="p">,</span> <span class="n">xrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_to_frame</span><span class="p">(</span><span class="n">yrange</span><span class="p">,</span> <span class="n">xrange</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_xrange</span><span class="p">(</span><span class="o">*</span><span class="n">xrange</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_yrange</span><span class="p">(</span><span class="o">*</span><span class="n">yrange</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AxesMixin.adjust_data_aspect"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin.adjust_data_aspect">[docs]</a>    <span class="k">def</span> <span class="nf">adjust_data_aspect</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">target_aspect</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the default axes ranges by centred expansion of one</span>
+<span class="sd">        or the other in order to set a particular data aspect</span>
+<span class="sd">        ratio without changing the frame size</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frame_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_aspect_ratio</span><span class="p">()</span>
+        <span class="n">xrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">x_range</span>
+        <span class="n">yrange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">y_range</span>
+        <span class="n">xdata_range</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xrange</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">-</span> <span class="n">xrange</span><span class="o">.</span><span class="n">reset_start</span><span class="p">)</span>
+        <span class="n">ydata_range</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">yrange</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">-</span> <span class="n">yrange</span><span class="o">.</span><span class="n">reset_start</span><span class="p">)</span>
+        <span class="n">axes_ar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aspect_ratio_def</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">xdata_range</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ydata_range</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">axes_ar</span> <span class="o">/</span> <span class="n">frame_ar</span> <span class="o">&gt;</span> <span class="n">target_aspect</span><span class="p">:</span>
+            <span class="n">new_range</span> <span class="o">=</span> <span class="n">xdata_range</span> <span class="o">/</span> <span class="p">(</span><span class="n">frame_ar</span> <span class="o">*</span> <span class="n">target_aspect</span><span class="p">)</span>
+            <span class="n">centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">yrange</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">+</span> <span class="n">yrange</span><span class="o">.</span><span class="n">reset_start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_yrange</span><span class="p">(</span><span class="n">centre</span> <span class="o">-</span> <span class="n">new_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">centre</span> <span class="o">+</span> <span class="n">new_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">axes_ar</span> <span class="o">/</span> <span class="n">frame_ar</span> <span class="o">&lt;</span> <span class="n">target_aspect</span><span class="p">:</span>
+            <span class="n">new_range</span> <span class="o">=</span> <span class="n">frame_ar</span> <span class="o">*</span> <span class="n">target_aspect</span> <span class="o">*</span> <span class="n">ydata_range</span>
+            <span class="n">centre</span> <span class="o">=</span> <span class="p">(</span><span class="n">xrange</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">+</span> <span class="n">xrange</span><span class="o">.</span><span class="n">reset_start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_xrange</span><span class="p">(</span><span class="n">centre</span> <span class="o">-</span> <span class="n">new_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">centre</span> <span class="o">+</span> <span class="n">new_range</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xaxis</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearAxis</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current primary x-axis</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        LinearAxis</span>
+<span class="sd">            The x-axis</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_axis</span><span class="p">(</span><span class="s1">&#39;xaxis&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">yaxis</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LinearAxis</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current primary y-axis</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        LinearAxis</span>
+<span class="sd">            The y-axis</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_base_axis</span><span class="p">(</span><span class="s1">&#39;yaxis&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AxesMixin.set_axis_labels"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.AxesMixin.set_axis_labels">[docs]</a>    <span class="k">def</span> <span class="nf">set_axis_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                        <span class="n">x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">set_geom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the primary axis labels</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : Optional[str], optional</span>
+<span class="sd">            x-axis label, by default None</span>
+<span class="sd">        y : Optional[str], optional</span>
+<span class="sd">            y-axis label, by default None</span>
+<span class="sd">        set_geom : bool, optional</span>
+<span class="sd">            Whether to configure the axis label geometry, by default True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="n">y</span>
+
+        <span class="k">if</span> <span class="n">set_geom</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_axis_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xaxis</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_axis_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yaxis</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_set_axis_geometry</span><span class="p">(</span><span class="n">axis</span><span class="p">:</span> <span class="s1">&#39;Axis&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">axis_label_standoff</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;axis_label_standoff&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">axis_label_text_font_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;axis_label_text_font_size&#39;</span><span class="p">,</span> <span class="s1">&#39;12px&#39;</span><span class="p">)</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">axis_label_text_line_height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;axis_label_text_line_height&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_add_extra_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flipped</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a secondary axis on to the figure</span>
+
+<span class="sd">        Currently only used by BokehImage to add dimensioned axes from the array attributes</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">flipped</span><span class="p">:</span>
+            <span class="n">llim</span><span class="p">,</span> <span class="n">ulim</span> <span class="o">=</span> <span class="n">ulim</span><span class="p">,</span> <span class="n">llim</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">new_range</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">Range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">llim</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">ulim</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">extra_y_ranges</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_range</span><span class="p">)</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="n">LinearAxis</span><span class="p">(</span><span class="n">y_range_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">extra_x_ranges</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_range</span><span class="p">)</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="n">LinearAxis</span><span class="p">(</span><span class="n">x_range_name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">axis_label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unsupported position </span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ColorSequenceMixin"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.ColorSequenceMixin">[docs]</a><span class="k">class</span> <span class="nc">ColorSequenceMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a color-sequence iterator on :class:`~BokehFigure`</span>
+<span class="sd">    which is shared between elements which use this API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ColorSequenceMixin.get_next_color"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.ColorSequenceMixin.get_next_color">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_color</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the next color in the sequence</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            A color string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color_sequence</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ColorSequenceMixin.reset_color_sequence"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.ColorSequenceMixin.reset_color_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">reset_color_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the color sequence to a specific sequence,</span>
+<span class="sd">        or reset the current default sequence</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sequence : str, optional</span>
+<span class="sd">            A Bokeh color sequence name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sequence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sequence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_color_sequence</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">color_sequence</span> <span class="o">=</span> <span class="n">sequence</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_sequence</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">color_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the (infinite) iterator over the colour sequence</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Iterator[str]</span>
+<span class="sd">            An infinite iterator yielding color strings</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color_sequence</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_color_iterator</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_sequence</span>
+
+    <span class="nd">@color_sequence</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">color_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        (Re)set the colour sequence to a new one</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        val : str</span>
+<span class="sd">            A Bokeh color sequence name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">bokeh_palettes</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_color_iterator</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unrecognized color sequence </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_color_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Category10_10&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the infinite color sequence iterator</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sequence : str, optional</span>
+<span class="sd">            The Bokeh color sequence to use, by default &#39;Category10_10&#39;</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_color_sequence</span> <span class="o">=</span> <span class="n">sequence</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color_sequence</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bokeh_palettes</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="LegendMixin"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.LegendMixin">[docs]</a><span class="k">class</span> <span class="nc">LegendMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides legend-related functionality on the :class:`~BokehFigure`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">legend</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Legend</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current legend, if defined</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_legend</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@legend</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">legend</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="n">Legend</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the current legend to a Bokeh Legend object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">Legend</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_legend</span> <span class="o">=</span> <span class="n">val</span>
+
+<div class="viewcode-block" id="LegendMixin.create_legend"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.LegendMixin.create_legend">[docs]</a>    <span class="k">def</span> <span class="nf">create_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                      <span class="o">*</span><span class="p">,</span>
+                      <span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;GlyphRenderer&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">layout_side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;below&#39;</span><span class="p">,</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Legend</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a legend and add it to the figure</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        items : list[tuple[str, GlyphRenderer]], optional</span>
+<span class="sd">            Items to add to the legend at construction, by default None</span>
+<span class="sd">        layout_side : str</span>
+<span class="sd">            The side of the plot to place the legend, by default &#39;below&#39;</span>
+<span class="sd">            Should be a Bokeh position spec string</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments which are passed directly to</span>
+<span class="sd">            :code:`bokeh.models.Legend`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Legend</span>
+<span class="sd">            The created legend</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">items</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">layout_side</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">layout_side</span> <span class="o">=</span> <span class="s1">&#39;below&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="o">=</span> <span class="n">Legend</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="n">items</span><span class="p">,</span>
+                                 <span class="n">location</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">),</span>
+                                 <span class="n">orientation</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">),</span>
+                                 <span class="n">border_line_alpha</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;border_line_alpha&#39;</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">),</span>
+                                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="p">,</span> <span class="n">layout_side</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_legend_item</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span>
+                         <span class="n">renderers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="s1">&#39;GlyphRenderer&#39;</span><span class="p">],</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_legend</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderers</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[</span><span class="n">renderers</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LegendItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">renderers</span><span class="o">=</span><span class="n">renderers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+<div class="viewcode-block" id="LegendMixin.add_to_legend"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.LegendMixin.add_to_legend">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="s1">&#39;GlyphBase&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">filter_glyph</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="s1">&#39;Glyph&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds all renderers from the element matching Glyph types in</span>
+<span class="sd">        filter_glyph to the legend under the same label</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element : GlyphBase</span>
+<span class="sd">            The element from which to find renderers to add to the legend</span>
+<span class="sd">        label : str</span>
+<span class="sd">            The label to add the renderers under</span>
+<span class="sd">        filter_glyph : tuple[Type[Glyph]], optional</span>
+<span class="sd">            Glyph types to filter to add to the legend, by default None</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments which are passed directly to</span>
+<span class="sd">            :code:`bokeh.models.LegendItem`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">renderers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_renderers</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="o">=</span><span class="n">filter_glyph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_legend_item</span><span class="p">(</span><span class="n">renderers</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LegendMixin.add_multi_to_legend"><a class="viewcode-back" href="../../../reference/figure.html#libertem_ui.display.figure_mixins.LegendMixin.add_multi_to_legend">[docs]</a>    <span class="k">def</span> <span class="nf">add_multi_to_legend</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">renderer_mapping</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;GlyphRenderer&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+                            <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add multiple legend entries with their own labels</span>
+<span class="sd">        by suppling a dictionary mapping the renderer to its label</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        renderer_mapping : dict[GlyphRenderer, str]</span>
+<span class="sd">            Mapping from glyph renderer to label to add in the legend</span>
+<span class="sd">        **kwargs : dict, optional</span>
+<span class="sd">            Extra keyword arguments which are passed directly to</span>
+<span class="sd">            :code:`bokeh.models.LegendItem`, shared between all entries in the</span>
+<span class="sd">            mapping</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">renderer</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">renderer_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_legend_item</span><span class="p">([</span><span class="n">renderer</span><span class="p">],</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">ToolMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides tool and toolbar related functionality on BokehFigure</span>
+
+<span class="sd">    This is not currently a user-facing class</span>
+
+<span class="sd">    :meta private:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">add_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tool</span><span class="p">:</span> <span class="n">Tool</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_tools</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="p">[</span><span class="n">label</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">add_renderers_to_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">renderers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="s1">&#39;GlyphRenderer&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_tool</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+            <span class="n">renderers</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">renderers</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">renderers</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">renderers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot add renderers to tool </span><span class="si">{label}</span><span class="s1"> before it is initialized&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">move_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">location</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="s1">&#39;below&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar_location</span> <span class="o">=</span> <span class="n">location</span>
+
+    <span class="k">def</span> <span class="nf">_toolbar_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">square_bias</span><span class="o">=</span><span class="mf">1.2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Logic to place toolbar on longest frame edge</span>
+
+<span class="sd">        Biased to place return &#39;above&#39; for nearly-square figures</span>
+<span class="sd">        as this will result in colorbar auto-placement</span>
+<span class="sd">        on the right edge which is more traditional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_frame_size</span><span class="p">()</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">fsize</span><span class="p">[</span><span class="s1">&#39;frame_height&#39;</span><span class="p">],</span> <span class="n">fsize</span><span class="p">[</span><span class="s1">&#39;frame_width&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="n">square_bias</span> <span class="o">*</span> <span class="n">width</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;right&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;above&#39;</span>
+
+    <span class="k">def</span> <span class="nf">autoset_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Moves the toolbar to the longest edge of the figure</span>
+
+<span class="sd">        Breaks ties by placing the toolbar above</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_toolbar_placement</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_toolbar</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">toolbar</span>
+
+    <span class="k">def</span> <span class="nf">set_active_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">):</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">EditTool</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_multi</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">Tap</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_tap</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">Drag</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_drag</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">Scroll</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_scroll</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tool</span><span class="p">,</span> <span class="n">InspectTool</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_inspect</span> <span class="o">=</span> <span class="n">tool</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">AnnotationMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides annotation related functionality on BokehFigure</span>
+
+<span class="sd">    This is not currently a user-facing class</span>
+
+<span class="sd">    :meta private:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotator_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotator_keys</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_annotator_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotator_keys</span>
+
+    <span class="k">def</span> <span class="nf">add_annotators</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">glyph_names</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="n">glyph_names</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotator_keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotator_keys</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">glyph_names</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s1">&#39;BokehFigure&#39;</span><span class="p">):</span>
+        <span class="c1"># Lazy import so that BokehFigure does not need pandas</span>
+        <span class="kn">from</span> <span class="nn">..annotations.containers</span> <span class="kn">import</span> <span class="n">AnnotationGlyphContainer</span>
+        <span class="n">glyphs</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotator_keys</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">AnnotationGlyphContainer</span><span class="p">(</span><span class="n">glyphs</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, LiberTEM Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+.. _reference:
+
+Python API reference
+====================
+
+.. toctree::
+   :maxdepth: 2
+   
+   figure
+   image
+   display
+   layout
+   udf
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

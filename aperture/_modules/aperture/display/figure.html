@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aperture.display.figure &#8212; Aperture 0.0.1</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <link rel="shortcut icon" href="../../../_static/ap_favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/ap_logo_textpaths.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Aperture 0.0.1</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../concepts.html">
+   Concepts
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../reference/index.html">
+   Python API reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/figure.html">
+     BokehFigure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/image.html">
+     BokehImage
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/display.html">
+     Figure Elements
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/layout.html">
+     Layout tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../reference/udf.html">
+     UDF Adapters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/matbryan52/aperture"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/matbryan52/aperture/issues/new?title=Issue%20on%20page%20%2F_modules/aperture/display/figure.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for aperture.display.figure</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.io.doc</span> <span class="kn">import</span> <span class="n">curdoc</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">GlyphRenderer</span><span class="p">,</span> <span class="n">Glyph</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Spacer</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.sources</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">pop_from_list</span>
+<span class="kn">from</span> <span class="nn">.figure_mixins</span> <span class="kn">import</span> <span class="n">GeometryMixin</span><span class="p">,</span> <span class="n">AxesMixin</span><span class="p">,</span> <span class="n">ToolMixin</span><span class="p">,</span> <span class="n">ToolboxMixin</span>
+<span class="kn">from</span> <span class="nn">.figure_mixins</span> <span class="kn">import</span> <span class="n">ColorSequenceMixin</span><span class="p">,</span> <span class="n">LegendMixin</span><span class="p">,</span> <span class="n">AnnotationMixin</span>
+<span class="kn">from</span> <span class="nn">.element_constructors</span> <span class="kn">import</span> <span class="n">ElementConstructorMixin</span>
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">BokehImage</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">bokeh.plotting.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+    <span class="kn">from</span> <span class="nn">.glyph_base</span> <span class="kn">import</span> <span class="n">GlyphBase</span>
+    <span class="kn">from</span> <span class="nn">bokeh.io.doc</span> <span class="kn">import</span> <span class="n">Document</span>
+
+<span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">docstring_signature</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="BokehFigureBase"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigureBase">[docs]</a><span class="k">class</span> <span class="nc">BokehFigureBase</span><span class="p">(</span><span class="n">ElementConstructorMixin</span><span class="p">,</span> <span class="n">GeometryMixin</span><span class="p">,</span> <span class="n">AxesMixin</span><span class="p">,</span>
+                      <span class="n">ColorSequenceMixin</span><span class="p">,</span> <span class="n">LegendMixin</span><span class="p">,</span> <span class="n">ToolMixin</span><span class="p">,</span> <span class="n">AnnotationMixin</span><span class="p">,</span>
+                      <span class="n">ToolboxMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper for a :code:`bokeh.plotting.figure` object</span>
+
+<span class="sd">    - Handles initialization of plots, glpyhs etc</span>
+<span class="sd">    - Handles figure-level elements (axis labels, size/shape)</span>
+
+<span class="sd">    This is a base class which doesn&#39;t strictly rely on Panel,</span>
+<span class="sd">    it could be used in a pure Bokeh environment if you insert</span>
+<span class="sd">    self.fig into the current Bokeh document. The child :class:`~BokehFigure`</span>
+<span class="sd">    which inherits this base class is a full Panel component.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the figure object</span>
+
+<span class="sd">        By default this class uses a &#39;minimum&#39; sizing policy,</span>
+<span class="sd">        which means the figure will take up as little space as possible</span>
+<span class="sd">        after any fixed-sizing values are taken into account.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">        -----------</span>
+<span class="sd">        **kwargs, dict, optional</span>
+<span class="sd">            Extra keyword arguments which are passed directly to</span>
+<span class="sd">            :code:`bokeh.plotting.figure`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">width_policy</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width_policy&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">)</span>
+        <span class="n">height_policy</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;height_policy&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">)</span>
+        <span class="n">x_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;x_range&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">1.</span><span class="p">))</span>
+        <span class="n">y_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;y_range&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_range1d</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mf">1.</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">x_range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span><span class="o">=</span><span class="n">y_range</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">width_policy</span> <span class="o">=</span> <span class="n">width_policy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">height_policy</span> <span class="o">=</span> <span class="n">height_policy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">toolbar</span><span class="o">.</span><span class="n">active_inspect</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_image_fig</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_doc</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fig</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current Bokeh figure</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        figure</span>
+<span class="sd">            The Bokeh figure object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">as_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">GlyphBase</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Context manager which allows a GlyphBase to register itself</span>
+<span class="sd">        as &#39;parent&#39; of another GlyphBase, such that removing the parent</span>
+<span class="sd">        will also remove the renderers belonging to the child</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">yield</span>
+        <span class="n">pop_from_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_elements</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parent_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">GlyphBase</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A semaphore-like list which is set by :code:`self.as_parent`</span>
+<span class="sd">        to track if we are creating an element on the figure from</span>
+<span class="sd">        another element. This is needed to build the correct mapping</span>
+<span class="sd">        from elements to renderers, so that a multi-renderer element</span>
+<span class="sd">        can be removed from the figure completely.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list[GlyphBase]</span>
+<span class="sd">            elements which are parents of the element</span>
+<span class="sd">            being currently  created</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_elements</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_elements</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_elements</span>
+
+    <span class="k">def</span> <span class="nf">add_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderer</span><span class="p">:</span> <span class="n">GlyphRenderer</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">insert</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wraps Figure.add_layout</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        renderer : GlyphRenderer</span>
+<span class="sd">            The renderer to add to the figure</span>
+<span class="sd">        position : str</span>
+<span class="sd">            The position to add the renderer (see Bokeh place spec)</span>
+<span class="sd">        insert : Optional[int], optional</span>
+<span class="sd">            Where to insert the renderer, by default None in which case standard</span>
+<span class="sd">            .append is used.</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">insert</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">position</span><span class="p">)):</span>
+            <span class="c1"># Appending or a new figure layout (empty list)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">insert</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="c1"># Insert at specified position, will append or prepend</span>
+            <span class="c1"># if insert_at is a nonsensical location</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">insert</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_glyph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                  <span class="n">element</span><span class="p">:</span> <span class="n">GlyphBase</span><span class="p">,</span>
+                  <span class="n">source</span><span class="p">:</span> <span class="n">ColumnDataSource</span><span class="p">,</span>
+                  <span class="n">glyph</span><span class="p">:</span> <span class="n">Glyph</span><span class="p">,</span>
+                  <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlyphRenderer</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a glyph from element onto the figure using data from source</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element : GlyphBase</span>
+<span class="sd">            The element which owns the glyph</span>
+<span class="sd">        source : ColumnDataSource</span>
+<span class="sd">            The datasource to supply the renderer</span>
+<span class="sd">        glyph : Glyph</span>
+<span class="sd">            The glyph to add</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        GlyphRenderer</span>
+<span class="sd">            The renderer of the glyph on the figure</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">renderer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">glyph</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_elements</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="p">[</span><span class="n">el</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">renderer</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">renderer</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">renderer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">GlyphBase</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">el</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">el</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GlyphBase</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">GlyphBase</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Cannot add GlyphBases by name at this time&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_renderers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                      <span class="n">element</span><span class="p">:</span> <span class="n">GlyphBase</span><span class="p">,</span>
+                      <span class="n">filter_glyphs</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">Glyph</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">GlyphRenderer</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get renderers linked to the element, optionally filtered to a particular glyph type</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        element : GlyphBase</span>
+<span class="sd">            The element to get renderers for</span>
+<span class="sd">        filter_glyphs : tuple[Type[Glyph]], optional</span>
+<span class="sd">            Optional tuple of glyph tyes to filter by, by default None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list[GlyphRenderer]</span>
+<span class="sd">            Renderes linked to the element</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">filter_glyphs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">filter_glyphs</span> <span class="o">=</span> <span class="p">(</span><span class="n">Glyph</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">glyph</span><span class="p">,</span> <span class="n">filter_glyphs</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">remove_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">:</span> <span class="n">GlyphBase</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove all renderers associated with a GlyphBase</span>
+<span class="sd">        Removes renderers on parent/child GlyphBases, also</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">renderer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">pop_from_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">renderers</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+            <span class="c1"># Handle other references to renderer</span>
+            <span class="k">for</span> <span class="n">_rs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">pop_from_list</span><span class="p">(</span><span class="n">_rs</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span>
+        <span class="c1"># Need to pop from self._tools ?</span>
+        <span class="c1"># Need to pop from LegendItems ?</span>
+
+    <span class="k">def</span> <span class="nf">remove_renderer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderer</span><span class="p">:</span> <span class="n">GlyphRenderer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a specific renderer from the figure and update</span>
+<span class="sd">        our mapping of self._renderers</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pop_from_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">renderers</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+        <span class="c1"># Handle other references to renderer</span>
+        <span class="k">for</span> <span class="n">_rs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pop_from_list</span><span class="p">(</span><span class="n">_rs</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span><span class="p">}</span>
+
+<div class="viewcode-block" id="BokehFigureBase.on_event"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigureBase.on_event">[docs]</a>    <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wraps :code:`Figure.on_event`, used to set up Bokeh figure-level event callbacks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="nd">@title</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BokehFigureBase.set_title"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigureBase.set_title">[docs]</a>    <span class="k">def</span> <span class="nf">set_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the figure title</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title : str</span>
+<span class="sd">            The title to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">title</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current Bokeh document linked to this figure, if set</span>
+<span class="sd">        by the :meth:`BokehFigureBase.set_doc` context manager.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Optional[Document]</span>
+<span class="sd">            The document, if set</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_doc</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">get_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Document</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the document which Bokeh considers to be the current</span>
+<span class="sd">        document. This is not necessarily the correct one to update</span>
+<span class="sd">        depending on the use of panel / threads / async.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Document</span>
+<span class="sd">            A Bokeh document which might be the current one</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">curdoc</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">set_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">:</span> <span class="n">Document</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the Bokeh document which should be used for</span>
+<span class="sd">        updates to the plot. Used when managing async callbacks</span>
+<span class="sd">        and threads. Depending on the context this could come from</span>
+<span class="sd">        Bokeh curdoc() or pn.state.curdoc</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        doc : Document, optional</span>
+<span class="sd">            The correct document to update. If doc is None, will</span>
+<span class="sd">            try to use :code:`self.get_doc()` to set the document.</span>
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_doc</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_doc</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="k">yield</span>
+        <span class="c1"># Will the doc ever change ?? Check when refreshing the page ??</span>
+        <span class="c1"># Could use a post-load callback to set the doc</span>
+        <span class="k">pass</span>
+        <span class="c1"># self._doc = doc</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">async_execute</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="BokehFigure"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigure">[docs]</a><span class="k">class</span> <span class="nc">BokehFigure</span><span class="p">(</span><span class="n">BokehFigureBase</span><span class="p">,</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">Bokeh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`~BokehFigureBase` which is a standalone Panel component</span>
+
+<span class="sd">    This class subclasses pn.pane.Bokeh which means it is treated</span>
+<span class="sd">    like a standard Panel component able to be inserted into layouts</span>
+<span class="sd">    and also displayed directly in a notebook or made .servable()</span>
+
+<span class="sd">    As a result it is also a param.Parametrized class with default</span>
+<span class="sd">    Parameters which come from Panel. Currently these parameters are</span>
+<span class="sd">    not taken into account or set by the BokehFigure class, but this</span>
+<span class="sd">    could be harmonized in the future with a bit of refactoring.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Priority is an internal Panel variable which determines precedence</span>
+    <span class="c1"># for converting an object into a Panel pane. Setting 0.4 (which is</span>
+    <span class="c1"># lower than the baseclass default) enures that pn.pane.Bokeh (priority 0.8)</span>
+    <span class="c1"># remains the default choice for normal Bokeh objects like widgets and</span>
+    <span class="c1"># other figures (rather than them being wrapped in an instance of this class)</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pane_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Unpack the name kwarg into both Figure and pn.pane.Bokeh kwargs</span>
+        <span class="c1"># This maintains a bit of consistency for referencing figures</span>
+        <span class="c1"># By default Panel gives the pane a name, but Bokeh&#39;s default is None</span>
+        <span class="n">pane_kwargs</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">pane_kwargs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">pane_kwargs</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">pane_kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="c1"># Directly specifying __init__ because we need to set object=self._fig</span>
+        <span class="c1"># I think this could be made automatic with better inheritance design</span>
+        <span class="n">BokehFigureBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">Bokeh</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="p">,</span> <span class="o">**</span><span class="n">pane_kwargs</span><span class="p">)</span>
+        <span class="n">pn</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">onload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refresh_pane</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BokehFigure.refresh_pane"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigure.refresh_pane">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trigger an update of the panel pane displaying the Bokeh figure</span>
+
+<span class="sd">        This is sometimes necessary if callbacks are not correctly updating</span>
+<span class="sd">        the figure, particularly in the Jupyter context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renderers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">BokehImage</span><span class="p">):</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">refresh_display</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BokehFigure.update_pane"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigure.update_pane">[docs]</a>    <span class="k">def</span> <span class="nf">update_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trigger an update to the panel pane, specifically tailored for</span>
+<span class="sd">        a change to the figure size. This is probably not necessay</span>
+<span class="sd">        as :meth:`~BokehFigure.refresh_pane` should do the same job.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">spacer_size</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">displayed_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_displayed_size</span><span class="p">()</span>
+        <span class="n">spacer</span> <span class="o">=</span> <span class="n">Spacer</span><span class="p">()</span>
+        <span class="n">spacer</span><span class="o">.</span><span class="n">height_policy</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span>
+        <span class="n">spacer</span><span class="o">.</span><span class="n">width_policy</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span>
+        <span class="n">spacer</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">displayed_size</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;displayed_height&#39;</span><span class="p">,</span> <span class="n">spacer_size</span><span class="p">)</span>
+        <span class="n">spacer</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">displayed_size</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;displayed_width&#39;</span><span class="p">,</span> <span class="n">spacer_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">spacer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig</span></div>
+
+    <span class="k">def</span> <span class="nf">get_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the document which panel considers to be the current</span>
+<span class="sd">        document. This is not necessarily the correct one to update</span>
+<span class="sd">        depending on the use of panel / threads / async.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Document</span>
+<span class="sd">            A Bokeh document which might be the current one</span>
+
+
+<span class="sd">        :meta private:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">curdoc</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+<div class="viewcode-block" id="BokehFigure.async_execute"><a class="viewcode-back" href="../../../reference/figure.html#aperture.display.figure.BokehFigure.async_execute">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">async_execute</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wraps the panel async_execute endpoint, potentially</span>
+<span class="sd">        useful when running async updates to the plot.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fn : function</span>
+<span class="sd">            An async callable to execute via panel&#39;s API</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pn</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">async_execute</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">set_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="o">*</span><span class="n">renderers</span><span class="p">:</span> <span class="n">GlyphRenderer</span><span class="p">):</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_doc</span><span class="p">()</span>
+        <span class="n">to_update</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ri</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">renderers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">visible</span> <span class="o">!=</span> <span class="n">state</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">state</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">to_update</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ri</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">doc</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">renderers</span><span class="p">[</span><span class="n">ri</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="n">state</span><span class="p">)</span>
+                                                <span class="k">for</span> <span class="n">ri</span> <span class="ow">in</span> <span class="n">to_update</span><span class="p">])</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Matthew Bryan<br/>
+  
+      &copy; Copyright 2022, Matthew Bryan.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
