@@ -1,0 +1,3 @@
+[submodule "microscopy-images-qem"]
+	path = microscopy-images-qem
+	url = https://github.com/matbryan52/microscopy-images-qem.git
